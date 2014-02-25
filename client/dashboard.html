@@ -1,0 +1,65 @@
+<template name="dashboard">
+	{{> CreateEvent}}
+</template>
+
+<template name="CreateEvent">
+  {{#autoForm schema='EventCreationForm' novalidate="novalidate" id="eventCreationForm"}}
+  <fieldset>
+    <div class="form-group {{#if afFieldIsInvalid 'basicDetails.title'}}has-error{{/if}}">
+      
+      {{afFieldInput 'basicDetails.title' placeholder="schemaLabel" }}
+      {{#if afFieldIsInvalid 'basicDetails.title'}}
+      <span class="help-block">{{afFieldMessage 'basicDetails.title'}}</span>
+      {{/if}}
+    </div>
+
+    <div class="form-group {{#if afFieldIsInvalid 'basicDetails.description'}}has-error{{/if}}">
+      {{afFieldInput 'basicDetails.description' placeholder="schemaLabel" type="textarea" }}
+      {{#if afFieldIsInvalid 'basicDetails.description'}}
+      <span class="help-block">{{afFieldMessage 'basicDetails.description'}}</span>
+      {{/if}}
+    </div>
+
+    <div class="form-group">
+      {{afFieldInput 'basicDetails.eventType._id' placeholder="schemaLabel"  options=eventTypesOptions}}
+    </div>
+    <div class="form-group"> 
+      {{afFieldInput 'basicDetails.location._id' placeholder="schemaLabel"  options=locationOptions}}
+    </div>
+     {{#each_with_index arrayify services}}
+  <div class="form-group">
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{index}}">
+          {{name}}
+        </a>
+      </h4>
+    </div>
+    <div id="collapse{{index}}" class="panel-collapse collapse in">
+    {{#each_with_index value}}
+    
+      <div class="panel-body">
+         <div class="form-group"> 
+         <input  type="checkbox" data-schema-key="serviceCart.{{../index}}.serviceCategory"   name="serviceCart.{{../index}}.serviceCategory" value="{{_id}}"> {{name}}</input>
+       </div>
+      
+      </div>
+    </div>
+    {{/each_with_index}}  
+  </div>
+  {{/each_with_index}}   
+ </div> 
+  </div>
+  </fieldset>
+     
+     <button type="submit" class="btn btn-primary insert">Insert</button>
+      {{/autoForm}}
+</template>
+
+
+<template name="servicesList">
+    
+  
+</template>
