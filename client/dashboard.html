@@ -1,10 +1,11 @@
 <template name="dashboard">
   <div class="container">
     <div class="row">
-        <div class="col-md-2">
-            Sidebar content
+        <div id="sidemenu" class="col-md-2">
+           Events
+           <div id="event1"></div>
         </div>
-        <div class="col-md-10">
+        <div class="col-md-8">
             {{> CreateEvent}}
         </div>
     </div>
@@ -14,7 +15,7 @@
 <template name="CreateEvent">
   {{#autoForm schema='EventCreationForm' novalidate="novalidate" id="eventCreationForm"}}
   <fieldset>
-    <div class="form-group {{#if afFieldIsInvalid 'basicDetails.title'}}has-error{{/if}}">
+    <div  class="form-group {{#if afFieldIsInvalid 'basicDetails.title'}}has-error{{/if}}">
       
       {{afFieldInput 'basicDetails.title' placeholder="schemaLabel" }}
       {{#if afFieldIsInvalid 'basicDetails.title'}}
@@ -30,7 +31,7 @@
     </div>
 
     <div class="form-group">
-      {{afFieldInput 'basicDetails.eventType._id' placeholder="schemaLabel"  options=eventTypesOptions}}
+      {{afFieldInput  'basicDetails.eventType._id' placeholder="schemaLabel" class="selectpicker" data-style="btn-primary" options=eventTypesOptions}}
     </div>
     <div class="form-group"> 
       {{afFieldInput 'basicDetails.location._id' placeholder="schemaLabel"  options=locationOptions}}
@@ -51,7 +52,7 @@
     
       <div class="panel-body">
          <div class="form-group"> 
-         <input  type="checkbox" data-schema-key="serviceCart.{{../index}}.serviceCategory"   name="serviceCart.{{../index}}.serviceCategory" value="{{_id}}"> {{name}}</input>
+         <input  type="checkbox" data-schema-key="serviceCart.{{index}}.serviceCategory"   name="serviceCart.{{index}}.serviceCategory" value="{{_id}}"> {{name}}</input>
        </div>
       
       </div>
@@ -62,13 +63,18 @@
  </div> 
   </div>
   </fieldset>
-     
      <button type="submit" class="btn btn-primary insert">Insert</button>
       {{/autoForm}}
+
 </template>
+
 
 
 <template name="servicesList">
     
   
 </template>
+
+
+
+

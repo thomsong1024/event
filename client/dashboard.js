@@ -4,8 +4,7 @@ EventCreationForm = new AutoForm(Events);
 
 Events.allow({
   insert: function() {
-  	console.log("eventtype");
-    return true;
+  	return true;
   },
   update: function() {
     return true;
@@ -19,7 +18,6 @@ Events.allow({
 
  Handlebars.registerHelper("eventTypesOptions", function(options) {
     var eventTypesOptions = EventTypes.find();
-    
     var eventTypesObjArray =[];
     eventTypesOptions.forEach(function (eventTypes) {
  		var eventTypesObj = new Object();
@@ -45,7 +43,6 @@ Handlebars.registerHelper("each_with_index", function(array, fn) {
   for (var i = 0, j = array.length; i < j; i++) {
     var item = array[i];
     item.index = i;
-
     buffer += fn(item);
 
   }
@@ -73,10 +70,29 @@ Handlebars.registerHelper("each_with_index", function(array, fn) {
     var servicecat=ServiceCategories.find().fetch();
 
      var serviceCateogryGrouped =_.groupBy(servicecat,'category' );
-
-    return serviceCateogryGrouped ;
+        return serviceCateogryGrouped ;
 
   }
 
-});
+  });
 
+  Template.CreateEvent.rendered = function() { 
+        // Assuming you're using jQuery
+        var i=0; 
+        var res = $('#event1'); // ID of the <span></span> on the plugin zone.    
+        var zone = $("input:text[name='basicDetails.title']");
+        $(zone).on('keyup',function(e) {
+              if(e.keyCode == 8){ 
+                  i--;
+              } 
+              else {
+                 i++;
+              }  
+              $(res).empty().append($(this).val());
+        });
+        $('.insert').on('click',function(e) {
+           $(res).addClass('animated wobble');
+        });
+  }; 
+    
+          

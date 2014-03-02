@@ -30,6 +30,8 @@ EventTypes.allow({
       if (error) {
         console.log("Insert Error:", error);
       } else {
+       $('#event1').attr('onclick',"location.href='/id/"+result+"'");
+        //onclick="location.href='http://www.example.com';" style="cursor:pointer;"
         console.log("Insert Result:", result);
       }
     },
@@ -102,6 +104,7 @@ EventTypes.allow({
           doc.basicDetails.location = Locations.findOne({_id:doc.basicDetails.location._id});
 
            var serviceCartObjArray = new Array();
+               console.log(JSON.stringify(doc));
                var serviceCateObject = _.map(doc.serviceCart,function(s){
                       sCategoryItems =_.each(s.serviceCategory,function(sCategoryItem) {
                       s.serviceCategory.unshift(ServiceCategories.findOne({_id:sCategoryItem}));    

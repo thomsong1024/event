@@ -4,6 +4,7 @@
     "autoform": {},
     "bootstrap-3": {},
     "iron-router": {},
-    "smart-collections": {}
+    "smart-collections": {},
+    "animate-css": {}
   }
 }

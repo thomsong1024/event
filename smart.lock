@@ -6,7 +6,8 @@
       "autoform": {},
       "bootstrap-3": {},
       "iron-router": {},
-      "smart-collections": {}
+      "smart-collections": {},
+      "animate-css": {}
     },
     "packages": {
       "collection2": {
@@ -16,8 +17,8 @@
       },
       "autoform": {
         "git": "https://github.com/aldeed/meteor-autoform.git",
-        "tag": "v0.4.16",
-        "commit": "314a85e982e228e35d193019441f208a95645189"
+        "tag": "v0.4.18",
+        "commit": "991efc809b959e77d94796f47ca6c5b1e5c2c6e2"
       },
       "bootstrap-3": {
         "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
@@ -26,13 +27,18 @@
       },
       "iron-router": {
         "git": "https://github.com/EventedMind/iron-router.git",
-        "tag": "v0.6.3",
-        "commit": "79861385df5d2b667630ec82abe4de3efa3166e3"
+        "tag": "v0.6.4",
+        "commit": "927bbaed1b87894fb6fb70807f74ff3a5bd89f29"
       },
       "smart-collections": {
         "git": "https://github.com/arunoda/meteor-smart-collections.git",
         "tag": "v0.4.0",
         "commit": "da25a5e88c3b5e3c1cb3bd44fd7fdc3234448526"
+      },
+      "animate-css": {
+        "git": "https://github.com/nate-strauser/meteor-animate-css.git",
+        "tag": "v2.1.0",
+        "commit": "08d7d98ce292d528f05eab91bfb220b3a355c1d5"
       },
       "simple-schema": {
         "git": "https://github.com/aldeed/meteor-simple-schema.git",
