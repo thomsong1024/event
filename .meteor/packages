@@ -6,10 +6,11 @@
 standard-app-packages
 insecure
 preserve-inputs
-collection2
 autoform
 bootstrap-3
 underscore
 iron-router
 smart-collections
 animate-css
+collection2
+simple-schema

@@ -2,19 +2,14 @@
   "meteor": {},
   "dependencies": {
     "basePackages": {
-      "collection2": {},
       "autoform": {},
       "bootstrap-3": {},
       "iron-router": {},
       "smart-collections": {},
-      "animate-css": {}
+      "animate-css": {},
+      "collection2": {}
     },
     "packages": {
-      "collection2": {
-        "git": "https://github.com/aldeed/meteor-collection2.git",
-        "tag": "v0.3.8",
-        "commit": "69aff2a21ba3c382f915e1f9dbcca2ad38edb6d5"
-      },
       "autoform": {
         "git": "https://github.com/aldeed/meteor-autoform.git",
         "tag": "v0.4.18",
@@ -40,10 +35,15 @@
         "tag": "v2.1.0",
         "commit": "08d7d98ce292d528f05eab91bfb220b3a355c1d5"
       },
+      "collection2": {
+        "git": "https://github.com/aldeed/meteor-collection2.git",
+        "tag": "v0.3.8",
+        "commit": "69aff2a21ba3c382f915e1f9dbcca2ad38edb6d5"
+      },
       "simple-schema": {
         "git": "https://github.com/aldeed/meteor-simple-schema.git",
-        "tag": "v0.2.38",
-        "commit": "2deec0041fc6cb2666df8cd6a51914e499e95683"
+        "tag": "v0.2.40",
+        "commit": "d22892daa943e3567916effeaafd794ca6af5cd2"
       },
       "moment": {
         "git": "https://github.com/acreeger/meteor-moment.git",

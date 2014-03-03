@@ -1,10 +1,10 @@
 {
   "packages": {
-    "collection2": {},
     "autoform": {},
     "bootstrap-3": {},
     "iron-router": {},
     "smart-collections": {},
-    "animate-css": {}
+    "animate-css": {},
+    "collection2": {}
   }
 }
