@@ -1,10 +1,11 @@
 {
   "packages": {
     "autoform": {},
-    "bootstrap-3": {},
     "iron-router": {},
     "smart-collections": {},
     "animate-css": {},
-    "collection2": {}
+    "collection2": {},
+    "bootstrap3-datetimepicker": {},
+    "bootstrap-3": {}
   }
 }

@@ -1,4 +1,5 @@
 <template name="dashboard">
+  {{> eventHeader}}
   <div class="container">
     <div class="row">
         <div id="sidemenu" class="col-md-2">
@@ -6,70 +7,186 @@
            <div id="event1"></div>
         </div>
         <div class="col-md-8">
+          {{#if isCreated}}
+            {{> ListEvent}}
+          {{else}}
             {{> CreateEvent}}
+          {{/if}}          
         </div>
     </div>
 </div>
+{{> eventFooter}}
 </template>
 
+<template name="eventHeader">
+  <div class="container" style="height: 40px;"></div>
+</template>
+<template name="eventFooter">
+</template>
+<template name="subCats">
+  {{#each subcategories _id}}
+    {{#if checkCategory _id}}
+      <div>{{name}}</div> 
+    {{/if}}
+  {{/each}}
+</template>
+<template name="ListEvent">
+  <div class="container">
+    <div class="row">
+      {{#each categoryList}}
+        <div class="col-md-2 parentCat">
+          <label class="control-label">{{name}}</label>
+          {{> subCats}}
+        </div>
+        <!-- <div style="border:1px solid red; margin:10px;"></div> -->
+      {{/each}}
+    </div>
+    <div class="row">
+      <form class="form-horizontal">
+      <fieldset>
+
+      <!-- Text input-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="eventPrice">Price</label>  
+        <div class="col-md-6">
+        <input id="eventPrice" name="eventPrice" placeholder="" class="form-control input-md" required="" type="text">
+          
+        </div>
+      </div>
+
+      <!-- Textarea -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="eventComments">Addtional Comments</label>
+        <div class="col-md-4">                     
+          <textarea class="form-control" id="eventComments" name="eventComments"></textarea>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="createEvent"></label>
+        <div class="col-md-4">
+          <button id="createEvent" name="createEvent" class="btn btn-primary">Create Event</button>
+        </div>
+      </div>
+      </fieldset>
+      </form>      
+    </div>
+  </div>
+</template>
 <template name="CreateEvent">
   <div class="container">
     <div class="row">
       <div class="col-mx-6">
-        {{#autoForm schema='EventCreationForm' novalidate="novalidate" id="eventCreationForm"}}
-        <legend>Create Event</legend>
+        <form class="form-horizontal">
         <fieldset>
-          <div class="form-group {{#if afFieldIsInvalid 'basicDetails.title'}}has-error{{/if}}">
-            
-            {{afFieldInput 'basicDetails.title' placeholder="schemaLabel" }}
-            {{#if afFieldIsInvalid 'basicDetails.title'}}
-            <span class="help-block">{{afFieldMessage 'basicDetails.title'}}</span>
-            {{/if}}
-          </div>
 
-          <div class="form-group {{#if afFieldIsInvalid 'basicDetails.description'}}has-error{{/if}}">
-            {{afFieldInput 'basicDetails.description' placeholder="schemaLabel" type="textarea" }}
-            {{#if afFieldIsInvalid 'basicDetails.description'}}
-            <span class="help-block">{{afFieldMessage 'basicDetails.description'}}</span>
-            {{/if}}
-          </div>
+        <!-- Form Name -->
+        <legend>Create Event</legend>
 
-          <div class="form-group">
-            {{afFieldInput  'basicDetails.eventType._id' placeholder="schemaLabel" class="selectpicker" data-style="btn-primary" options=eventTypesOptions}}
-          </div>
-          <div class="form-group"> 
-            {{afFieldInput 'basicDetails.location._id' placeholder="schemaLabel"  options=locationOptions}}
-          </div>
-           {{#each_with_index arrayify services}}
+        <!-- Text input-->
         <div class="form-group">
-      <div class="panel-group" id="accordion">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{index}}">
-                Categories
-              </a>
-            </h4>
+          <label class="col-md-4 control-label" for="eventTitle">Title</label>  
+          <div class="col-md-6">
+          <input id="eventTitle" name="eventTitle" placeholder="" class="form-control input-md" required="" type="text">
+            
           </div>
-          <div id="collapse{{index}}" class="panel-collapse collapse in">
-          {{#each_with_index value}}
-            <div class="panel-body">
-              <div class="form-group"> 
-                <input  type="checkbox" data-schema-key="serviceCart.{{index}}.serviceCategory"   name="serviceCart.{{index}}.serviceCategory" value="{{_id}}"> {{name}}</input>
-              </div>
-            </div>
-          </div>
-          {{/each_with_index}}  
         </div>
-        {{/each_with_index}}   
-       </div> 
+
+        <!-- Textarea -->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="eventDescription">Description</label>
+          <div class="col-md-4">                     
+            <textarea class="form-control" id="eventDescription" name="eventDescription"></textarea>
+          </div>
+        </div>
+
+        <!-- Select Basic -->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="eventTypes">Event Types</label>
+          <div class="col-md-6">
+            <select id="eventTypes" name="eventTypes" class="form-control">
+              {{#each getSelect "eventTypes"}}
+                <option value="{{value}}">{{label}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </div>
+
+        <!-- Select Basic -->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="eventLocations">Event Locations</label>
+          <div class="col-md-6">
+            <select id="eventLocations" name="eventLocations" class="form-control">
+              {{#each getSelect "eventLocations"}}
+                <option value="{{value}}">{{label}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="datearea">Date</label>  
+          <div class="col-md-6">
+            <div class="input-group datetimepicker" id="datearea">
+              <input class="set-due-date form-control" type="text" id="datepicker" name="datepicker"/>
+            </div>          
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="eventDuration">Event Duration</label>
+          <div class="col-md-6">
+            <select id="eventDuration" name="eventDuration" class="form-control">
+              {{#each getSelect "eventDuration"}}
+                <option value="{{value}}">{{label}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </div>        
+        <div class="col-md-4" align="right"><label class="control-label">Categories</label></div>
+        <div class="col-md-6">
+        {{#each_with_index arrayify services}}
+          <div class="form-group">
+            <div class="panel-group" id="accordion">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{index}}">
+                      {{name}}
+                    </a>
+                  </h4>
+                </div>
+                <div id="collapse{{index}}" class="panel-collapse collapse out">
+                  
+                  <div class="panel-body">
+                    <div class="form-group">
+                      <div class="col-md-4">
+                        {{#each_with_index getSubs services parent}}
+                        <label class="checkbox-inline" for="{{_id}}"> 
+                          <input type="checkbox" name="categories[]" id="{{_id}}" value="{{_id}}" /> {{name}}
+                        </label>
+                        {{/each_with_index}}
+                      </div>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+            </div> 
+          </div>
+          {{/each_with_index}}
+        </div>
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="submit"></label>
+          <div class="col-md-4">
+            <button id="submit" name="submit" class="btn btn-primary">Submit</button>
+          </div>
         </div>
         </fieldset>
-        <button type="submit" class="btn btn-primary insert">Insert</button>
-      {{/autoForm}}            
+      </form>
+    </div>         
       </div>  
     </div>
   </div>
+  
 </template>
 <template name="servicesList">
 </template>

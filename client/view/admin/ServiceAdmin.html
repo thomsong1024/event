@@ -11,6 +11,7 @@
     {{> adminComponents }}
     {{> adminFooter }}  
 </template> 
+  
 <template name="adminComponents">
   <div class="container">
      <div class="row" style="margin-bottom: 50px;">
@@ -151,7 +152,7 @@
         
         <td>
           {{#autoForm schema='LocationsForm' doc=this novalidate="novalidate"}}
-          <button type="submit" class="btn btn-primary remove">Delete</button>
+            <button type="submit" class="btn btn-primary remove">Delete</button>
           {{/autoForm}}
         </td>
       </tr>
@@ -171,9 +172,13 @@
       {{/if}}
     </div>
     <div class="form-group {{#if afFieldIsInvalid 'parent'}}has-error{{/if}}">
-            {{afFieldLabel 'parent'}}
-            {{afFieldInput 'parent' options=categoryOptions}}
-    </div>
+      {{afFieldLabel 'parent'}}
+      {{afFieldInput 'parent' options=categoryOptions}}
+    </div> 
+    <div class="form-group {{#if afFieldIsInvalid 'file'}}has-error{{/if}}">
+      {{afFieldLabel 'file'}}
+      <input type="file" name="file" id="file" />
+    </div>     
     <button type="submit" class="btn btn-primary insert">Insert</button>
   </fieldset>
   {{/autoForm}}

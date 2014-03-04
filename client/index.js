@@ -6,7 +6,6 @@ EventTypeForm = new AutoForm(EventTypes);
 LocationsForm = new AutoForm(Locations);
 ServiceCategoriesForm = new AutoForm(ServiceCategories);
 
-
 EventTypes.allow({
   insert: function() {
     return true;
@@ -44,6 +43,26 @@ var cb = {
   }
 };
 
+var uploadCategoryBefore = {
+  insert: function (doc) {
+    if (Session.get("cat_img") && Session.get("cat_thumbnail")) {
+      // var obj = {};
+      var tags = [];
+      _.each(doc, function (val, key) {
+        tags.push(val);
+      });
+      doc.tags = tags.join(", ");
+      var data = {};
+      data.name = doc.name;
+      data.parent = doc.parent;
+      data.file = Session.get("cat_img");
+      data.thumbnail = Session.get("cat_thumbnail");
+      return data;
+    }   
+  }
+}
+var uploadCategoryAfter = {}
+
 Locations.allow({
   insert: function() {
     return true;
@@ -75,7 +94,6 @@ Meteor.startup(function() {
     after: cb,
     before: {
       insert: function (doc) {
-        console.log(doc);
         return doc;
       }
     }
@@ -86,31 +104,43 @@ Meteor.startup(function() {
       remove: function(id) {
         var name = Locations.findOne(id);
         return confirm("Remove " + district + "?");
+      },
+      insert: function (doc) {
+        console.log(doc);
+        return doc;
+      }      
+     },
+     after: {
+      insert: function (error, result) {
+        console.log(error);
       }
      }
   });
-
-  EventCreationForm.hooks({
-    after: cb,
-    before: {
-      insert: function (doc) {
-       
-        doc.basicDetails.eventType = EventTypes.findOne({_id:doc.basicDetails.eventType._id});
-        doc.basicDetails.location = Locations.findOne({_id:doc.basicDetails.location._id});
-
-        var serviceCartObjArray = new Array();
-           var serviceCateObject = _.map(doc.serviceCart,function(s){
-              sCategoryItems =_.each(s.serviceCategory,function(sCategoryItem) {
-              s.serviceCategory.unshift(ServiceCategories.findOne({_id:sCategoryItem}));    
-              s.serviceCategory.pop(); 
-            });
-            serviceCartObjArray.push(s);
-        });
-        doc.serviceCart=serviceCartObjArray;
-        return doc;
-      }
-    }
+  ServiceCategoriesForm.hooks({
+    after: uploadCategoryAfter,
+    before: uploadCategoryBefore
   });
+  // EventCreationForms.hooks({
+  //   after: cb,
+  //   before: {
+  //     insert: function (doc) {
+  //      console.log(doc);
+  //       doc.basicDetails.eventType = EventTypes.findOne({_id:doc.basicDetails.eventType._id});
+  //       doc.basicDetails.location = Locations.findOne({_id:doc.basicDetails.location._id});
+
+  //       var serviceCartObjArray = new Array();
+  //          var serviceCateObject = _.map(doc.serviceCart,function(s){
+  //             sCategoryItems =_.each(s.serviceCategory,function(sCategoryItem) {
+  //             s.serviceCategory.unshift(ServiceCategories.findOne({_id:sCategoryItem}));    
+  //             s.serviceCategory.pop(); 
+  //           });
+  //           serviceCartObjArray.push(s);
+  //       });
+  //       doc.serviceCart=serviceCartObjArray;
+  //       return doc;
+  //     }
+  //   }
+  // });
 }); 
 
  Template.eventTypes.schema = function() {
@@ -157,7 +187,7 @@ Meteor.startup(function() {
  		  var categoryObj = new Object();
 		    categoryObj.label = category.name;
     		categoryObj.value = category._id;	
-    	    categoriesObjArray.push(categoryObj);
+    	  categoriesObjArray.push(categoryObj);
 		   });
         return JSON.parse(JSON.stringify(categoriesObjArray));
    
