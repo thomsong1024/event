@@ -18,6 +18,25 @@ Template.ListEvent.categoryList = function () {
   return servicecat;
 };
 
+Template.ListEvent.getLocation = function (id) {
+  var location = Locations.findOne({_id: id});
+  return location.district+", "+location.city;
+};
+
+Template.ListEvent.getEventType = function (id){
+  var events = EventTypes.findOne({_id: id});
+  return events.type;
+};
+
+Template.ListEvent.getDateFormat = function (date) {
+  var obj = {};
+  obj.date = moment().date();
+  obj.month = moment.monthsShort('-MMM-', moment().month());
+  obj.year = moment().year();
+  return obj;
+  // console.log(moment.monthsShort('-MMM-', moment().month())); return false;
+}
+
 Template.subCats.subcategories = function (parent) {
   if (Session.get("activeEvents")) {
     var checkedCategories = Events.findOne({_id: Session.get("activeEvents")}).categories;

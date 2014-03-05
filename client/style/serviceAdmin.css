@@ -87,3 +87,19 @@ textarea.form-control {
   border:1px solid #808080;
   margin: 10px;
 }
+.eventTexts{
+   padding-top: 5px;
+   font-size: 18px;
+   margin: 0px;
+}
+.eventLabel{
+   padding-top: 8px;
+   font-size: 12px;
+   margin: 0px;
+}
+.dateArea {
+  margin: 5px auto 0px auto;
+  border: 1px solid #808080;
+  text-align: center;
+  width: 80px;
+}

@@ -37,19 +37,16 @@ Template.CreateEvent.events({
     $("input[name='categories[]']:checked").each( function ( ){
       checked.push($(this).val());
     });
+    obj.eventLocations    = eventLocations.value;
+    obj.eventDuration     = eventDuration.value;
     obj.categories        = JSON.stringify(checked);
     obj.nog               = nog.value;
     obj.eventPrice        = eventPrice.value;
     obj.eventComments     = eventComments.value;
-    console.log(typeof obj.categories);
+    console.log(eventDuration.value);
     Events.insert(obj, function (error, result) {
-      console.log(error);
+      // console.log(error);
     });
     // Session.set("eventData", obj);
   }
 });
-
-Template.dashboard.eventLists = function ( ){
-  // console.log(Events.find().fetch());
-  return Events.find().fetch();
-}

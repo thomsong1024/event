@@ -119,3 +119,7 @@ Handlebars.registerHelper('isCreated',function(){
 Handlebars.registerHelper('checkCategory',function(id, categories){
 	return isChecked(id, JSON.parse(categories));
 });
+
+Handlebars.registerHelper('eventLists',function(){
+  return Events.find().fetch();
+});
