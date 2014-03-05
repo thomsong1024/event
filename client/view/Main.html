@@ -1,0 +1,15 @@
+<head> 
+  <title>Create Event</title>
+</head>
+<template name="pageLayout">
+    {{> pageLayoutStyles }}
+    <div class="body">
+      {{ yield 'header' }}
+      {{ yield }}
+      {{ yield 'footer' }}
+  </div>
+</template>
+
+<template name="home">
+  <div style="boder: 1px solid #808080">Building Now<div>
+</template>
