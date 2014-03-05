@@ -51,7 +51,16 @@ var uploadCategoryBefore = {
     }
   }
 }
-var uploadCategoryAfter = {}
+var uploadCategoryAfter = {
+  insert: function (error, result) {
+    if (error) {
+      console.log("Insert Error:", error);
+    } else {
+      delete Session.keys["cat_img"];
+      delete Session.keys["cat_thumbnail"];
+    }
+  }
+}
 
 Locations.allow({
   insert: function() {
