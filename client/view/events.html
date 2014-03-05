@@ -1,5 +1,4 @@
 <template name="events">
-  {{> eventHeader}}
   <div class="container">
     <div class="row">
         <div id="sidemenu" class="col-md-2">
@@ -19,7 +18,6 @@
         </div>
     </div>
 </div>
-{{> eventFooter}}
 </template>
 
 <template name="ListEvent">
@@ -44,6 +42,7 @@
         </div>        
 
         <div class="row">
+          <p class="eventLabel">Categories</p>
           {{#each categoryList}}
             <div class="col-md-2 parentCat">
               <label class="control-label">{{name}}</label>

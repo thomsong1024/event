@@ -50,8 +50,8 @@ Template.CreateEvent.events({
     // Session.set("eventData", obj);
   }
 });
-Template.eventHeader.events({
+Template.header.events({
   "click .header" : function () {
-    Router.go("/dashboard");
+    Router.go("/");
   }
 })
