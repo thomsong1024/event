@@ -103,3 +103,9 @@ textarea.form-control {
   text-align: center;
   width: 80px;
 }
+.header {
+  height: 40px;
+  background: #808080;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
