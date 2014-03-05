@@ -4,7 +4,15 @@
     <div class="row">
         <div id="sidemenu" class="col-md-2">
            Events
-           <div id="event1"></div>
+           <div id="list">
+            <ul>
+              {{#each eventLists}}
+                <li>
+                  <a href="/events/{{_id}}">{{eventTitle}}</a>
+                </li>
+                {{/each}}
+            </ul>
+           </div>
         </div>
         <div class="col-md-8">
           {{#if isCreated}}
@@ -18,61 +26,8 @@
 {{> eventFooter}}
 </template>
 
-<template name="eventHeader">
-  <div class="container" style="height: 40px;"></div>
-</template>
-<template name="eventFooter">
-</template>
-<template name="subCats">
-  {{#each subcategories _id}}
-    {{#if checkCategory _id}}
-      <div>{{name}}</div> 
-    {{/if}}
-  {{/each}}
-</template>
-<template name="ListEvent">
-  <div class="container">
-    <div class="row">
-      {{#each categoryList}}
-        <div class="col-md-2 parentCat">
-          <label class="control-label">{{name}}</label>
-          {{> subCats}}
-        </div>
-        <!-- <div style="border:1px solid red; margin:10px;"></div> -->
-      {{/each}}
-    </div>
-    <div class="row">
-      <form class="form-horizontal">
-      <fieldset>
 
-      <!-- Text input-->
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="eventPrice">Price</label>  
-        <div class="col-md-6">
-        <input id="eventPrice" name="eventPrice" placeholder="" class="form-control input-md" required="" type="text">
-          
-        </div>
-      </div>
 
-      <!-- Textarea -->
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="eventComments">Addtional Comments</label>
-        <div class="col-md-4">                     
-          <textarea class="form-control" id="eventComments" name="eventComments"></textarea>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="createEvent"></label>
-        <div class="col-md-4">
-          <button id="createEvent" name="createEvent" class="btn btn-primary">Create Event</button>
-        </div>
-      </div>
-      </fieldset>
-      </form>      
-    </div>
-  </div>
-</template>
 <template name="CreateEvent">
   <div class="container">
     <div class="row">
@@ -136,11 +91,21 @@
           <div class="col-md-6">
             <select id="eventDuration" name="eventDuration" class="form-control">
               {{#each getSelect "eventDuration"}}
+                <option value="{{value}}">{{label}}hrs</option>
+              {{/each}}
+            </select>
+          </div>
+        </div> 
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="eventDuration">Number of Guests</label>
+          <div class="col-md-6">
+            <select id="nog" name="nog" class="form-control">
+              {{#each getSelect "numberOfGuests"}}
                 <option value="{{value}}">{{label}}</option>
               {{/each}}
             </select>
           </div>
-        </div>        
+        </div>             
         <div class="col-md-4" align="right"><label class="control-label">Categories</label></div>
         <div class="col-md-6">
         {{#each_with_index arrayify services}}
@@ -174,10 +139,26 @@
           </div>
           {{/each_with_index}}
         </div>
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="eventPrice">Price</label>  
+        <div class="col-md-6">
+        <input id="eventPrice" name="eventPrice" placeholder="" class="form-control input-md" required="" type="text">
+          
+        </div>
+      </div>
+
+      <!-- Textarea -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="eventComments">Addtional Comments</label>
+        <div class="col-md-4">                     
+          <textarea class="form-control" id="eventComments" name="eventComments"></textarea>
+        </div>
+      </div>
+
         <div class="form-group">
           <label class="col-md-4 control-label" for="submit"></label>
           <div class="col-md-4">
-            <button id="submit" name="submit" class="btn btn-primary">Submit</button>
+            <button id="submit" name="submit" class="btn btn-primary">Create Event</button>
           </div>
         </div>
         </fieldset>

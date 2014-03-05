@@ -6,13 +6,13 @@ isEventCreated = function () {
 		return false;	
 	}
 }
-isChecked = function (id) {
-	if (Session.get("eventData").categories) {
-		if (_.contains(Session.get("eventData").categories, id)) {
-			return true;
-		}
-		else {
-			return false;
-		}
+isChecked = function (id, categories) {
+	console.log(categories);
+	console.log(id);
+	if (_.contains(categories, id)) {
+		return true;
+	}
+	else {
+		return false;
 	}
 }

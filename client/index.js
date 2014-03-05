@@ -1,25 +1,12 @@
-Meteor.subscribe("eventtypes");
-Meteor.subscribe("locations");
-Meteor.subscribe("servicecategories");
 
 EventTypeForm = new AutoForm(EventTypes);
 LocationsForm = new AutoForm(Locations);
 ServiceCategoriesForm = new AutoForm(ServiceCategories);
 
-EventTypes.allow({
-  insert: function() {
-    return true;
-  },
-  update: function() {
-    return true;
-  },
-  remove: function() {
-  	console.log('Remove called');
-    return true;
-  },
-  fetch: []
-});
-
+Meteor.subscribe("eventtypes");
+Meteor.subscribe("locations");
+Meteor.subscribe("servicecategories");
+Meteor.subscribe("eventList");
 
 var cb = {
   insert: function(error, result) {

@@ -6,15 +6,15 @@
       "iron-router": {},
       "smart-collections": {},
       "animate-css": {},
-      "collection2": {},
       "bootstrap3-datetimepicker": {},
-      "bootstrap-3": {}
+      "bootstrap-3": {},
+      "collection2": {}
     },
     "packages": {
       "autoform": {
         "git": "https://github.com/aldeed/meteor-autoform.git",
-        "tag": "v0.4.18",
-        "commit": "991efc809b959e77d94796f47ca6c5b1e5c2c6e2"
+        "tag": "v0.4.20",
+        "commit": "d4d40a5356f9577a7d95d3526045035f3f1135af"
       },
       "iron-router": {
         "git": "https://github.com/EventedMind/iron-router.git",
@@ -31,11 +31,6 @@
         "tag": "v2.1.0",
         "commit": "08d7d98ce292d528f05eab91bfb220b3a355c1d5"
       },
-      "collection2": {
-        "git": "https://github.com/aldeed/meteor-collection2.git",
-        "tag": "v0.3.8",
-        "commit": "69aff2a21ba3c382f915e1f9dbcca2ad38edb6d5"
-      },
       "bootstrap3-datetimepicker": {
         "git": "https://github.com/tsega/meteor-bootstrap3-datetimepicker.git",
         "tag": "v0.0.5",
@@ -43,8 +38,13 @@
       },
       "bootstrap-3": {
         "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
-        "tag": "v3.1.0-1",
-        "commit": "329dccb08bfc18c635676dea600ac9953162cda9"
+        "tag": "v3.1.1-1",
+        "commit": "63dd38968828bb8963636df93e9a1c45e2dfe67e"
+      },
+      "collection2": {
+        "git": "https://github.com/aldeed/meteor-collection2.git",
+        "tag": "v0.3.8",
+        "commit": "69aff2a21ba3c382f915e1f9dbcca2ad38edb6d5"
       },
       "simple-schema": {
         "git": "https://github.com/aldeed/meteor-simple-schema.git",

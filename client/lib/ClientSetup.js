@@ -13,11 +13,11 @@ Handlebars.registerHelper("eventTypesOptions", function(options) {
   var eventTypesOptions = EventTypes.find();
   var eventTypesObjArray =[];
   eventTypesOptions.forEach(function (eventTypes) {
- 	var eventTypesObj = new Object();
-		eventTypesObj.label = eventTypes.type;
-	  	eventTypesObj.value = eventTypes._id;
-	  	eventTypesObjArray.push(eventTypesObj);
-	});
+ 	   var eventTypesObj = new Object();
+	   eventTypesObj.label = eventTypes.type;
+	   eventTypesObj.value = eventTypes._id;
+	   eventTypesObjArray.push(eventTypesObj);
+  });
   return JSON.parse(JSON.stringify(eventTypesObjArray));
 });
 
@@ -89,14 +89,25 @@ Handlebars.registerHelper("getSelect", function(select) {
 	});	
   }
   else if(select == "eventDuration") {
-  	var options = [5, 10, 15, 20, 25];
+  	var options = [2, 4, 8];
   	var optionsObjArry =[];
   	for (var i = 0; i < options.length; i ++) {
-	 	var optionsObj = new Object();
-		optionsObj.label = options[i];
-	  	optionsObj.value = options[i];
-	  	optionsObjArry.push(optionsObj);
+	 	 var optionsObj = new Object();
+		 optionsObj.label = options[i];
+	   optionsObj.value = options[i];
+	   optionsObjArry.push(optionsObj);
   	}
+  }
+  else if(select == "numberOfGuests"){
+    var options = ["25-50", "50-100", "100-250", "250-500", "500-1000"];
+    var optionsObjArry =[];
+    for (var i = 0; i < options.length; i ++) {
+     var optionsObj = new Object();
+     optionsObj.label = options[i];
+     optionsObj.value = options[i];
+     optionsObjArry.push(optionsObj);
+    }
+
   }
   return JSON.parse(JSON.stringify(optionsObjArry));
 });
@@ -105,7 +116,6 @@ Handlebars.registerHelper('isCreated',function(){
 	return isEventCreated();
 });
 
-Handlebars.registerHelper('checkCategory',function(id){
-	console.log(id);
-	return isChecked(id);
+Handlebars.registerHelper('checkCategory',function(id, categories){
+	return isChecked(id, JSON.parse(categories));
 });

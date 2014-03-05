@@ -1,23 +1,3 @@
-
-Meteor.subscribe("events");
-// EventCreationForms = new AutoForm(Events);
-// Events.allow({
-//   insert: function() {
-//   	return true;
-//   },
-//   update: function() {
-//     return true;
-//   },
-//   remove: function() {
-//   	console.log('Remove called');
-//     return true;
-//   },
-//   fetch: []
-// });
-
-
-
-
 Template.CreateEvent.helpers({
   services: function() {
   var servicecat=ServiceCategories.find().fetch();
@@ -57,49 +37,19 @@ Template.CreateEvent.events({
     $("input[name='categories[]']:checked").each( function ( ){
       checked.push($(this).val());
     });
-    obj.categories        = checked;
-    Session.set("eventData", obj);
-  }
-});
-Template.ListEvent.rendered = function () {}
-
-Template.ListEvent.events({
-  'submit' : function( e ) {
-   e.preventDefault();
-   var eventData = Session.get("eventData");
-   eventData.eventPrice = eventPrice.value;
-   eventData.eventComments = eventComments.value;
-   Events.insert(eventData, function (error, result) {
-    console.log(error);
-   });
-   // console.log(Events);
+    obj.categories        = JSON.stringify(checked);
+    obj.nog               = nog.value;
+    obj.eventPrice        = eventPrice.value;
+    obj.eventComments     = eventComments.value;
+    console.log(typeof obj.categories);
+    Events.insert(obj, function (error, result) {
+      console.log(error);
+    });
+    // Session.set("eventData", obj);
   }
 });
 
-Template.subCats.subcategories = function (parent) {
-  if (Session.get("eventData")) {
-    var checkedCategories = Session.get("eventData").categories;
-    var data = ServiceCategories.find({$and:[{parent: parent}]}).fetch();
-    return data;
-    if (data.count() > 0) {
-      
-      var categoriesObjArray = [];
-      data.forEach( function (item) {
-        var obj = {};
-        console.log(item._id);
-        console.log(checkedCategories);
-        if (checkedCategories.indexOf(item._id)) {
-          obj.name = item.name;
-          categoriesObjArray.push(obj);
-        }
-      });
-      return JSON.parse(JSON.stringify(categoriesObjArray));
-    }
-  }
+Template.dashboard.eventLists = function ( ){
+  // console.log(Events.find().fetch());
+  return Events.find().fetch();
 }
-
-Template.ListEvent.categoryList = function () {
-  var servicecat=ServiceCategories.find({$and:[{parent:"0"}]}).fetch();
-  return servicecat;
-}    
-          
