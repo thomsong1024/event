@@ -43,11 +43,7 @@ Template.CreateEvent.events({
     obj.nog               = nog.value;
     obj.eventPrice        = eventPrice.value;
     obj.eventComments     = eventComments.value;
-    console.log(eventDuration.value);
-    Events.insert(obj, function (error, result) {
-      // console.log(error);
-    });
-    // Session.set("eventData", obj);
+    Events.insert(obj, function (error, result) {});
   }
 });
 Template.header.events({

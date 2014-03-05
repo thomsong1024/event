@@ -45,7 +45,10 @@ var uploadCategoryBefore = {
       data.file = Session.get("cat_img");
       data.thumbnail = Session.get("cat_thumbnail");
       return data;
-    }   
+    }
+    else {
+      return doc;
+    }
   }
 }
 var uploadCategoryAfter = {}
