@@ -19,6 +19,7 @@
         <li class="active"><a href="#eventType" data-toggle="tab">Event Types</a></li>
         <li><a href="#locations" data-toggle="tab">Locations</a></li>
         <li><a href="#serviceCategory" data-toggle="tab">Service Categories</a></li>
+        <li><a href="#createVendor" data-toggle="tab">Create Vendor</a></li>
         <li><a href="#createVendorUser" data-toggle="tab">Create Vendor User</a></li>
         <li><a href="#createVendorService" data-toggle="tab">Create Vendor Service</a></li>
       </ul>
@@ -38,6 +39,12 @@
             {{> ServiceCateogiesTp}}
          </div>          
         </div>
+        <div class="tab-pane tab_inner" id="createVendor">
+         <legend align="center">Create Vendor</legend>
+         <div class="col-12 col-lg-8">
+            {{> CreateVendor}}
+         </div>          
+        </div>        
         <div class="tab-pane tab_inner" id="createVendorUser">
          <legend align="center">Create Vendor User</legend>
          <div class="col-12 col-lg-8">
@@ -378,5 +385,108 @@
   </div>
 </template>
 
+<template name="CreateVendor">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-2">&nbsp;</div>
+      <div class="col-md-8">
+        <form class="form-horizontal">
+        <fieldset>
 
+        <!-- Form Name -->
+        <legend>Create Vendor</legend>
 
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="vendorName">Name</label>  
+          <div class="col-md-6">
+          <input id="vendorName" name="vendorName" placeholder="" class="form-control input-md" required="" type="text">
+            
+          </div>
+        </div>
+
+        <!-- Textarea -->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="vendorDescription">Description</label>
+          <div class="col-md-4">                     
+            <textarea class="form-control" id="vendorDescription" name="vendorDescription"></textarea>
+          </div>
+        </div>
+
+        <!-- Textarea -->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="vendorBriefDescription">Brief Description</label>
+          <div class="col-md-4">                     
+            <textarea class="form-control" id="vendorBriefDescription" name="vendorBriefDescription"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4 control-label imageLabel" for="portfolioImage">Portfolio Image</label>  
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-4">
+                <input id="portfolioImage" name="portfolioImage" placeholder="" class="input-md imageUploader" required="" type="file">
+              </div>
+              <div class="col-md-2">&nbsp;</div>
+              <div class="col-md-6">
+                <img src="..." alt="" id="portfolioPrinter" class="img-thumbnail">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4 control-label imageLabel" for="logoImage">Logo</label>  
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-4">
+                <input id="logoImage" name="logoImage" placeholder="" class="input-md imageUploader" required="" type="file">
+              </div>
+              <div class="col-md-2">&nbsp;</div>
+              <div class="col-md-6">
+                <img src="..." alt="" id="logoPrinter" class="img-thumbnail">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4 control-label imageLabel" for="letterheadImage">Letterhead Image</label>  
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-4">
+                <input id="letterheadImage" name="letterheadImage" placeholder="" class="input-md imageUploader" required="" type="file">
+              </div>
+              <div class="col-md-2">&nbsp;</div>
+              <div class="col-md-6">
+                <img src="..." alt="" id="letterheadPrinter" class="img-thumbnail">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="locations">Locations</label>
+          <div class="col-md-4">
+            {{#each_with_index getSelect "eventLocations"}}
+              <label class="checkbox-inline" for="locations-{{index}}">
+                <input name="locations[]" id="locations-{{index}}" value="{{value}}" type="checkbox">
+                {{label}}
+              </label>            
+            {{/each_with_index}}            
+          </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="addVendor"></label>
+          <div class="col-md-4">
+            <button id="addVendor" name="addVendor" class="btn btn-primary">Create Vendor</button>
+          </div>
+        </div>
+
+        </fieldset>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</template>

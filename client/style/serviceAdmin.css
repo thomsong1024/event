@@ -116,3 +116,16 @@ textarea.form-control {
 .space {
   height: 20px;
 }
+input[type='file']{
+  color: transparent;
+}
+.img-thumbnail {
+  width: 60px;
+  height: 60px;
+}
+.imageUploader {
+  margin-top: 20px;
+}
+.imageLabel {
+  margin-top: 14px !important;
+}
