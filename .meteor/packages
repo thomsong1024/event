@@ -15,4 +15,10 @@ simple-schema
 bootstrap3-datetimepicker
 bootstrap-3
 collection2
+jquery-validation
 roles
+accounts-ui
+router
+accounts-base
+accounts-password
+flash-messages

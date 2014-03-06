@@ -109,3 +109,10 @@ textarea.form-control {
   margin-bottom: 10px;
   cursor: pointer;
 }
+.pagelink {
+  color: #bde423;
+  padding: 10px;
+}
+.space {
+  height: 20px;
+}

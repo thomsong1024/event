@@ -9,7 +9,10 @@
       "bootstrap3-datetimepicker": {},
       "bootstrap-3": {},
       "collection2": {},
-      "roles": {}
+      "jquery-validation": {},
+      "roles": {},
+      "router": {},
+      "flash-messages": {}
     },
     "packages": {
       "autoform": {
@@ -47,10 +50,25 @@
         "tag": "v0.3.8",
         "commit": "69aff2a21ba3c382f915e1f9dbcca2ad38edb6d5"
       },
+      "jquery-validation": {
+        "git": "https://github.com/properapp/jquery-validation.git",
+        "tag": "v1.0.0",
+        "commit": "afce6a53368c4f35f3bd82d92572312db68ecbb7"
+      },
       "roles": {
         "git": "https://github.com/alanning/meteor-roles.git",
         "tag": "v1.2.6",
         "commit": "f2a9058281f8f2fe028767841d7445aadd6893cf"
+      },
+      "router": {
+        "git": "https://github.com/tmeasday/meteor-router.git",
+        "tag": "v0.5.4.1",
+        "commit": "d00e380dda2184b70e909fc4a0fb5358d602c586"
+      },
+      "flash-messages": {
+        "git": "https://github.com/camilosw/flash-messages.git",
+        "tag": "v0.2.1",
+        "commit": "62cf1ee531684808b91dbe3ff15e63f6d5af1c66"
       },
       "simple-schema": {
         "git": "https://github.com/aldeed/meteor-simple-schema.git",
@@ -61,6 +79,16 @@
         "git": "https://github.com/acreeger/meteor-moment.git",
         "tag": "v2.5.1",
         "commit": "8c9bc5d3fc96705057737cb9743d555417f6e551"
+      },
+      "page-js-ie-support": {
+        "git": "https://github.com/tmeasday/meteor-page-js-ie-support.git",
+        "tag": "v1.3.5",
+        "commit": "b99ed8380aefd10b2afc8f18d9eed4dd0d8ea9cb"
+      },
+      "HTML5-History-API": {
+        "git": "https://github.com/tmeasday/meteor-HTML5-History-API.git",
+        "tag": "v4.0.0",
+        "commit": "dc4965f1424cfca625ec3fbea17eace03f8e32c5"
       }
     }
   }

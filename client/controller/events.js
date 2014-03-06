@@ -25,6 +25,7 @@ Template.ListEvent.getLocation = function (id) {
 
 Template.ListEvent.getEventType = function (id){
   var events = EventTypes.findOne({_id: id});
+  console.log(events);
   return events.type;
 };
 

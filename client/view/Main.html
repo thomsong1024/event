@@ -11,9 +11,13 @@
 
 <template name="header">
   <div class="container header">
-    <div class="row">
-      <div>
-      </div>
+    <div class="row" style="margin-top: 10px;">
+      {{#if isUseLoggedIn}}
+        <a href="#" id="logout" class="pagelink">Log Out</a>
+      {{else}}
+        <a href="/login" id="login" class="pagelink">Log In</a>
+        <a href="/signup" id="signup" class="pagelink">Sign UP</a>      
+      {{/if}}
     </div>
   </div>
 </template>

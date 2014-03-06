@@ -14,3 +14,14 @@ isChecked = function (id, categories) {
 		return false;
 	}
 }
+isUserLoggedIn = function () {
+	if (Meteor.user() == null) {
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+logoutCallback = function () {
+	Router.go("/");
+}

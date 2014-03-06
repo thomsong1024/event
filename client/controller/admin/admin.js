@@ -47,3 +47,48 @@ Template.ServiceCateogiesTp.events( {
         }
     }
 });
+
+Template.CreateVendorUser.events({
+    "submit": function (e) {
+        e.preventDefault();
+        e.preventDefault();
+        var obj = {};
+        obj.profile = {};
+
+        obj.username = username.value;
+        obj.email = email.value;
+        obj.password = password.value;
+        
+        obj.profile.firstname = firstname.value;
+        obj.profile.lastname = lastname.value;
+        obj.profile.telno = telno.value;
+        var roles = ["vendor-user"];
+        // console.log(Accounts); return false;
+        Meteor.call("createUserWithRole", obj, roles, function ( error, result ){
+            if (error) {
+                console.log(error);
+            }
+            else {
+                Router.go('/login'); 
+            }
+        });        
+    }
+});
+
+Template.createVendorService.events({
+    "submit" : function (e) {
+        e.preventDefault();
+        var obj = {};
+        obj.serviceName = serviceName.value;
+        obj.briefDescription = briefDescription.value;
+        obj.nog = nog.value;
+        var checked = [];
+        $("input[name='categories[]']:checked").each( function ( ){
+          checked.push($(this).val());
+        });
+        obj.categories = JSON.stringify(checked);
+        obj.priceRange = priceRange.value;
+        obj.eventType = eventType.value;
+        console.log(obj);
+    }
+});

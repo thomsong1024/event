@@ -21,6 +21,10 @@ Handlebars.registerHelper("eventTypesOptions", function(options) {
   return JSON.parse(JSON.stringify(eventTypesObjArray));
 });
 
+Handlebars.registerHelper('serviceObject',function(){
+  var servicecat=ServiceCategories.find().fetch();
+      return servicecat ;
+});
 Handlebars.registerHelper('arrayify',function(obj){
   var result = [];
   for (var key in obj) {
@@ -107,10 +111,20 @@ Handlebars.registerHelper("getSelect", function(select) {
      optionsObj.value = options[i];
      optionsObjArry.push(optionsObj);
     }
-
+  }
+  else if (select  == "priceRange") {
+    var options = ["25-50", "50-100", "100-250", "250-500", "500-1000"];
+    var optionsObjArry =[];
+    for (var i = 0; i < options.length; i ++) {
+     var optionsObj = new Object();
+     optionsObj.label = options[i];
+     optionsObj.value = options[i];
+     optionsObjArry.push(optionsObj);
+    }
   }
   return JSON.parse(JSON.stringify(optionsObjArry));
 });
+
 
 Handlebars.registerHelper('isCreated',function(){
 	return isEventCreated();
@@ -122,4 +136,7 @@ Handlebars.registerHelper('checkCategory',function(id, categories){
 
 Handlebars.registerHelper('eventLists',function(){
   return Events.find().fetch();
+});
+Handlebars.registerHelper('isUseLoggedIn',function(){
+  return isUserLoggedIn();
 });

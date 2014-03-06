@@ -1,9 +1,3 @@
-Template.CreateEvent.helpers({
-  services: function() {
-  var servicecat=ServiceCategories.find().fetch();
-      return servicecat ;
-  }
-});
 
 Template.CreateEvent.rendered = function() { 
   $(".set-due-date").datetimepicker();
