@@ -1,4 +1,4 @@
-
+  
 Template.CreateEvent.rendered = function() { 
   $(".set-due-date").datetimepicker();
   // Assuming you're using jQuery

@@ -73,24 +73,24 @@ Handlebars.registerHelper("durationOptions", function() {
 
 Handlebars.registerHelper("getSelect", function(select) {
   if (select == "eventTypes") {
-	var options = EventTypes.find();
+	  var options = EventTypes.find();
   	var optionsObjArry =[];
   	options.forEach(function (eventTypes) {
- 	var optionsObj = new Object();
-		optionsObj.label = eventTypes.type;
-	  	optionsObj.value = eventTypes._id;
-	  	optionsObjArry.push(optionsObj);
-	});	
+   	  var optionsObj = new Object();
+  		optionsObj.label = eventTypes.type;
+      optionsObj.value = eventTypes._id;
+      optionsObjArry.push(optionsObj);
+	  });	
   }
   else if(select == "eventLocations") {
-	var options = Locations.find();
+	  var options = Locations.find();
   	var optionsObjArry =[];
   	options.forEach(function (eventTypes) {
- 	var optionsObj = new Object();
-		optionsObj.label = eventTypes.city;
-	  	optionsObj.value = eventTypes._id;
-	  	optionsObjArry.push(optionsObj);
-	});	
+ 	  var optionsObj = new Object();
+  		optionsObj.label = eventTypes.city;
+  	  optionsObj.value = eventTypes._id;
+  	  optionsObjArry.push(optionsObj);
+	  });	
   }
   else if(select == "eventDuration") {
   	var options = [2, 4, 8];
@@ -121,6 +121,16 @@ Handlebars.registerHelper("getSelect", function(select) {
      optionsObj.value = options[i];
      optionsObjArry.push(optionsObj);
     }
+  }
+  else if(select  == "vendor") {
+    var options = Vendors.find();
+    var optionsObjArry =[];
+    options.forEach(function (vendors) {
+      var optionsObj = new Object();
+      optionsObj.label = vendors.vendorName;
+      optionsObj.value = vendors._id;
+      optionsObjArry.push(optionsObj);
+    });
   }
   return JSON.parse(JSON.stringify(optionsObjArry));
 });

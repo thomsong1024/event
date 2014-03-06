@@ -7,6 +7,7 @@ Meteor.subscribe("eventtypes");
 Meteor.subscribe("locations");
 Meteor.subscribe("servicecategories");
 Meteor.subscribe("eventList");
+Meteor.subscribe("vendors");
 
 var cb = {
   insert: function(error, result) {

@@ -12,12 +12,18 @@ if (Meteor.isServer) {
 		Meteor.publish("eventList", function () {
 		  return Events.find();
 		});
+		Meteor.publish("vendors", function () {
+		  return Vendors.find();
+		});		
 
 		Meteor.methods({
 		    createUserWithRole: function (obj, roles) {
 			    id = Accounts.createUser(obj);		    	
 			    Roles.addUsersToRoles(id, roles);
 			    return id;
+		    },
+		    getVendor: function ( ){
+		    	return Vendors.find().fetch();
 		    }
 		});
 		if (EventTypes.find().count() === 0) {
