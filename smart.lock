@@ -7,12 +7,13 @@
       "smart-collections": {},
       "animate-css": {},
       "bootstrap3-datetimepicker": {},
-      "bootstrap-3": {},
       "collection2": {},
       "jquery-validation": {},
       "roles": {},
       "router": {},
-      "flash-messages": {}
+      "flash-messages": {},
+      "bootstrap3-less": {},
+      "bootstrap-3": {}
     },
     "packages": {
       "autoform": {
@@ -40,11 +41,6 @@
         "tag": "v0.0.5",
         "commit": "30b5fa0759f98b75761772ad891876408f7cc8c4"
       },
-      "bootstrap-3": {
-        "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
-        "tag": "v3.1.1-1",
-        "commit": "63dd38968828bb8963636df93e9a1c45e2dfe67e"
-      },
       "collection2": {
         "git": "https://github.com/aldeed/meteor-collection2.git",
         "tag": "v0.3.8",
@@ -69,6 +65,16 @@
         "git": "https://github.com/camilosw/flash-messages.git",
         "tag": "v0.2.1",
         "commit": "62cf1ee531684808b91dbe3ff15e63f6d5af1c66"
+      },
+      "bootstrap3-less": {
+        "git": "https://github.com/eprochasson/bootstrap3-less",
+        "tag": "v0.1.9",
+        "commit": "5c812c4d7ce72917a065f0424c3cf54e5ff2d16a"
+      },
+      "bootstrap-3": {
+        "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
+        "tag": "v3.1.1-1",
+        "commit": "63dd38968828bb8963636df93e9a1c45e2dfe67e"
       },
       "simple-schema": {
         "git": "https://github.com/aldeed/meteor-simple-schema.git",

@@ -13,7 +13,6 @@ smart-collections
 animate-css
 simple-schema
 bootstrap3-datetimepicker
-bootstrap-3
 collection2
 jquery-validation
 roles
@@ -22,3 +21,5 @@ router
 accounts-base
 accounts-password
 flash-messages
+bootstrap3-less
+bootstrap-3

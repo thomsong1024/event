@@ -1,5 +1,9 @@
 <template name="signup">
 	<div class="container">
+		<div class="page-header">
+		  <h1>User Register</h1>
+		</div>
+
 		<div class="row">
 			<div class="col-md-2">&nbsp;
 			</div>
@@ -7,10 +11,8 @@
 			<form class="form-horizontal">
 			<fieldset>
 
-			<legend>User Register</legend>
-
 			<div class="form-group">
-			  <label class="col-md-4 control-label" for="firstname">User Name</label>  
+			  <label class="col-md-4 control-label" for="username">First Name</label>  
 			  <div class="col-md-6">
 			  <input id="username" name="username" placeholder="" class="form-control input-md" type="text" required="">
 			  </div>
@@ -78,15 +80,15 @@
 </template>
 <template name="login">
 	<div class="container">
+		<div class="page-header">
+		  <h1>User LogIn</h1>
+		</div>		
 		<div class="row">
 			{{> flashMessages}}
 			<div class="col-md-2">&nbsp;</div>
 			<div class="col-md-6">
 				<form class="form-horizontal">
 				<fieldset>
-
-				<!-- Form Name -->
-				<legend>Log In</legend>
 
 				<!-- Text input-->
 				<div class="form-group">

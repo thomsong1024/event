@@ -76,13 +76,20 @@
       <ul class="nav nav-tabs">
         {{#each_with_index getSelectedCategories}}
           {{#if getActiveIndex index}}
-            <li class="active"><a href="#tab_{{_id}}" data-toggle="tab">{{name}}</a></li>
+            <li><a href="#tab_{{_id}}" data-toggle="tab">{{name}}</a></li>
           {{else}}
             <li><a href="#tab_{{_id}}" data-toggle="tab">{{name}}</a></li>
           {{/if}}
         {{/each_with_index}}
       </ul>
       <div id="tab-content" class="tab-content">
+        <div class="row">
+          <div class="col-md-12 showmoreArea">
+          <button type="button" class="btn btn-default btn-lg showmore">
+           Show more
+          </button>
+        </div>
+        </div>
         {{#each getSelectedCategories}}
         {{#if getActiveIndex index}}
           <div class="tab-pane active tab_inner" id="tab_{{_id}}">
@@ -101,19 +108,32 @@
 
 
 <template name="getServices">
-  <div class="container" style="width: 750px;">
-    {{#each getServiceLists}}
-    <div class="row serviceList">
-      <div class="col-md-2">
-          <img src="..." alt="" class="img-thumbnail">
-      </div>
-      <div class="col-md-8">
-        <p class="serviceTitle"><a href="#">{{serviceName}}</a></p>
-        <p class="serviceDescription">{{briefDescription}}</p>
-      </div>
-    </div>
-    {{/each}}
-  </div>
+  <div class="table-responsive" style="width: 800px;">
+    <table class="table table-hover table-striped">
+      <tbody>
+        {{#each getServiceLists}}
+        <tr>
+          <td style="width: 60px">
+            <img src="..." alt="" class="img-thumbnail">
+          </td>
+          <td>
+            <div class="row">
+              <div class="col-md-8">
+                <p class="serviceTitle"><a href="#">{{serviceName}}</a></p>
+                <p class="serviceDescription">{{briefDescription}}</p>                
+              </div>
+              <div class="col-md-4" style="padding-top: 20px;">
+                  <button class="btn btn-default">Contact</button>
+                  <button class="btn btn-default request" dataId="{{vendorId}}">Request Quote</button>
+              </div>
+            </div>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>  
+    
 </template>
 <template name="eventHeader">
   <div class="container header"></div>

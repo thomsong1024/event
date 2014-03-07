@@ -5,11 +5,12 @@
     "smart-collections": {},
     "animate-css": {},
     "bootstrap3-datetimepicker": {},
-    "bootstrap-3": {},
     "collection2": {},
     "jquery-validation": {},
     "roles": {},
     "router": {},
-    "flash-messages": {}
+    "flash-messages": {},
+    "bootstrap3-less": {},
+    "bootstrap-3": {}
   }
 }

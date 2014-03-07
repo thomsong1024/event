@@ -139,3 +139,10 @@ input[type='file']{
 .serviceDescription {
   margin: 0px;
 }
+.showmore {
+  float: right;
+}
+.showmoreArea {
+  margin-top: 10px;
+  height: 60px;
+}

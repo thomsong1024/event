@@ -27,8 +27,23 @@ if (Meteor.isServer) {
 		    },
 		    getVendor: function ( ){
 		    	return Vendors.find().fetch();
-		    }
-		});
+		    },
+    		sendEmail: function (to, from, subject, text, html) {
+	            // Let other method calls from the same client start running,
+	            // without waiting for the email sending to complete.
+
+	            Email.send({
+	                to: to,
+	                from: from,
+	                subject: subject,
+	                text: text,
+	                html: html
+            	});
+        	},
+	        getEnv: function () {
+	         return process.env.ROOT_URL;
+	        }        			    
+        });
 		if (EventTypes.find().count() === 0) {
 			EventTypes.insert({ type:'Birthday'});
 			EventTypes.insert({ type:'Wedding'});

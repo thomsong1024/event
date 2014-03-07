@@ -10,6 +10,9 @@ Meteor.subscribe("eventList");
 Meteor.subscribe("vendors");
 Meteor.subscribe("vendorservices");
 
+Meteor.call("getEnv", function (error, result) {
+  Session.set("serverHost", result);
+});
 var cb = {
   insert: function(error, result) {
     if (error) {
