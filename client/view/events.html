@@ -72,9 +72,41 @@
         </div>
       </div>
     </div>
+    <div class="row" style="border:1px solid red;">
+      <ul class="nav nav-tabs">
+        {{#each_with_index getSelectedCategories}}
+          {{#if getActiveIndex index}}
+            <li class="active"><a href="#tab_{{_id}}" data-toggle="tab">{{name}}</a></li>
+          {{else}}
+            <li><a href="#tab_{{_id}}" data-toggle="tab">{{name}}</a></li>
+          {{/if}}
+        {{/each_with_index}}
+      </ul>
+      <div id="tab-content" class="tab-content">
+        {{#each_with_index getSelectedCategories}}
+        {{#if getActiveIndex index}}
+          <div class="tab-pane active tab_inner" id="tab_{{_id}}">
+            <div class="col-12 col-lg-4">{{> getServices}}</div>
+          </div>
+        {{else}}
+          <div class="tab-pane tab_inner" id="tab_{{_id}}">
+            <div class="col-12 col-lg-4">{{> getServices}}</div>
+          </div>        
+        {{/if}}
+        {{/each_with_index}}
+      </div>
+    </div>
   </div>
 </template>
 
+<template name="getServices">
+  <div class="container" style="border:1px solid blue;width: 750px;">
+    {{#each getServiceLists}}
+    <div class="row">
+    </div>
+    {{/each}}
+  </div>
+</template>
 <template name="eventHeader">
   <div class="container header"></div>
 </template>

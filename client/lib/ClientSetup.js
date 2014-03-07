@@ -150,3 +150,10 @@ Handlebars.registerHelper('eventLists',function(){
 Handlebars.registerHelper('isUseLoggedIn',function(){
   return isUserLoggedIn();
 });
+
+Handlebars.registerHelper('getActiveIndex',function(index){
+  if (index == "0")
+    return true;
+  else
+    return false;
+});

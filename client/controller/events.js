@@ -1,16 +1,25 @@
-Template.ListEvent.rendered = function () {}
+Template.ListEvent.rendered = function () {
+  var id = getIdfromHyperLink($(".active").children("a").attr("href"));
+  Session.set("getActiveService", id);
 
-Template.ListEvent.events({
-  'submit' : function( e ) {
-   e.preventDefault();
-   var eventData = Session.get("eventData");
-   eventData.eventPrice = eventPrice.value;
-   eventData.eventComments = eventComments.value;
-   Events.insert(eventData, function (error, result) {
-    console.log(error);
-   });
-   // console.log(Events);
-  }
+  $(function () {
+    $(".nav-tabs a").on("click", function (e) {
+      e.preventDefault();
+      var id = getIdfromHyperLink($(this).attr("href"));
+      Session.set("getActiveService", id);
+      $(this).tab("show");
+    })
+  });
+}
+
+  Template.ListEvent.events({
+    'submit' : function( e ) {
+     e.preventDefault();
+     var eventData = Session.get("eventData");
+     eventData.eventPrice = eventPrice.value;
+     eventData.eventComments = eventComments.value;
+     Events.insert(eventData, function (error, result) {});
+    }
 });
 
 Template.ListEvent.categoryList = function () {
@@ -25,7 +34,6 @@ Template.ListEvent.getLocation = function (id) {
 
 Template.ListEvent.getEventType = function (id){
   var events = EventTypes.findOne({_id: id});
-  console.log(events);
   return events.type;
 };
 
@@ -35,7 +43,12 @@ Template.ListEvent.getDateFormat = function (date) {
   obj.month = moment.monthsShort('-MMM-', moment().month());
   obj.year = moment().year();
   return obj;
-  // console.log(moment.monthsShort('-MMM-', moment().month())); return false;
+};
+
+Template.ListEvent.getSelectedCategories = function () {
+  var events=Events.findOne({_id: Session.get("activeEvents")});
+  var data =ServiceCategories.find({_id:{$in: JSON.parse(events.categories)}}).fetch();
+  return data;
 }
 
 Template.subCats.subcategories = function (parent) {
@@ -55,4 +68,15 @@ Template.subCats.subcategories = function (parent) {
       return JSON.parse(JSON.stringify(categoriesObjArray));
     }
   }
+}
+
+Template.getServices.getServiceLists = function () {
+  console.log(Session.get("getActiveService"));
+  if (Session.get("getActiveService")) {
+    
+  }
+  // console.log($("#sidemenu").attr("class"));
+  // console.log(ListEvent.find('.active')).attr('id'));
+
+  // console.log($(".active").attr("id"));
 }

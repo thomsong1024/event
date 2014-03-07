@@ -25,3 +25,7 @@ isUserLoggedIn = function () {
 logoutCallback = function () {
 	Router.go("/");
 }
+getIdfromHyperLink = function (link) {
+	var data = link.split("_")[1];
+	return data;
+}
