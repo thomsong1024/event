@@ -90,6 +90,7 @@ Template.createVendorService.events({
         obj.categories = JSON.stringify(checked);
         obj.priceRange = priceRange.value;
         obj.eventType = event_Type.value;
+        obj.locations = eventLocations.value;
         obj.vendorId = vendors.value;
         var id = VendorServices.insert(obj);
         if (id) {

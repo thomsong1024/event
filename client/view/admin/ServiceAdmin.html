@@ -382,6 +382,16 @@
           </div>
         </div>
         <div class="form-group">
+          <label class="col-md-4 control-label" for="eventLocations">Locations</label>
+          <div class="col-md-6">
+            <select id="eventLocations" name="eventLocations" class="form-control">
+              {{#each getSelect "eventLocations"}}
+                <option value="{{value}}">{{label}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </div>        
+        <div class="form-group">
           <label class="col-md-4 control-label" for="vendors">Vendor</label>
           <div class="col-md-6">
             <select id="vendors" name="vendors" class="form-control">

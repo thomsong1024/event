@@ -129,3 +129,13 @@ input[type='file']{
 .imageLabel {
   margin-top: 14px !important;
 }
+.serviceList {
+  padding: 10px;
+  border: 1px solid #808080;
+}
+.serviceTitle {
+  margin: 0px;
+}
+.serviceDescription {
+  margin: 0px;
+}

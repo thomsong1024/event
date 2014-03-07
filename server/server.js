@@ -12,6 +12,9 @@ if (Meteor.isServer) {
 		Meteor.publish("eventList", function () {
 		  return Events.find();
 		});
+		Meteor.publish("vendorservices", function () {
+		  return VendorServices.find();
+		});		
 		Meteor.publish("vendors", function () {
 		  return Vendors.find();
 		});		

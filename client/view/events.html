@@ -72,7 +72,7 @@
         </div>
       </div>
     </div>
-    <div class="row" style="border:1px solid red;">
+    <div class="row">
       <ul class="nav nav-tabs">
         {{#each_with_index getSelectedCategories}}
           {{#if getActiveIndex index}}
@@ -83,7 +83,7 @@
         {{/each_with_index}}
       </ul>
       <div id="tab-content" class="tab-content">
-        {{#each_with_index getSelectedCategories}}
+        {{#each getSelectedCategories}}
         {{#if getActiveIndex index}}
           <div class="tab-pane active tab_inner" id="tab_{{_id}}">
             <div class="col-12 col-lg-4">{{> getServices}}</div>
@@ -93,16 +93,24 @@
             <div class="col-12 col-lg-4">{{> getServices}}</div>
           </div>        
         {{/if}}
-        {{/each_with_index}}
+        {{/each}}
       </div>
     </div>
   </div>
 </template>
 
+
 <template name="getServices">
-  <div class="container" style="border:1px solid blue;width: 750px;">
+  <div class="container" style="width: 750px;">
     {{#each getServiceLists}}
-    <div class="row">
+    <div class="row serviceList">
+      <div class="col-md-2">
+          <img src="..." alt="" class="img-thumbnail">
+      </div>
+      <div class="col-md-8">
+        <p class="serviceTitle"><a href="#">{{serviceName}}</a></p>
+        <p class="serviceDescription">{{briefDescription}}</p>
+      </div>
     </div>
     {{/each}}
   </div>

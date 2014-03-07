@@ -1,4 +1,5 @@
 Template.ListEvent.rendered = function () {
+  
   var id = getIdfromHyperLink($(".active").children("a").attr("href"));
   Session.set("getActiveService", id);
 
@@ -71,12 +72,38 @@ Template.subCats.subcategories = function (parent) {
 }
 
 Template.getServices.getServiceLists = function () {
-  console.log(Session.get("getActiveService"));
-  if (Session.get("getActiveService")) {
-    
+  // console.log(Session.get("activeEvents"));
+  // var obj = {};
+  // obj.serviceName = "test";
+  // obj.briefDescription = "test";
+  // var objArray = [];
+  // objArray.push(obj);
+  // return JSON.parse(JSON.stringify(objArray));   
+  if (Session.get("activeEvents")) {
+    var eventObj = Events.findOne({_id: Session.get("activeEvents")});
+    var vendors = VendorServices.find({$and:[{locations: eventObj.eventLocations}, {eventType: eventObj.eventTypes}, {nog: eventObj.nog}]});
+    var objArray = [];
+    vendors.forEach( function (item) {
+      if (_.contains(JSON.parse(item.categories), Session.get("getActiveService"))) {
+        var obj = {};
+        // console.log(it0m)5
+        obj.serviceName = item.serviceName;
+        obj.briefDescription = item.briefDescription;
+        objArray.push(obj);
+        // console.log(Session.get("getActiveService"));
+      }
+    });
+    console.log(objArray.slice(0, 5));
+    // console.log(JSON.parse(JSON.stringify(objArray)));
+    return JSON.parse(JSON.stringify(objArray.slice(0, 5)));
   }
-  // console.log($("#sidemenu").attr("class"));
-  // console.log(ListEvent.find('.active')).attr('id'));
 
-  // console.log($(".active").attr("id"));
 }
+  // console.log(Session.get("getActiveService"));
+  // if (Session.get("getActiveService")) {
+  //   var eventObj = Events.find({_id: Session.get("activeEvents")}).fetch();
+
+  //   var services  = VendorServices.find();
+  //   console.log(eventObj);
+  //   // var vendorServices = VendorServices.find({$and:[{}]})
+  // }
