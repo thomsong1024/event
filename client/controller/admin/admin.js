@@ -103,7 +103,8 @@ Template.createVendorService.events({
 Template.CreateVendor.events({
     'change .imageUploader': function(ev, template) {
         ev.preventDefault();
-        var id = ev.originalTarget.attributes.id.nodeValue;
+        // console.log(ev); return false;
+        var id = ev.target.attributes.id.nodeValue;
         var file = document.getElementById(id).files[0];
         if (file != undefined ) {
             fileType = file.type;
