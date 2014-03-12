@@ -2,20 +2,43 @@
   "meteor": {},
   "dependencies": {
     "basePackages": {
+      "bootstrap-3": {},
+      "bootstrap3-less": {},
+      "bootstrap3-dialog": {
+        "git": "https://github.com/kingservice/bootstrap3-dialog.git",
+        "branch": "master"
+      },
       "autoform": {},
       "iron-router": {},
       "smart-collections": {},
       "animate-css": {},
-      "bootstrap3-datetimepicker": {},
       "collection2": {},
       "jquery-validation": {},
       "roles": {},
       "router": {},
       "flash-messages": {},
-      "bootstrap3-less": {},
-      "bootstrap-3": {}
+      "SlickGrid": {
+        "git": "https://github.com/kingservice/SlickGrid.git",
+        "branch": "master"
+      },
+      "jquery-ui": {}
     },
     "packages": {
+      "bootstrap-3": {
+        "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
+        "tag": "v3.1.1-1",
+        "commit": "63dd38968828bb8963636df93e9a1c45e2dfe67e"
+      },
+      "bootstrap3-less": {
+        "git": "https://github.com/eprochasson/bootstrap3-less",
+        "tag": "v0.1.9",
+        "commit": "5c812c4d7ce72917a065f0424c3cf54e5ff2d16a"
+      },
+      "bootstrap3-dialog": {
+        "git": "https://github.com/kingservice/bootstrap3-dialog.git",
+        "branch": "master",
+        "commit": "f99618c8a3cd5994c6274e836af944ad4217ad30"
+      },
       "autoform": {
         "git": "https://github.com/aldeed/meteor-autoform.git",
         "tag": "v0.4.20",
@@ -35,11 +58,6 @@
         "git": "https://github.com/nate-strauser/meteor-animate-css.git",
         "tag": "v2.1.0",
         "commit": "08d7d98ce292d528f05eab91bfb220b3a355c1d5"
-      },
-      "bootstrap3-datetimepicker": {
-        "git": "https://github.com/tsega/meteor-bootstrap3-datetimepicker.git",
-        "tag": "v0.0.5",
-        "commit": "30b5fa0759f98b75761772ad891876408f7cc8c4"
       },
       "collection2": {
         "git": "https://github.com/aldeed/meteor-collection2.git",
@@ -63,18 +81,18 @@
       },
       "flash-messages": {
         "git": "https://github.com/camilosw/flash-messages.git",
-        "tag": "v0.2.1",
-        "commit": "62cf1ee531684808b91dbe3ff15e63f6d5af1c66"
+        "tag": "v0.2.3",
+        "commit": "fdebd773753682e168af47a1d2ffc1da47e1ce49"
       },
-      "bootstrap3-less": {
-        "git": "https://github.com/eprochasson/bootstrap3-less",
-        "tag": "v0.1.9",
-        "commit": "5c812c4d7ce72917a065f0424c3cf54e5ff2d16a"
+      "SlickGrid": {
+        "git": "https://github.com/kingservice/SlickGrid.git",
+        "branch": "master",
+        "commit": "d03e92aa19f20c32f90883df056ef3c24c0f0702"
       },
-      "bootstrap-3": {
-        "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
-        "tag": "v3.1.1-1",
-        "commit": "63dd38968828bb8963636df93e9a1c45e2dfe67e"
+      "jquery-ui": {
+        "git": "https://github.com/TimHeckel/meteor-jquery-ui.git",
+        "tag": "v1.9.2",
+        "commit": "c437d45edcf1367df8d5ffa8bad2867758030bd2"
       },
       "simple-schema": {
         "git": "https://github.com/aldeed/meteor-simple-schema.git",

@@ -5,11 +5,12 @@ Template.ListEvent.rendered = function () {
 
   $(function () {
     $(".nav-tabs a").on("click", function (e) {
+      $(".showmoreArea").show();
       Session.set("showmore", 0);
       e.preventDefault();
       var id = getIdfromHyperLink($(this).attr("href"));
       Session.set("getActiveService", id);
-      $(this).tab("show");
+      // $(this).tab("show");
     })
   });
 }
@@ -25,32 +26,11 @@ Template.ListEvent.events({
   "click .showmore" : function () {
     var count = 0;
     count = Session.get("showmore");
-    Session.set("showmore", count + 5);
+    if (Session.get("eventsData").length == 5) {
+      Session.set("showmore", count + 5);
+    }    
   }
 });
-
-Template.ListEvent.categoryList = function () {
-  var servicecat=ServiceCategories.find({$and:[{parent:"0"}]}).fetch();
-  return servicecat;
-};
-
-Template.ListEvent.getLocation = function (id) {
-  var location = Locations.findOne({_id: id});
-  return location.district+", "+location.city;
-};
-
-Template.ListEvent.getEventType = function (id){
-  var events = EventTypes.findOne({_id: id});
-  return events.type;
-};
-
-Template.ListEvent.getDateFormat = function (date) {
-  var obj = {};
-  obj.date = moment().date();
-  obj.month = moment.monthsShort('-MMM-', moment().month());
-  obj.year = moment().year();
-  return obj;
-};
 
 Template.ListEvent.getSelectedCategories = function () {
   var events=Events.findOne({_id: Session.get("activeEvents")});
@@ -93,27 +73,40 @@ Template.getServices.getServiceLists = function () {
         objArray.push(obj);
       }
     });
-    return JSON.parse(JSON.stringify(objArray.slice(Session.get("showmore"), Session.get("showmore") + 5)));
+    Session.set("eventsData", JSON.parse(JSON.stringify(objArray.slice(Session.get("showmore"), Session.get("showmore") + 5))));
+    return Session.get("eventsData");
+    // var data = JSON.parse(JSON.stringify(objArray.slice(Session.get("showmore"), Session.get("showmore") + 5)));
+    // return JSON.parse(JSON.stringify(objArray.slice(Session.get("showmore"), Session.get("showmore") + 5)));
   }
 }
 
 Template.getServices.events({
   "click .request" : function (ev, template) {
-    var vendorID = ev.currentTarget.attributes.dataId.nodeValue;
-    var vendor = Vendors.findOne({_id: vendorID});
-    // console.log(vendor);
-    var to = vendor.companyEmail
-    var from = Meteor.user().emails[0].address;
-    var subject = "Request Quote";
-    var html = "<p> <a href='"+Session.get("serverHost")+"/login'>The event is created for your service! </a></p>";
-    Meteor.call("sendEmail", to, from, subject, "", html, function (error, result) {
-      if (error){
-        console.log(error);
+    BootstrapDialog.confirm('Are you sure?', function (result) {
+      if (result == true) {
+        var vendorID = ev.target.attributes.dataId.nodeValue;
+        var obj = {};
+        obj.eventID = Session.get("activeEvents");
+        obj.vendorID = vendorID;
+        obj.activeService = Session.get("getActiveService");
+        RequestQuote.insert(obj);
+
+        var vendor = Vendors.findOne({_id: vendorID});
+        var to = vendor.companyEmail
+        var from = Meteor.user().emails[0].address;
+        var subject = "Request Quote";
+        var html = "<p> <a href='"+Session.get("serverHost")+"/login'>The event is created for your service! </a></p>";
+        Meteor.call("sendEmail", to, from, subject, "", html, function (error, result) {
+          if (error){
+            console.log(error);
+          }
+          else {
+            console.log("success!");
+          }
+        })
       }
-      else {
-        console.log("success!");
-      }
-    })
+    }); 
+    console.log(Session.get("activeEvents")); return false;
     // console.log(vendor);
   }
 });

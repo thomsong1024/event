@@ -1,16 +1,22 @@
 {
   "packages": {
+    "bootstrap-3": {},
+    "bootstrap3-less": {},
+    "bootstrap3-dialog": {
+      "git": "https://github.com/kingservice/bootstrap3-dialog.git"
+    },
     "autoform": {},
     "iron-router": {},
     "smart-collections": {},
     "animate-css": {},
-    "bootstrap3-datetimepicker": {},
     "collection2": {},
     "jquery-validation": {},
     "roles": {},
     "router": {},
     "flash-messages": {},
-    "bootstrap3-less": {},
-    "bootstrap-3": {}
+    "SlickGrid": {
+      "git": "https://github.com/kingservice/SlickGrid.git"
+    },
+    "jquery-ui": {}
   }
 }

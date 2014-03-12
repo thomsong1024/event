@@ -51,7 +51,6 @@ Template.ServiceCateogiesTp.events( {
 Template.CreateVendorUser.events({
     "submit": function (e) {
         e.preventDefault();
-        e.preventDefault();
         var obj = {};
         obj.profile = {};
 

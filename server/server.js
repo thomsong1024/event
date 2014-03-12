@@ -18,6 +18,9 @@ if (Meteor.isServer) {
 		Meteor.publish("vendors", function () {
 		  return Vendors.find();
 		});		
+		Meteor.publish("reponseList", function () {
+		  return RequestQuote.find();
+		});		
 
 		Meteor.methods({
 		    createUserWithRole: function (obj, roles) {

@@ -1,27 +1,32 @@
 <template name="events">
   <div class="container">
     <div class="row">
-        <div id="sidemenu" class="col-md-2">
-           Events <a href="/dashboard">+</a>
-           <div id="list">
-            <ul>
-              {{#each eventLists}}
-                <li>
-                  <a href="/events/{{_id}}">{{eventTitle}}</a>
-                </li>
-                {{/each}}
-            </ul>
-           </div>
+      <div id="sidemenu" class="col-md-2">
+        <div class="page-header">
+          <h4>Events<a href="/dashboard">+</a></h4>
+        </div>           
+        <div id="list">
+          <ul>
+          {{#each eventLists}}
+            <li>
+              <a href="/events/{{_id}}">{{eventTitle}}</a>
+            </li>
+            {{/each}}
+          </ul>
         </div>
-        <div class="col-md-8">
-            {{> ListEvent}}
-        </div>
+      </div>
+      <div class="col-md-8">
+          {{> ListEvent}}
+      </div>
     </div>
-</div>
+  </div>
 </template>
 
 <template name="ListEvent">
-  <div class="container">
+  <div class="container eventDetail">
+    <div class="page-header">
+      <h1>Event Detail</h1>
+    </div>    
     <div class="row">
       <div class="col-md-8">
         <div class="row">
@@ -40,29 +45,37 @@
           <div class="col-md-4"><p class="eventLabel">What</p></div>
           <div class="col-md-6"><p class="eventTexts">{{getEventType eventTypes}}</p></div>
         </div>        
-
+        {{#if isNormalUser}}
         <div class="row">
           <p class="eventLabel">Categories</p>
           {{#each categoryList}}
-            <div class="col-md-2 parentCat">
+            <div class="well well-lg col-md-2 parentCat">
               <label class="control-label">{{name}}</label>
               {{> subCats}}
             </div>
           {{/each}}          
         </div>
+        {{/if}}
+
+        {{#if isVendorUser}}
+          <div class="row">
+            <div class="col-md-4"><p class="eventLabel">Service</p></div>
+            <div class="col-md-6"><p class="eventTexts">{{getServiceName}}</p></div>
+          </div>
+        {{/if}}
       </div>
       <div class="col-md-4">
         <div class="container">
           <div class="row">
             <div class="col-md-8">
               <p class="eventLabel" style="text-align:center;">When</p>
-              <p class="eventTexts dateArea">
+              <div class="well well-lg eventTexts dateArea">
                 {{#with getDateFormat date}}
-                  <p>{{date}}</p>
-                  <p>{{month}}</p>
-                  <p>{{year}}</p>
+                  <p class="dateFormat">{{date}}</p>
+                  <p class="dateFormat">{{month}}</p>
+                  <p class="dateFormat">{{year}}</p>
                 {{/with}}
-              </p>              
+              </div>              
             </div>
           </div>
           <div class="row">
@@ -72,6 +85,7 @@
         </div>
       </div>
     </div>
+    {{#if isNormalUser}}
     <div class="row">
       <ul class="nav nav-tabs">
         {{#each_with_index getSelectedCategories}}
@@ -103,6 +117,7 @@
         {{/each}}
       </div>
     </div>
+    {{/if}}
   </div>
 </template>
 
@@ -112,23 +127,23 @@
     <table class="table table-hover table-striped">
       <tbody>
         {{#each getServiceLists}}
-        <tr>
-          <td style="width: 60px">
-            <img src="..." alt="" class="img-thumbnail">
-          </td>
-          <td>
-            <div class="row">
-              <div class="col-md-8">
-                <p class="serviceTitle"><a href="#">{{serviceName}}</a></p>
-                <p class="serviceDescription">{{briefDescription}}</p>                
+          <tr>
+            <td style="width: 60px">
+              <img src="..." alt="" class="img-thumbnail">
+            </td>
+            <td>
+              <div class="row">
+                <div class="col-md-8">
+                  <p class="serviceTitle"><a href="#">{{serviceName}}</a></p>
+                  <p class="serviceDescription">{{briefDescription}}</p>                
+                </div>
+                <div class="col-md-4" style="padding-top: 20px;">
+                    <button class="btn btn-default">Contact</button>
+                    <button class="btn btn-primary request" dataId="{{vendorId}}">Request Quote</button>
+                </div>
               </div>
-              <div class="col-md-4" style="padding-top: 20px;">
-                  <button class="btn btn-default">Contact</button>
-                  <button class="btn btn-default request" dataId="{{vendorId}}">Request Quote</button>
-              </div>
-            </div>
-          </td>
-        </tr>
+            </td>
+          </tr>        
         {{/each}}
       </tbody>
     </table>

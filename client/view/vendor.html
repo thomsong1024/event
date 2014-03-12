@@ -1,3 +1,156 @@
 <template name="eventList">
-	<h1>In progress</h1>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-2">&nbsp;</div>
+			<div class="col-md-8">
+				<div class="panel panel-default">
+					<div class="panel-heading"><h2>Event List</h2></div>
+					  <div class="panel-body">
+					  	<table class="table table-hover table-striped" >
+					    <thead>
+					    </thead>
+					    <tbody>
+					    	{{#each getEventLists}}
+					    	<tr>
+					    		<td class="tbl_container">
+					    			<div class="container">
+					    				<div class="row">
+					    					<div class="col-md-2">
+					    						<h5><span class="label label-default">Name</span></h5>
+					    					</div>
+					    					<div class="col-md-8">
+					    						<h5>{{eventTitle}}</h5>
+					    					</div>
+					    				</div>
+					    				<div class="row">
+					    					<div class="col-md-2">
+					    						<h5><span class="label label-default">Date</span></h5>
+					    					</div>
+					    					<div class="col-md-8">
+					    						<h5>{{date}}</h5>
+					    					</div>
+					    				</div>
+					    				<div class="row">
+					    					<div class="col-md-2">
+					    						<h5><span class="label label-default">Location</span></h5>
+					    					</div>
+					    					<div class="col-md-8">
+					    						<h5>{{getLocation eventLocations}}</h5>
+					    					</div>
+					    				</div>		    						    				
+					    			</div>
+					    		</td>
+					    		<td>
+					    			<div class="container">
+					    				<div class="row">
+					    					<div class="col-md-3">
+					    						<h5><span class="label label-default">Budget</span></h5>
+					    					</div>
+					    					<div class="col-md-4">
+					    						<h5>${{eventPrice}}</h5>
+					    					</div>
+					    				</div>			    				
+					    			</div>
+					    		</td>
+					    		<td>
+					    			<a href="/eventDetail/{{_id}}" class="btn btn-primary viewbutton">View</a>
+					    			<!-- <button type="button" class="btn btn-primary">View</button> -->
+					    		</td>
+					    	</tr>
+					    	{{/each}}
+					    </tbody>
+					  </table>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="vendorEventsList">
+<div class="container">
+    <div class="row">
+      <div id="sidemenu" class="col-md-2">
+        <div class="page-header">
+          <h4><a href="/vendor">Events</a></h4>
+        </div>           
+        <div id="list">
+          <ul>
+          {{#each getEventLists}}
+            <li>
+              <a href="/eventDetail/{{_id}}">{{eventTitle}}</a>
+            </li>
+            {{/each}}
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-8">
+          {{> vendorEventDetail}}
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="vendorEventDetail">
+	
+  <div class="container eventDetail">
+    <div class="page-header">
+      <h1>Event Detail</h1>
+    </div>    
+    <div class="row">
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-4"><p class="eventLabel">Title</p></div>
+          <div class="col-md-6"><p class="eventTexts">{{eventTitle}}</p></div>
+        </div>
+        <div class="row">
+          <div class="col-md-4"><p class="eventLabel">Description</p></div>
+          <div class="col-md-6"><p class="eventTexts">{{eventDescription}}</p></div>
+        </div>
+       <div class="row">
+          <div class="col-md-4"><p class="eventLabel">Where</p></div>
+          <div class="col-md-6"><p class="eventTexts">{{getLocation eventLocations}}</p></div>
+        </div>        
+        <div class="row">
+          <div class="col-md-4"><p class="eventLabel">What</p></div>
+          <div class="col-md-6"><p class="eventTexts">{{getEventType eventTypes}}</p></div>
+        </div>        
+        <div class="row">
+            <div class="col-md-4"><p class="eventLabel">Service</p></div>
+            <div class="col-md-6"><p class="eventTexts">{{service}}</p></div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-8">
+              <p class="eventLabel" style="text-align:center;">When</p>
+              <div class="well well-lg eventTexts dateArea">
+                {{#with getDateFormat date}}
+                  <p class="dateFormat">{{date}}</p>
+                  <p class="dateFormat">{{month}}</p>
+                  <p class="dateFormat">{{year}}</p>
+                {{/with}}
+              </div>              
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">No. of Guest</div>
+            <div class="col-md-4">{{nog}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin-top: 20px;">
+    	<div class="col-md-11">
+    		<div id="myGrid" style="height: 200px;width: 540px;"></div>
+    	</div>
+    </div>
+    <div class="row" style="margin-top: 20px">
+    	<div class="col-md-2">&nbsp;</div>
+    	<div class="col-md-2">
+    		<button type="button" id="getSlickData" class="btn btn-primary">Submit</button>
+    	</div>
+    </div>
+  </div>	
 </template>

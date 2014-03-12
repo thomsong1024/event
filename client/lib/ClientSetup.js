@@ -8,6 +8,17 @@ Handlebars.registerHelper("each_with_index", function(array, fn) {
   }
   return buffer;
 });
+Handlebars.registerHelper('isNormalUser',function(){
+  if (Roles.userIsInRole(Meteor.user(), ['normal-user']))
+    return true;
+  return false;
+});
+
+Handlebars.registerHelper('isVendorUser',function(){
+  if (Roles.userIsInRole(Meteor.user(), ['vendor-user']))
+    return true;
+  return false;
+});
 
 Handlebars.registerHelper("eventTypesOptions", function(options) {
   var eventTypesOptions = EventTypes.find();
@@ -25,6 +36,7 @@ Handlebars.registerHelper('serviceObject',function(){
   var servicecat=ServiceCategories.find().fetch();
       return servicecat ;
 });
+
 Handlebars.registerHelper('arrayify',function(obj){
   var result = [];
   for (var key in obj) {
@@ -140,6 +152,11 @@ Handlebars.registerHelper('isCreated',function(){
 	return isEventCreated();
 });
 
+Handlebars.registerHelper('getLocation',function(id){
+  var location = Locations.findOne({_id: id});
+  return location.district+", "+location.city;
+});
+
 Handlebars.registerHelper('checkCategory',function(id, categories){
 	return isChecked(id, JSON.parse(categories));
 });
@@ -157,3 +174,48 @@ Handlebars.registerHelper('getActiveIndex',function(index){
   else
     return false;
 });
+
+Handlebars.registerHelper('checkServiceCount',function(obj){
+  console.log(obj.length)
+  if (obj.length < 5)
+    return false;
+  else 
+    return true;
+});
+
+Handlebars.registerHelper('getEventLists',function(obj){
+  var request = RequestQuote.find({vendorID: Session.get("vendorID")});
+  var objArray = [];
+  request.forEach( function (item) {
+    var eventData = Events.findOne({_id: item.eventID});
+    var obj = {};
+    obj.eventTitle = eventData.eventTitle;
+    obj.date = eventData.date;
+    obj.eventLocations = eventData.eventLocations;
+    obj.eventPrice = eventData.eventPrice;
+    obj._id = item._id;
+    obj.activeService = item.activeService;
+    objArray.push(obj);
+  });
+  return JSON.parse(JSON.stringify(objArray));
+  // return Events.find({_id: {$in: objArray}}).fetch();
+});
+
+Handlebars.registerHelper('categoryList',function(){
+  var servicecat=ServiceCategories.find({$and:[{parent:"0"}]}).fetch();
+  return servicecat;
+});
+
+Handlebars.registerHelper('getEventType',function(id){
+  var events = EventTypes.findOne({_id: id});
+  return events.type;
+});
+
+Handlebars.registerHelper('getDateFormat',function(date){
+  var obj = {};
+  obj.date = moment(date).date();
+  obj.month = moment.monthsShort('-MMM-', moment().month());
+  obj.year = moment().year();
+  return obj;
+});
+

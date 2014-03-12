@@ -1,6 +1,7 @@
   
 Template.CreateEvent.rendered = function() { 
   $(".set-due-date").datetimepicker();
+  // $('.datetimepicker').datetimepicker();
   // Assuming you're using jQuery
   var i=0; 
   var res = $('#event1'); // ID of the <span></span> on the plugin zone.    

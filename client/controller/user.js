@@ -39,6 +39,11 @@ Template.login.events({
 
 	        }
 	        else {
+	        	// console.log(Meteor.user().emails[0].address.trim())
+	        	if (Meteor.user().emails[0].address.trim() == "adminservice@gmail.com") {
+	        		Router.go("/admin");
+	        		return true;
+	        	}
 	        	// console.log(Meteor.userId());
 	        	if (Roles.userIsInRole(Meteor.user(), ['normal-user'])) {
 	        		Router.go('/dashboard'); 

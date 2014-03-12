@@ -29,30 +29,27 @@
             {{> eventTypes}}
         </div>
         <div class="tab-pane tab_inner" id="locations">
-         <div class="col-12 col-lg-4">
+         <div class="col-12 col-lg-8">
             {{> adminLocations}}  
          </div>          
         </div>        
-        <div class="tab-pane tab_inner" id="serviceCategory">
-         <legend align="center">Service Category</legend>
+        <div class="tab-pane tab_inner" id="serviceCategory">  
+         
          <div class="col-12 col-lg-8">
             {{> ServiceCateogiesTp}}
          </div>          
         </div>
         <div class="tab-pane tab_inner" id="createVendor">
-         <legend align="center">Create Vendor</legend>
          <div class="col-12 col-lg-8">
             {{> CreateVendor}}
          </div>          
         </div>        
         <div class="tab-pane tab_inner" id="createVendorUser">
-         <legend align="center">Create Vendor User</legend>
          <div class="col-12 col-lg-8">
             {{> CreateVendorUser}}
          </div>          
         </div>     
         <div class="tab-pane tab_inner" id="createVendorService">
-         <legend align="center">Create Vendor Service</legend>
          <div class="col-12 col-lg-8">
             {{> createVendorService}}
          </div>          
@@ -62,29 +59,38 @@
   </div>
 </template>
 <template name="eventTypes">
-  <legend align="center">Event Types</legend>
   <div class="col-12 col-lg-8">
-   {{#autoForm schema=schema id="EventTypeForm" doc=selectedEventTypes novalidate="novalidate"}}
-    <div class="formWrap">
-      <div class="form-group {{#if afFieldIsInvalid 'type'}}has-error{{/if}}">
-      {{afFieldLabel 'type'}}
-      {{afFieldInput 'type' autofocus='autofocus' placeholder="schemaLabel"}}
-      {{#if afFieldIsInvalid 'type'}}
-      <span class="help-block">{{afFieldMessage 'type'}}</span>
-      {{/if}}
+    <div class="page-header">
+      <h1>Event Type</h1>
+    </div> 
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2">&nbsp;</div>
+        <div class="col-md-8">
+         {{#autoForm schema=schema id="EventTypeForm" doc=selectedEventTypes novalidate="novalidate"}}
+          <div class="formWrap">
+            <div class="form-group {{#if afFieldIsInvalid 'type'}}has-error{{/if}}">
+            {{afFieldLabel 'type'}}
+            {{afFieldInput 'type' autofocus='autofocus' placeholder="schemaLabel"}}
+            {{#if afFieldIsInvalid 'type'}}
+            <span class="help-block">{{afFieldMessage 'type'}}</span>
+            {{/if}}
+          </div>
+        </div>
+        {{> buttons}}
+        {{/autoForm}}           
+        </div>
+      </div>
     </div>
-  </div>
-  {{> buttons}}
-  {{/autoForm}} 
   </div>
   <div class="col-12 col-lg-4">{{> eventTypeTable}}</div>  
 </template>
 
 <template name="adminLocations">
-  <legend align="center">Location</legend>
-  <div class="col-12 col-lg-8">
-    {{> LocationsTemplate}}
-  </div>  
+<div class="page-header">
+  <h1>Location</h1>
+</div> 
+  {{> LocationsTemplate}}
 </template>
  <template name="eventTypeTable">
   <table class="table table-bordered table-striped table-hover">
@@ -118,39 +124,46 @@
 
 
 <template name="LocationsTemplate">
-  {{#autoForm schema='LocationsForm' novalidate="novalidate" id="locationsForm"}}
-  <fieldset>
-    <div class="form-group {{#if afFieldIsInvalid 'district'}}has-error{{/if}}">
-      {{afFieldLabel 'district'}}
-      {{afFieldInput 'district'}}
-      {{#if afFieldIsInvalid 'district'}}
-      <span class="help-block">{{afFieldMessage 'district'}}</span>
-      {{/if}}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-2">&nbsp;</div>
+      <div class="col-md-8">
+        {{#autoForm schema='LocationsForm' novalidate="novalidate" id="locationsForm"}}
+        <fieldset>
+          <div class="form-group {{#if afFieldIsInvalid 'district'}}has-error{{/if}}">
+            {{afFieldLabel 'district'}}
+            {{afFieldInput 'district'}}
+            {{#if afFieldIsInvalid 'district'}}
+            <span class="help-block">{{afFieldMessage 'district'}}</span>
+            {{/if}}
+          </div>
+          <div class="form-group {{#if afFieldIsInvalid 'city'}}has-error{{/if}}">
+            {{afFieldLabel 'city'}}
+            {{afFieldInput 'city'}}
+            {{#if afFieldIsInvalid 'city'}}
+            <span class="help-block">{{afFieldMessage 'city'}}</span>
+            {{/if}}
+          </div>
+          <div class="form-group {{#if afFieldIsInvalid 'citycode'}}has-error{{/if}}">
+            {{afFieldLabel 'citycode'}}
+            {{afFieldInput 'citycode'}}
+            {{#if afFieldIsInvalid 'citycode'}}
+            <span class="help-block">{{afFieldMessage 'citycode'}}</span>
+            {{/if}}
+          </div>
+           <div class="form-group {{#if afFieldIsInvalid 'country'}}has-error{{/if}}">
+            {{afFieldLabel 'country'}}
+            {{afFieldInput 'country'}}
+            {{#if afFieldIsInvalid 'country'}}
+            <span class="help-block">{{afFieldMessage 'country'}}</span>
+            {{/if}}
+          </div>
+        </fieldset>
+        <button type="submit" class="btn btn-primary insert">Insert</button>
+        {{/autoForm}}        
+      </div>
     </div>
-    <div class="form-group {{#if afFieldIsInvalid 'city'}}has-error{{/if}}">
-      {{afFieldLabel 'city'}}
-      {{afFieldInput 'city'}}
-      {{#if afFieldIsInvalid 'city'}}
-      <span class="help-block">{{afFieldMessage 'city'}}</span>
-      {{/if}}
-    </div>
-    <div class="form-group {{#if afFieldIsInvalid 'citycode'}}has-error{{/if}}">
-      {{afFieldLabel 'citycode'}}
-      {{afFieldInput 'citycode'}}
-      {{#if afFieldIsInvalid 'citycode'}}
-      <span class="help-block">{{afFieldMessage 'citycode'}}</span>
-      {{/if}}
-    </div>
-     <div class="form-group {{#if afFieldIsInvalid 'country'}}has-error{{/if}}">
-      {{afFieldLabel 'country'}}
-      {{afFieldInput 'country'}}
-      {{#if afFieldIsInvalid 'country'}}
-      <span class="help-block">{{afFieldMessage 'country'}}</span>
-      {{/if}}
-    </div>
-  </fieldset>
-  <button type="submit" class="btn btn-primary insert">Insert</button>
-  {{/autoForm}}
+  </div>
 </template>
 
 <template name="LocationsTable">
@@ -184,28 +197,41 @@
 </template>	
 
 <template name="ServiceCateogiesTp">
-  {{#autoForm schema='ServiceCategoriesForm' novalidate="novalidate" id="servicecatForm"}}
-  <fieldset>
-    <div class="form-group {{#if afFieldIsInvalid 'name'}}has-error{{/if}}">
-      {{afFieldLabel 'name'}}
-      {{afFieldInput 'name'}}
-      {{#if afFieldIsInvalid 'name'}}
-        <span class="help-block">{{afFieldMessage 'name'}}</span>
-      {{/if}}
+  <div class="page-header">
+    <h1>Service Category</h1>
+  </div>   
+  <div class="container">
+    <div class="row">
+      <div class="col-md-2">&nbsp;</div>
+      <div class="col-md-8">
+        {{#autoForm class='form-horizontal' schema='ServiceCategoriesForm' novalidate="novalidate" id="servicecatForm"}}
+          <fieldset>
+            <div class="form-group {{#if afFieldIsInvalid 'name'}}has-error{{/if}}">
+              {{afFieldLabel 'name'}}
+              {{afFieldInput 'name'}}
+              {{#if afFieldIsInvalid 'name'}}
+                <span class="help-block">{{afFieldMessage 'name'}}</span>
+              {{/if}}
+            </div>
+            <div class="form-group {{#if afFieldIsInvalid 'parent'}}has-error{{/if}}">
+              {{afFieldLabel 'parent'}}
+              {{afFieldInput 'parent' options=categoryOptions}}
+            </div> 
+            <div class="form-group {{#if afFieldIsInvalid 'file'}}has-error{{/if}}">
+              {{afFieldLabel 'file'}}
+              <input type="file" name="file" id="file" />
+            </div>     
+            <button type="submit" class="btn btn-primary insert">Insert</button>
+          </fieldset>
+          {{/autoForm}}
+      </div>
     </div>
-    <div class="form-group {{#if afFieldIsInvalid 'parent'}}has-error{{/if}}">
-      {{afFieldLabel 'parent'}}
-      {{afFieldInput 'parent' options=categoryOptions}}
-    </div> 
-    <div class="form-group {{#if afFieldIsInvalid 'file'}}has-error{{/if}}">
-      {{afFieldLabel 'file'}}
-      <input type="file" name="file" id="file" />
-    </div>     
-    <button type="submit" class="btn btn-primary insert">Insert</button>
-  </fieldset>
-  {{/autoForm}}
+  </div>
 </template>
 <template name="CreateVendorUser">
+  <div class="page-header">
+    <h1>Create Vendor User</h1>
+  </div>     
   <div class="container">
     <div class="row">
       <div class="col-md-2">&nbsp;
@@ -291,6 +317,9 @@
 </template>
 
 <template name="createVendorService">
+  <div class="page-header">
+    <h1>Create Vendor Service</h1>
+  </div>   
   <div class="container">
     <div class="row">
       {{> flashMessages}}
@@ -298,10 +327,6 @@
       <div class="col-md-8">
         <form class="form-horizontal">
         <fieldset>
-
-        <!-- Form Name -->
-        <legend>Create Service</legend>
-
         <!-- Text input-->
         <div class="form-group">
           <label class="col-md-4 control-label" for="serviceName">Name</label>  
@@ -354,7 +379,6 @@
                       </div>
                     </div>
                   </div>
-                  
                 </div>
               </div>
             </div> 
@@ -415,6 +439,9 @@
 </template>
 
 <template name="CreateVendor">
+  <div class="page-header">
+    <h1>Create Vendor</h1>
+  </div>
   <div class="container">
     <div class="row">
       {{> flashMessages}}

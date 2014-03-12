@@ -10,9 +10,7 @@ autoform
 underscore
 iron-router
 smart-collections
-animate-css
 simple-schema
-bootstrap3-datetimepicker
 collection2
 jquery-validation
 roles
@@ -21,5 +19,8 @@ router
 accounts-base
 accounts-password
 flash-messages
-bootstrap3-less
+moment
+SlickGrid
+bootstrap3-dialog
 bootstrap-3
+jquery-ui

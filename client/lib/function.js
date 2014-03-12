@@ -29,3 +29,17 @@ getIdfromHyperLink = function (link) {
 	var data = link.split("_")[1];
 	return data;
 }
+getRootServiceFromChild = function (service) {
+	var serviceData = ServiceCategories.findOne({_id: service});
+	return serviceData.name;	
+	// if (parent != "0") {
+	// 	var rootService = ServiceCategories.findOne({_id: serviceData.parent});
+	// 	if (rootService) {
+	// 		return rootService.name;
+	// 	}
+	// }
+	// else {
+	// 	return serviceData.name;
+	// }
+	
+}

@@ -84,8 +84,8 @@ textarea.form-control {
   margin: 0px;
 }
 .parentCat {
-  border:1px solid #808080;
   margin: 10px;
+  padding: 10px;
 }
 .eventTexts{
    padding-top: 5px;
@@ -99,9 +99,13 @@ textarea.form-control {
 }
 .dateArea {
   margin: 5px auto 0px auto;
-  border: 1px solid #808080;
   text-align: center;
   width: 80px;
+  padding: 12px;
+}
+.eventDetail {
+  padding: 10px;
+  /*border:1px solid red;*/
 }
 .header {
   height: 40px;
@@ -110,7 +114,7 @@ textarea.form-control {
   cursor: pointer;
 }
 .pagelink {
-  color: #bde423;
+  color: #bde423; 
   padding: 10px;
 }
 .space {
@@ -145,4 +149,26 @@ input[type='file']{
 .showmoreArea {
   margin-top: 10px;
   height: 60px;
+  display: none;
+}
+.dateFormat {
+  margin: 0px;
+}
+
+.tbl_number {
+  width: 30px;
+}
+.viewbutton {
+  margin-top: 20px;
+}
+.tbl_container h5{
+  font-size: 14px;
+  margin: 5px;
+}
+
+[class^="slickgrid_"],
+[class^="slickgrid_"] div {
+  -webkit-box-sizing: content-box;
+     -moz-box-sizing: content-box;
+          box-sizing: content-box;
 }

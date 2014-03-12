@@ -2,7 +2,9 @@
   <div class="container">
     <div class="row">
         <div id="sidemenu" class="col-md-2">
-           Events
+          <div class="page-header">
+            <h4>Events</h4>
+          </div>
            <div id="list">
             <ul>
               {{#each eventLists}}
@@ -136,13 +138,23 @@
           </div>
         {{/each_with_index}}
         </div>
-      <div class="form-group">
+      <!-- div class="form-group">
         <label class="col-md-4 control-label" for="eventPrice">Price</label>  
         <div class="col-md-6">
         <input id="eventPrice" name="eventPrice" placeholder="" class="form-control input-md" required="" type="text">
-          
         </div>
-      </div>
+      </div> -->
+
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="eventDuration">Price Range</label>
+        <div class="col-md-6">
+          <select id="eventPrice" name="eventPrice" class="form-control">
+            {{#each getSelect "priceRange"}}
+              <option value="{{value}}">{{label}}</option>
+            {{/each}}
+          </select>
+        </div>
+      </div>      
 
       <!-- Textarea -->
       <div class="form-group">
