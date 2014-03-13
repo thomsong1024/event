@@ -61,9 +61,11 @@ Template.getServices.getServiceLists = function () {
   
   if (Session.get("activeEvents")) {
     var eventObj = Events.findOne({_id: Session.get("activeEvents")});
-    var vendors = VendorServices.find({$and:[{locations: eventObj.eventLocations}, {eventType: eventObj.eventTypes}, {nog: eventObj.nog}]});
-    var objArray = [];
+    var max = eventObj.nog.split("-")[1];
+    // console.log(eventObj);
+    var vendors = VendorServices.find({$and:[{locations: eventObj.eventLocations}, {eventType: eventObj.eventTypes}, {"nog": {$gt: parseFloat(max)}}]});
 
+    var objArray = [];
     vendors.forEach( function (item) {
       if (_.contains(JSON.parse(item.categories), Session.get("getActiveService"))) {
         var obj = {};

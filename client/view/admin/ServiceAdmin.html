@@ -346,11 +346,7 @@
         <div class="form-group">
           <label class="col-md-4 control-label" for="eventDuration">Capacity</label>
           <div class="col-md-6">
-            <select id="nog" name="nog" class="form-control">
-              {{#each getSelect "numberOfGuests"}}
-                <option value="{{value}}">{{label}}</option>
-              {{/each}}
-            </select>
+            <input id="nog" name="nog" placeholder="" class="form-control input-md" required="" type="text">
           </div>
         </div>
         <div class="col-md-4" align="right"><label class="control-label">Categories</label></div>
