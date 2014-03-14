@@ -62,18 +62,28 @@ Template.getServices.getServiceLists = function () {
   if (Session.get("activeEvents")) {
     var eventObj = Events.findOne({_id: Session.get("activeEvents")});
     var max = eventObj.nog.split("-")[1];
-    // console.log(eventObj);
-    var vendors = VendorServices.find({$and:[{locations: eventObj.eventLocations}, {eventType: eventObj.eventTypes}, {"nog": {$gt: parseFloat(max)}}]});
-
+    var eventType = [eventObj.eventTypes];
+    var eventLocations = [eventObj.eventLocations];
+    // console.log(Session.get("getActiveService"));
+    var categories = [Session.get("getActiveService")];
+    var vendors = VendorServices.find({$and:[{categories: {$in: categories}}, {locations: {$in: eventLocations}}, {eventType: {$in: eventType}}, {"nog": {$gt: parseFloat(max)}}]});
+    // console.log(max);
+    // var vendors = VendorServices.find({$and:[{eventType: {$in: eventType}}, {"nog": {$gt: 50}}]});
+    // console.log(vendors.fetch());
     var objArray = [];
     vendors.forEach( function (item) {
-      if (_.contains(JSON.parse(item.categories), Session.get("getActiveService"))) {
-        var obj = {};
-        obj.serviceName = item.serviceName;
-        obj.briefDescription = item.briefDescription;
-        obj.vendorId = item.vendorId;
-        objArray.push(obj);
-      }
+      var obj = {};
+      obj.serviceName = item.serviceName;
+      obj.briefDescription = item.briefDescription;
+      obj.vendorId = item.vendorId;
+      objArray.push(obj);      
+      // if (_.contains(JSON.parse(item.categories), Session.get("getActiveService"))) {
+      //   var obj = {};
+      //   obj.serviceName = item.serviceName;
+      //   obj.briefDescription = item.briefDescription;
+      //   obj.vendorId = item.vendorId;
+      //   objArray.push(obj);
+      // }
     });
     Session.set("eventsData", JSON.parse(JSON.stringify(objArray.slice(Session.get("showmore"), Session.get("showmore") + 5))));
     return Session.get("eventsData");

@@ -1,3 +1,4 @@
+VendorServices = new Meteor.Collection("vendorservice");
 Template.ServiceCateogiesTp.events( {
     'change input[type="file"]': function(ev, template) {
     	ev.preventDefault();
@@ -81,18 +82,34 @@ Template.createVendorService.events({
         var obj = {};
         obj.serviceName = serviceName.value;
         obj.briefDescription = briefDescription.value;
-        obj.nog = nog.value;
+        obj.nog = parseFloat(nog.value);
         var checked = [];
         $("input[name='categories[]']:checked").each( function ( ){
           checked.push($(this).val());
         });
-        obj.categories = JSON.stringify(checked);
+        obj.categories = checked;
+
+        var eventTypes = [];
+
+        $("input[name='eventTypes[]']:checked").each( function ( ){
+          eventTypes.push($(this).val());
+        });
+
+        obj.eventType = eventTypes;
         obj.priceRange = priceRange.value;
-        obj.eventType = event_Type.value;
-        obj.locations = eventLocations.value;
+
+        var eventLocations = [];
+
+        $("input[name='locations[]']:checked").each( function ( ){
+          eventLocations.push($(this).val());
+        });
+        obj.locations = eventLocations;
+
         obj.vendorId = vendorData.value;
-        console.log(vendorData.value)
-        var id = VendorServices.insert(obj);
+        // console.log(VendorServices); return false;
+        var id = VendorServices.insert(obj, function (error, result) {
+            console.log(error);
+        });
         if (id) {
             var message = "You have created new Services. Thanks";
             FlashMessages.sendSuccess(message, { hideDelay: 3500 });            

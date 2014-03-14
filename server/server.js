@@ -1,3 +1,4 @@
+VendorServices = new Meteor.Collection("vendorservice");
 if (Meteor.isServer) {
     Meteor.startup(function () {
 		Meteor.publish("eventtypes", function() {

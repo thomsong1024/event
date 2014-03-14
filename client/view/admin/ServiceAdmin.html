@@ -344,7 +344,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="col-md-4 control-label" for="eventDuration">Capacity</label>
+          <label class="col-md-4 control-label" for="nog">Capacity</label>
           <div class="col-md-6">
             <input id="nog" name="nog" placeholder="" class="form-control input-md" required="" type="text">
           </div>
@@ -392,25 +392,27 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="col-md-4 control-label" for="event_Type">Event Type</label>
-          <div class="col-md-6">
-            <select id="event_Type" name="event_Type" class="form-control">
-              {{#each getSelect "eventTypes"}}
-                <option value="{{value}}">{{label}}</option>
-              {{/each}}
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-md-4 control-label" for="eventLocations">Locations</label>
-          <div class="col-md-6">
-            <select id="eventLocations" name="eventLocations" class="form-control">
-              {{#each getSelect "eventLocations"}}
-                <option value="{{value}}">{{label}}</option>
-              {{/each}}
-            </select>
+          <label class="col-md-4 control-label" for="locations">Event Type</label>
+          <div class="col-md-4">
+            {{#each_with_index getSelect "eventTypes"}}
+              <label class="checkbox-inline" for="locations-{{index}}">
+                <input name="eventTypes[]" id="eventTypes-{{index}}" value="{{value}}" type="checkbox">
+                {{label}}
+              </label>            
+            {{/each_with_index}}            
           </div>
         </div>        
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="locations">Locations</label>
+          <div class="col-md-4">
+            {{#each_with_index getSelect "eventLocations"}}
+              <label class="checkbox-inline" for="locations-{{index}}">
+                <input name="locations[]" id="locations-{{index}}" value="{{value}}" type="checkbox">
+                {{label}}
+              </label>            
+            {{/each_with_index}}            
+          </div>
+        </div>
         <div class="form-group">
           <label class="col-md-4 control-label" for="vendors">Vendor</label>
           <div class="col-md-6">
