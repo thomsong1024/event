@@ -19,9 +19,15 @@ if (Meteor.isServer) {
 		Meteor.publish("vendors", function () {
 		  return Vendors.find();
 		});		
-		Meteor.publish("reponseList", function () {
+		Meteor.publish("requestQuote", function () {
 		  return RequestQuote.find();
 		});		
+		Meteor.publish("messages", function () {
+		  return Messages.find();
+		});	
+		Meteor.publish("quotationDetail", function () {
+			return QuotationDetail.find();
+		});	
 
 		Meteor.methods({
 		    createUserWithRole: function (obj, roles) {
@@ -46,7 +52,19 @@ if (Meteor.isServer) {
         	},
 	        getEnv: function () {
 	         return process.env.ROOT_URL;
-	        }        			    
+	        },
+	        updateUnreadMessages : function (id) {
+	        	if (Roles.userIsInRole(Meteor.user(), ['vendor-user'])) {
+					Messages.update({$or: [{_id: id}, {parents: id}]}, {$set: {vendorUnread: false}}, {multi: true});
+					// Messages.update({_id: id}, {$set: {vendorUnread: false}});
+					// Messages.update({parents: id}, {$set: {vendorUnread: false}});
+	        	}
+	        	else {
+					Messages.update({$or: [{_id: id}, {parents: id}]}, {$set: {userUnread: false}}, {multi: true});
+					// Messages.update({_id: id}, {$set: {userUnread: false}});
+					// Messages.update({parents: id}, {$set: {userUnread: false}});	
+	        	}
+	        }      			    
         });
 		if (EventTypes.find().count() === 0) {
 			EventTypes.insert({ type:'Birthday'});

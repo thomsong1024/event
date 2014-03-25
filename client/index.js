@@ -9,6 +9,7 @@ Meteor.subscribe("servicecategories");
 Meteor.subscribe("eventList");
 Meteor.subscribe("vendors");
 Meteor.subscribe("vendorservices");
+Meteor.subscribe("messages");
 
 Meteor.call("getEnv", function (error, result) {
   Session.set("serverHost", result);

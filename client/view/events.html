@@ -124,10 +124,10 @@
 
 <template name="getServices">
   <div class="table-responsive" style="width: 800px;">
-    <table class="table table-hover table-striped">
+    <table class="table">
       <tbody>
         {{#each getServiceLists}}
-          <tr>
+          <tr class="{{requested}}">
             <td style="width: 60px">
               <img src="..." alt="" class="img-thumbnail">
             </td>
@@ -139,7 +139,7 @@
                 </div>
                 <div class="col-md-4" style="padding-top: 20px;">
                     <button class="btn btn-default">Contact</button>
-                    <button class="btn btn-primary request" dataId="{{vendorId}}">Request Quote</button>
+                    <button class="btn btn-primary request" {{disable}} dataServiceID={{vendorServiceID}} dataId="{{vendorId}}">Request Quote</button>
                 </div>
               </div>
             </td>

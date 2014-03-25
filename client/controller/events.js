@@ -34,6 +34,7 @@ Template.ListEvent.events({
 
 Template.ListEvent.getSelectedCategories = function () {
   var events=Events.findOne({_id: Session.get("activeEvents")});
+  // console.log(requestedQuotation);
   var data =ServiceCategories.find({_id:{$in: JSON.parse(events.categories)}}).fetch();
   return data;
 }
@@ -66,17 +67,26 @@ Template.getServices.getServiceLists = function () {
     var eventLocations = [eventObj.eventLocations];
     // console.log(Session.get("getActiveService"));
     var categories = [Session.get("getActiveService")];
-    var vendors = VendorServices.find({$and:[{categories: {$in: categories}}, {locations: {$in: eventLocations}}, {eventType: {$in: eventType}}, {"nog": {$gt: parseFloat(max)}}]});
+    var vendorServices = VendorServices.find({$and:[{categories: {$in: categories}}, {locations: {$in: eventLocations}}, {eventType: {$in: eventType}}, {"nog": {$gt: parseFloat(max)}}]});
     // console.log(max);
     // var vendors = VendorServices.find({$and:[{eventType: {$in: eventType}}, {"nog": {$gt: 50}}]});
     // console.log(vendors.fetch());
     var objArray = [];
-    vendors.forEach( function (item) {
+    vendorServices.forEach( function (item) {
+      var requestedQuotation = RequestQuote.findOne({$and: [{eventID: Session.get("activeEvents")}, {vendorServiceID: item._id}, {activeService: Session.get("getActiveService")}]});
       var obj = {};
       obj.serviceName = item.serviceName;
       obj.briefDescription = item.briefDescription;
       obj.vendorId = item.vendorId;
-      objArray.push(obj);      
+      obj.vendorServiceID = item._id;
+      obj.requested = "";
+      obj.disable = "";
+
+      if (requestedQuotation) {
+        obj.requested = "requested";
+        obj.disable = "disabled";
+      }
+      objArray.push(obj);
       // if (_.contains(JSON.parse(item.categories), Session.get("getActiveService"))) {
       //   var obj = {};
       //   obj.serviceName = item.serviceName;
@@ -97,19 +107,39 @@ Template.getServices.events({
     BootstrapDialog.confirm('Are you sure?', function (result) {
       if (result == true) {
         var vendorID = ev.target.attributes.dataId.nodeValue;
+        var vendorServiceID = ev.target.attributes.dataServiceID.nodeValue;
         var obj = {};
         obj.eventID = Session.get("activeEvents");
         obj.vendorID = vendorID;
+        obj.vendorServiceID = vendorServiceID;
         obj.activeService = Session.get("getActiveService");
+        obj.userID = Meteor.userId();
+
         RequestQuote.insert(obj);
 
         var vendor = Vendors.findOne({_id: vendorID});
-        var to = vendor.companyEmail
+        var to = vendor.companyEmail;
         var from = Meteor.user().emails[0].address;
+
         var subject = "Request Quote";
+
         var html = "<p> <a href='"+Session.get("serverHost")+"/login'>The event is created for your service! </a></p>";
         Meteor.call("sendEmail", to, from, subject, "", html, function (error, result) {
           if (error){
+            // var messages = { "userID" : Meteor.userId(), "vendorID" : vendorID, "texts" : "text", "Request Quote" : "eventID", "categoryID" : "categoryID", "from" : "from", "attachment" : "attachment", "dates" : "dates", "parents" : "parent", "_id" : "gzoKZRXEkgJXimGCh" };
+            // Messages.insert(messages); return false;
+            var messages = {};
+            messages.userID = Meteor.userId();
+            messages.vendorID = vendorID;
+            messages.texts = "Request Quote";
+            messages.eventID = Session.get("activeEvents");
+            messages.categoryID = Session.get("getActiveService");
+            messages.from = "user";
+            messages.dates = moment().unix();
+            messages.parents = "0";
+            messages.userUnread = false;
+            messages.vendorUnread = true;
+            Messages.insert(messages);
             console.log(error);
           }
           else {

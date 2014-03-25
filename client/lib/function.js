@@ -29,6 +29,13 @@ getIdfromHyperLink = function (link) {
 	var data = link.split("_")[1];
 	return data;
 }
+getLatestMessage = function (parent) {
+	var message = Messages.findOne({parents: parent}, {sort: {dates: -1}});
+	if (message)
+		return message.texts;
+	else 
+		return "";
+}
 getRootServiceFromChild = function (service) {
 	var serviceData = ServiceCategories.findOne({_id: service});
 	return serviceData.name;	

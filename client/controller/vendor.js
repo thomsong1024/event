@@ -2,18 +2,13 @@ Template.vendorEventDetail.events( {
   "click #getSlickData": function () {
     var gridData = JSON.stringify(grid.getData());
     if (gridData.length > 0){
-      // console.log("eventID = "+ Session.get("activeEvents"));
-      // console.log("vendorID = "+ Session.get("vendorID"));
       var obj = {};
       obj.eventID = Session.get("activeEvents")
       obj.vendorID = Session.get("vendorID")
       obj.detail = JSON.stringify(grid.getData());
-      RequestDetail.insert(obj);
+      obj.serviceCat = Session.get("activeService");
+      QuotationDetail.insert(obj);
     }
-      // console.log(JSON.stringify(grid.getData()));
-      
-    // console.log(grid.getData());
-    // alert(grid.getData());
   } 
 });
 Template.vendorEventDetail.rendered = function () {
@@ -25,14 +20,17 @@ Template.vendorEventDetail.rendered = function () {
       return {valid: true, msg: null};
     }
   }
-
   var data = [];
+  var quotations = QuotationDetail.findOne({$and:[{eventID: Session.get("activeEvents")}, {serviceCat: Session.get("activeService")}, {vendorID: Session.get("vendorID")}]});
+  if (quotations){
+    data = JSON.parse(quotations.detail);
+  }
   var columns = [
     {id: "name", name: "Name", field: "name", width: 100, cssClass: "cell-title", editor: Slick.Editors.Text},
     {id: "desc", name: "Description", field: "description", width: 200, editor: Slick.Editors.Text},
     {id: "rate", name: "Rate", field: "rate", width: 80, editor: Slick.Editors.Integer},
     {id: "quantity", name: "Quantity", field: "quantity", width: 80, editor: Slick.Editors.Integer},
-    {id: "total", name: "Total", field: "total", width: 80}
+    {id: "price", name: "Price", field: "price", width: 80}
   ];
   var options = {
     editable: true,
@@ -89,19 +87,19 @@ Template.vendorEventDetail.rendered = function () {
 
    this.updateTotals = function() {
       var rowCount = data.length;
+      var aTotal = 0;
       while(rowCount--) {
         var total = parseFloat(data[rowCount]["rate"]) * parseFloat(data[rowCount]["quantity"]);
         if (isNaN(total))
           total = 0;
-        data[rowCount]["total"] = total;
+        data[rowCount]["price"] = total;
+        aTotal = aTotal + total;
       }
-      // console.log(data);
+      $("#totalValue").html("$"+aTotal);
     };
-
     this.getItemMetadata = function(index) {
       return (index != data.length) ? null : totalsMetadata;
     };
-
     this.updateTotals();
   }
 

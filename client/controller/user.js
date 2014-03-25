@@ -46,9 +46,11 @@ Template.login.events({
 	        	}
 	        	// console.log(Meteor.userId());
 	        	if (Roles.userIsInRole(Meteor.user(), ['normal-user'])) {
+	        		Session.set("userType", "event-user");
 	        		Router.go('/dashboard'); 
 	        	}
 	        	else if (Roles.userIsInRole(Meteor.user(), ['vendor-user'])) {
+	        		Session.set("userType", "vendor-user");
 					Router.go('/vendor'); 
 	        	}
 	        	else {

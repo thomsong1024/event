@@ -20,6 +20,21 @@ Handlebars.registerHelper('isVendorUser',function(){
   return false;
 });
 
+Handlebars.registerHelper('newMessages',function(){
+  if (Meteor.user()) {
+    if (Roles.userIsInRole(Meteor.user(), ['normal-user'])) {
+      var messages = Messages.find( {$and: [{userID: Meteor.userId()}, {userUnread: true}]} );
+    }
+    else if (Roles.userIsInRole(Meteor.user(), ['vendor-user'])) {
+      // var vendorId = Meteor.users.find();
+      var messages = Messages.find( {$and: [{vendorID: Meteor.users.findOne().profile.vendorID}, {vendorUnread: true}]} );
+    }
+    if (messages.count() > 0)
+      $(".counter").show();
+    return messages.count();    
+  }
+});
+
 Handlebars.registerHelper("eventTypesOptions", function(options) {
   var eventTypesOptions = EventTypes.find();
   var eventTypesObjArray =[];
@@ -35,6 +50,10 @@ Handlebars.registerHelper("eventTypesOptions", function(options) {
 Handlebars.registerHelper('serviceObject',function(){
   var servicecat=ServiceCategories.find().fetch();
       return servicecat ;
+});
+
+Handlebars.registerHelper('getDatesFromTimeStamp',function(timestamp){
+  return moment(timestamp, "X").format("YYYY-MM-DD HH:mm A");
 });
 
 Handlebars.registerHelper('arrayify',function(obj){

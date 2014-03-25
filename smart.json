@@ -17,6 +17,9 @@
     "SlickGrid": {
       "git": "https://github.com/kingservice/SlickGrid.git"
     },
-    "jquery-ui": {}
+    "jquery-ui": {},
+    "meteor-timeliner": {
+      "git": "https://github.com/kingservice/timeline.git"
+    }
   }
 }
