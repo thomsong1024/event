@@ -3,25 +3,38 @@ Template.vendorEventDetail.events( {
     var gridData = JSON.stringify(grid.getData());
     if (gridData.length > 0){
       var obj = {};
-      obj.eventID = Session.get("activeEvents")
-      obj.vendorID = Session.get("vendorID")
+      obj.requestQuoteID = Session.get("requesetQuoteID");
       obj.detail = JSON.stringify(grid.getData());
-      obj.serviceCat = Session.get("activeService");
-      QuotationDetail.insert(obj);
+      var id = QuotationDetail.insert(obj);
+      // console.log(Messages.find().fetch()); return false;
+      if (id) {
+        var requestQuote = RequestQuote.findOne({_id: Session.get("requesetQuoteID")});
+        if (requestQuote) {
+          // console.log(Messages.find().fetch()); return false;
+          var message = Messages.findOne({$and: [{eventID: requestQuote.eventID}, {vendorID: requestQuote.vendorID}, {categoryID: requestQuote.activeService}, {parents: "0"}]});
+          var obj = {};
+          obj.categoryID = requestQuote.activeService;
+          obj.dates = moment().unix();
+          obj.eventID = requestQuote.eventID;
+          obj.texts = "<div>" + JSON.stringify(grid.getData())+"</div>";
+          obj.userID = requestQuote.userID;
+          obj.vendorID = requestQuote.vendorID;
+          obj.parents = message._id;     
+          obj.userUnread = true;
+          obj.vendorUnread = false;
+          obj.from = "vendor";
+          obj.mtype = "quotation";
+          Messages.insert(obj); 
+        }       
+      }
     }
   } 
 });
 Template.vendorEventDetail.rendered = function () {
- 
-   function requiredFieldValidator(value) {
-    if (value == null || value == undefined || !value.length) {
-      return {valid: false, msg: "This is a required field"};
-    } else {
-      return {valid: true, msg: null};
-    }
-  }
   var data = [];
-  var quotations = QuotationDetail.findOne({$and:[{eventID: Session.get("activeEvents")}, {serviceCat: Session.get("activeService")}, {vendorID: Session.get("vendorID")}]});
+  Meteor.subscribe("quotationDetail");
+  var quotations = QuotationDetail.findOne({requestQuoteID:Session.get("requesetQuoteID")});
+  // console.log(quotations);
   if (quotations){
     data = JSON.parse(quotations.detail);
   }
@@ -62,7 +75,13 @@ Template.vendorEventDetail.rendered = function () {
     });    
   })
 }
-
+   function requiredFieldValidator(value) {
+    if (value == null || value == undefined || !value.length) {
+      return {valid: false, msg: "This is a required field"};
+    } else {
+      return {valid: true, msg: null};
+    }
+  }
   function TotalsDataProvider(data, columns) {
     var totals = {};
     var totalsMetadata = {

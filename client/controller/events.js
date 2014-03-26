@@ -139,6 +139,7 @@ Template.getServices.events({
             messages.parents = "0";
             messages.userUnread = false;
             messages.vendorUnread = true;
+            messages.mtype = "text";
             Messages.insert(messages);
             console.log(error);
           }

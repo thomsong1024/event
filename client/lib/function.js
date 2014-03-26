@@ -31,10 +31,16 @@ getIdfromHyperLink = function (link) {
 }
 getLatestMessage = function (parent) {
 	var message = Messages.findOne({parents: parent}, {sort: {dates: -1}});
-	if (message)
-		return message.texts;
-	else 
-		return "";
+	if (message){
+		if (message.mtype == "quotation")
+			return "Quotation From Vendor.";
+
+		if (message)
+			return message.texts;
+		else 
+			return "";
+		
+	}
 }
 getRootServiceFromChild = function (service) {
 	var serviceData = ServiceCategories.findOne({_id: service});

@@ -204,6 +204,7 @@ Handlebars.registerHelper('checkServiceCount',function(obj){
 
 Handlebars.registerHelper('getEventLists',function(obj){
   var request = RequestQuote.find({vendorID: Session.get("vendorID")});
+  // console.log(Session.get("vendorID"));
   var objArray = [];
   request.forEach( function (item) {
     var eventData = Events.findOne({_id: item.eventID});
@@ -236,5 +237,18 @@ Handlebars.registerHelper('getDateFormat',function(date){
   obj.month = moment.monthsShort('-MMM-', moment().month());
   obj.year = moment().year();
   return obj;
+});
+
+//Get Quotation Table From Message texts
+
+Handlebars.registerHelper('getQuotationTableFromMessage',function(id){
+  var quotation = Messages.findOne({_id: id}).texts;
+  return JSON.parse(quotation);
+});
+
+Handlebars.registerHelper('getMtype',function(value){
+  if (value == "quotation")
+    return true;
+  return false;
 });
 
