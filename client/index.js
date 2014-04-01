@@ -1,7 +1,4 @@
 
-EventTypeForm = new AutoForm(EventTypes);
-LocationsForm = new AutoForm(Locations);
-ServiceCategoriesForm = new AutoForm(ServiceCategories);
 
 Meteor.subscribe("eventtypes");
 Meteor.subscribe("locations");
@@ -95,36 +92,7 @@ ServiceCategories.allow({
 });
 
 Meteor.startup(function() {
-  EventTypeForm.hooks({
-    after: cb,
-    before: {
-      insert: function (doc) {
-        return doc;
-      }
-    }
-  });
 
-  LocationsForm.hooks({
-    before: {
-      remove: function(id) {
-        var name = Locations.findOne(id);
-        return confirm("Remove " + district + "?");
-      },
-      insert: function (doc) {
-        console.log(doc);
-        return doc;
-      }      
-     },
-     after: {
-      insert: function (error, result) {
-        console.log(error);
-      }
-     }
-  });
-  ServiceCategoriesForm.hooks({
-    after: uploadCategoryAfter,
-    before: uploadCategoryBefore
-  });
   // EventCreationForms.hooks({
   //   after: cb,
   //   before: {

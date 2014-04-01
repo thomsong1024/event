@@ -1,12 +1,13 @@
 Handlebars.registerHelper("each_with_index", function(array, fn) {
-	// console.log(array);
-  var buffer = "";
-  for (var i = 0, j = array.length; i < j; i++) {
-    var item = array[i];
-    item.index = i;
-    buffer += fn(item);
-  }
-  return buffer;
+    if (array != undefined){
+      for (var i = 0, j = array.length; i < j; i++) {
+        var item = array[i];
+        item.index = i;
+        buffer += fn(item);
+      }
+      return buffer;
+    }
+    return "";
 });
 Handlebars.registerHelper('isNormalUser',function(){
   if (Roles.userIsInRole(Meteor.user(), ['normal-user']))
@@ -57,12 +58,17 @@ Handlebars.registerHelper('getDatesFromTimeStamp',function(timestamp){
 });
 
 Handlebars.registerHelper('arrayify',function(obj){
-  var result = [];
-  for (var key in obj) {
-      if (obj[key].parent == 0) // Eliminate the top most level of the category 
-        result.push({name:obj[key].name,parent:obj[key]._id});
-  }
-  return result;
+  var i = 0;
+    var result = [];
+    for (var key in obj) {
+        if (obj[key].parent == 0){
+          i++;
+          result.push({name:obj[key].name,parent:obj[key]._id, index: i});
+
+        } // Eliminate the top most level of the category 
+          
+    }
+    return result;
 });
 
 Handlebars.registerHelper('getSubs',function(services, parent){
@@ -181,7 +187,9 @@ Handlebars.registerHelper('checkCategory',function(id, categories){
 });
 
 Handlebars.registerHelper('eventLists',function(){
-  return Events.find().fetch();
+  var events = Events.find();
+  if (events.count() > 0);
+    return Events.find().fetch();
 });
 Handlebars.registerHelper('isUseLoggedIn',function(){
   return isUserLoggedIn();
