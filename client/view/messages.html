@@ -1,0 +1,100 @@
+<template name="messagesList">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-2">&nbsp;</div>
+			<div class="col-md-8">
+				<table class="table table-striped table-bordered">
+					{{#each messageLists}}
+					<tr>
+						<td width="60px"><img src="{{thumbnail}}" class="thumbnail" style="margin-bottom:0px;" /></td>
+						<td width="200px">
+							<h4>{{vendorName}}</h4>
+							<p>{{getDatesFromTimeStamp dates}}</p>
+						</td>
+						<td>
+							<h5><a href="/ms/{{_id}}">{{eventsName}} - {{serviceCategoryName}}</a></h5>
+							<p>{{message}}</p>
+						</td>
+					</tr>
+					{{/each}}
+				</table>
+			</div>
+		</div>
+	</div>
+</template>
+<template name="message">
+	<div class="container">
+		<div class="row">
+		<div id="timelineContainer" class="timelineContainer">
+			<div class="timelineToggle"><p><a class="expandAll">+ expand all</a></p></div>
+
+			<br class="clear">
+			{{#each bmessages}}
+				<div class="timelineMajor">
+					<h2 class="timelineMajorMarker"><span>{{getDatesFromTimeStamp dates}}</span></h2>
+					<dl class="timelineMinor">
+						<dt id="{{_id}}">
+							<a>
+								<div class="row">
+									<div class="col-md-2">
+										<img src="{{logo}}" class="thumbnail"/>
+									</div>
+									<div class="col-md-4">
+										<h4>{{name}}</h4>
+									</div>
+								</div>
+							</a>	
+						</dt>
+						<dd class="timelineEvent" id="{{_id}}EX" style="display:none;">
+							<h3>{{dates}}</h3>
+							{{#if getMtype mtype}}
+								{{> quotationTable}}
+							{{else}}
+								<p>{{texts}}</p>
+							{{/if}}
+							<br class="clear">
+						</dd><!-- /.timelineEvent -->
+					</dl><!-- /.timelineMinor -->
+				</div><!-- /.timelineMajor -->
+			{{/each}}
+			<br class="clear">
+		</div><!-- /#timelineContainer -->	
+		<div class="row">
+			<div class="col-md-2">&nbsp;</div>
+			<div class="col-md-6">
+				<textarea name="messageText" id="messageText" class="form-control" rows="3"></textarea>
+			</div>
+		</div>
+		<div class="row" style="margin-top: 10px;">
+			<div class="col-md-2">&nbsp;</div>
+			<div class="col-md-4"><button type="button" class="btn btn-primary" id="addMessage">Add Message</button>
+			</div>
+		</div>
+		</div>
+	</div>
+</template>
+<template name="quotationTable">
+	<p style="font-size: 18px;"><span class="label label-default">Quotation From Vendor.</span></p>
+	<div class="container">
+		<div class="row">
+			<table class="table">
+				<tr>
+					<td>Description</td>
+					<td>Name</td>
+					<td>Rate</td>
+					<td>Quantity</td>
+					<td>Price</td>
+				</tr>
+				{{#each getQuotationTableFromMessage _id}}
+				<tr>
+					<td>{{description}}</td>
+					<td>{{name}}</td>
+					<td>{{rate}}</td>
+					<td>{{quantity}}</td>
+					<td>{{price}}</td>
+				</tr>
+				{{/each}}
+			</table>
+		</div>
+	</div>
+</template>
