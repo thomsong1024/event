@@ -67,18 +67,7 @@
       <div class="row">
         <div class="col-md-2">&nbsp;</div>
         <div class="col-md-8">
-         {{#autoForm schema=schema id="EventTypeForm" doc=selectedEventTypes novalidate="novalidate"}}
-          <div class="formWrap">
-            <div class="form-group {{#if afFieldIsInvalid 'type'}}has-error{{/if}}">
-            {{afFieldLabel 'type'}}
-            {{afFieldInput 'type' autofocus='autofocus' placeholder="schemaLabel"}}
-            {{#if afFieldIsInvalid 'type'}}
-            <span class="help-block">{{afFieldMessage 'type'}}</span>
-            {{/if}}
-          </div>
-        </div>
-        {{> buttons}}
-        {{/autoForm}}           
+   
         </div>
       </div>
     </div>
@@ -103,9 +92,7 @@
       <tr>
         <td><button type="button" class="btn-link eventTypeSelect">{{type}}</button></td>
         <td>
-          {{#autoForm schema='EventTypes' doc=this novalidate="novalidate"}}
-          <button type="submit" class="btn btn-primary remove">Delete</button>
-          {{/autoForm}}
+
         </td>
       </tr>
       {{/each}}
@@ -128,39 +115,7 @@
     <div class="row">
       <div class="col-md-2">&nbsp;</div>
       <div class="col-md-8">
-        {{#autoForm schema='LocationsForm' novalidate="novalidate" id="locationsForm"}}
-        <fieldset>
-          <div class="form-group {{#if afFieldIsInvalid 'district'}}has-error{{/if}}">
-            {{afFieldLabel 'district'}}
-            {{afFieldInput 'district'}}
-            {{#if afFieldIsInvalid 'district'}}
-            <span class="help-block">{{afFieldMessage 'district'}}</span>
-            {{/if}}
-          </div>
-          <div class="form-group {{#if afFieldIsInvalid 'city'}}has-error{{/if}}">
-            {{afFieldLabel 'city'}}
-            {{afFieldInput 'city'}}
-            {{#if afFieldIsInvalid 'city'}}
-            <span class="help-block">{{afFieldMessage 'city'}}</span>
-            {{/if}}
-          </div>
-          <div class="form-group {{#if afFieldIsInvalid 'citycode'}}has-error{{/if}}">
-            {{afFieldLabel 'citycode'}}
-            {{afFieldInput 'citycode'}}
-            {{#if afFieldIsInvalid 'citycode'}}
-            <span class="help-block">{{afFieldMessage 'citycode'}}</span>
-            {{/if}}
-          </div>
-           <div class="form-group {{#if afFieldIsInvalid 'country'}}has-error{{/if}}">
-            {{afFieldLabel 'country'}}
-            {{afFieldInput 'country'}}
-            {{#if afFieldIsInvalid 'country'}}
-            <span class="help-block">{{afFieldMessage 'country'}}</span>
-            {{/if}}
-          </div>
-        </fieldset>
-        <button type="submit" class="btn btn-primary insert">Insert</button>
-        {{/autoForm}}        
+     
       </div>
     </div>
   </div>
@@ -204,21 +159,22 @@
     <div class="row">
       <div class="col-md-2">&nbsp;</div>
       <div class="col-md-8">
-        {{#autoForm class='form-horizontal' schema='ServiceCategoriesForm' novalidate="novalidate" id="servicecatForm"}}
+
+        {{#autoForm class='form-horizontal' schema='ServiceCategoriesSchema' novalidate="novalidate" id="servicecatForm"}}
           <fieldset>
-            <div class="form-group {{#if afFieldIsInvalid 'name'}}has-error{{/if}}">
-              {{afFieldLabel 'name'}}
-              {{afFieldInput 'name'}}
-              {{#if afFieldIsInvalid 'name'}}
-                <span class="help-block">{{afFieldMessage 'name'}}</span>
+            <div class="form-group {{#if afFieldIsInvalid name='name' }}has-error{{/if}}">
+              {{> afFieldLabel name='name'}}
+              {{> afFieldInput name='name'}}
+               {{#if afFieldIsInvalid name="name" autoform=..}}
+               <span class="help-block">{{afFieldMessage name="name" autoform=..}}</span> 
               {{/if}}
             </div>
-            <div class="form-group {{#if afFieldIsInvalid 'parent'}}has-error{{/if}}">
-              {{afFieldLabel 'parent'}}
-              {{afFieldInput 'parent' options=categoryOptions}}
+            <div class="form-group {{#if afFieldIsInvalid name='parent'}}has-error{{/if}}">
+              {{> afFieldLabel name='parent'}}
+              {{>afFieldInput name='parent' options=categoryOptions}}
             </div> 
-            <div class="form-group {{#if afFieldIsInvalid 'file'}}has-error{{/if}}">
-              {{afFieldLabel 'file'}}
+            <div class="form-group {{#if afFieldIsInvalid name='file'}}has-error{{/if}}">
+              {{> afFieldLabel name='file'}}
               <input type="file" name="file" id="file" />
             </div>     
             <button type="submit" class="btn btn-primary insert">Insert</button>
@@ -351,7 +307,7 @@
         </div>
         <div class="col-md-4" align="right"><label class="control-label">Categories</label></div>
         <div class="col-md-6">
-        {{#each_with_index arrayify serviceObject}}
+        {{#each arrayify serviceObject}}
           <div class="form-group">
             <div class="panel-group" id="accordion">
               <div class="panel panel-default">
@@ -363,23 +319,23 @@
                   </h4>
                 </div>
                 <div id="collapse{{index}}" class="panel-collapse collapse out">
-                  
                   <div class="panel-body">
                     <div class="form-group">
                       <div class="col-md-4">
-                        {{#each_with_index getSubs serviceObject parent}}
+                        {{#each getSubs serviceObject parentItem}}
                         <label class="checkbox-inline" for="{{_id}}"> 
                           <input type="checkbox" name="categories[]" id="{{_id}}" value="{{_id}}" /> {{name}}
                         </label>
-                        {{/each_with_index}}
+                        {{/each}}
                       </div>
                     </div>
                   </div>
+                  
                 </div>
               </div>
             </div> 
           </div>
-          {{/each_with_index}}
+        {{/each}}
         </div>       
         <div class="form-group">
           <label class="col-md-4 control-label" for="eventDuration">Price Range</label>
@@ -394,23 +350,23 @@
         <div class="form-group">
           <label class="col-md-4 control-label" for="locations">Event Type</label>
           <div class="col-md-4">
-            {{#each_with_index getSelect "eventTypes"}}
-              <label class="checkbox-inline" for="locations-{{index}}">
-                <input name="eventTypes[]" id="eventTypes-{{index}}" value="{{value}}" type="checkbox">
+            {{#each getSelect "eventTypes"}}
+              <label class="checkbox-inline" for="locations-{{_id}}">
+                <input name="eventTypes[]" id="eventTypes-{{_id}}" value="{{value}}" type="checkbox">
                 {{label}}
               </label>            
-            {{/each_with_index}}            
+            {{/each}}            
           </div>
         </div>        
         <div class="form-group">
           <label class="col-md-4 control-label" for="locations">Locations</label>
           <div class="col-md-4">
-            {{#each_with_index getSelect "eventLocations"}}
-              <label class="checkbox-inline" for="locations-{{index}}">
-                <input name="locations[]" id="locations-{{index}}" value="{{value}}" type="checkbox">
+            {{#each getSelect "eventLocations"}}
+              <label class="checkbox-inline" for="locations-{{_id}}">
+                <input name="locations[]" id="locations-{{_id}}" value="{{value}}" type="checkbox">
                 {{label}}
               </label>            
-            {{/each_with_index}}            
+            {{/each}}            
           </div>
         </div>
         <div class="form-group">
@@ -526,12 +482,12 @@
         <div class="form-group">
           <label class="col-md-4 control-label" for="locations">Locations</label>
           <div class="col-md-4">
-            {{#each_with_index getSelect "eventLocations"}}
-              <label class="checkbox-inline" for="locations-{{index}}">
-                <input name="locations[]" id="locations-{{index}}" value="{{value}}" type="checkbox">
+            {{#each getSelect "eventLocations"}}
+              <label class="checkbox-inline" for="locations-{{_id}}">
+                <input name="locations[]" id="locations-{{_id}}" value="{{value}}" type="checkbox">
                 {{label}}
               </label>            
-            {{/each_with_index}}            
+            {{/each}}            
           </div>
         </div>
 

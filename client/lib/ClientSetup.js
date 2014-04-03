@@ -1,12 +1,13 @@
 Handlebars.registerHelper("each_with_index", function(array, fn) {
-	// console.log(array);
-  var buffer = "";
-  for (var i = 0, j = array.length; i < j; i++) {
-    var item = array[i];
-    item.index = i;
-    buffer += fn(item);
-  }
-  return buffer;
+    if (array != undefined){
+      for (var i = 0, j = array.length; i < j; i++) {
+        var item = array[i];
+        item.index = i;
+        buffer += fn(item);
+      }
+      return buffer;
+    }
+    return "";
 });
 Handlebars.registerHelper('isNormalUser',function(){
   if (Roles.userIsInRole(Meteor.user(), ['normal-user']))
@@ -57,19 +58,22 @@ Handlebars.registerHelper('getDatesFromTimeStamp',function(timestamp){
 });
 
 Handlebars.registerHelper('arrayify',function(obj){
-  var result = [];
-  for (var key in obj) {
-      if (obj[key].parent == 0) // Eliminate the top most level of the category 
-        result.push({name:obj[key].name,parent:obj[key]._id});
-  }
-  return result;
+  var i = 0;
+    var result = [];
+    for (var key in obj) {
+        if (obj[key].parent == 0){
+          i++;
+          result.push({name:obj[key].name,parentItem:obj[key]._id, index: i});
+
+        } // Eliminate the top most level of the category           
+    }
+    return result;
 });
 
-Handlebars.registerHelper('getSubs',function(services, parent){
-  // console.log(obj);
+Handlebars.registerHelper('getSubs',function(services, parentItem){
   var result = [];
   for (var key in services) {
-    if (services[key].parent == parent) {
+    if (services[key].parent == parentItem) {
       result.push({name:services[key].name,_id:services[key]._id});
     }
   }
@@ -172,8 +176,10 @@ Handlebars.registerHelper('isCreated',function(){
 });
 
 Handlebars.registerHelper('getLocation',function(id){
-  var location = Locations.findOne({_id: id});
-  return location.district+", "+location.city;
+  if (id) {
+    var location = Locations.findOne({_id: id});
+    return location.district+", "+location.city;
+  }
 });
 
 Handlebars.registerHelper('checkCategory',function(id, categories){
@@ -181,13 +187,16 @@ Handlebars.registerHelper('checkCategory',function(id, categories){
 });
 
 Handlebars.registerHelper('eventLists',function(){
-  return Events.find().fetch();
+  var events = Events.find();
+  if (events.count() > 0);
+    return Events.find().fetch();
 });
 Handlebars.registerHelper('isUseLoggedIn',function(){
   return isUserLoggedIn();
 });
 
 Handlebars.registerHelper('getActiveIndex',function(index){
+  console.log(index);
   if (index == "0")
     return true;
   else
@@ -227,8 +236,10 @@ Handlebars.registerHelper('categoryList',function(){
 });
 
 Handlebars.registerHelper('getEventType',function(id){
-  var events = EventTypes.findOne({_id: id});
-  return events.type;
+  if (id){
+    var events = EventTypes.findOne({_id: id});
+    return events.type;    
+  }
 });
 
 Handlebars.registerHelper('getDateFormat',function(date){

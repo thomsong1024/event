@@ -3,9 +3,9 @@
 </head>
 <template name="layout">
     <div class="body">
-      {{ yield 'header' }}
-      {{ yield }}
-      {{ yield 'footer' }}
+      {{> yield region='header' }}
+      {{> yield }}
+      {{> yield region='footer' }}
   </div>
 </template>
 

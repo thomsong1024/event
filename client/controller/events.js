@@ -2,17 +2,17 @@ Template.ListEvent.rendered = function () {
   
   // var id = getIdfromHyperLink($(".active").children("a").attr("href"));
   // Session.set("getActiveService", id);
-
-  $(function () {
-    $(".nav-tabs a").on("click", function (e) {
-      $(".showmoreArea").show();
-      Session.set("showmore", 0);
-      e.preventDefault();
-      var id = getIdfromHyperLink($(this).attr("href"));
-      Session.set("getActiveService", id);
-      // $(this).tab("show");
-    })
-  });
+  // $(function () {
+  //   $(".nav-tabs a").on("click", function (e) {
+  //     $(".showmoreArea").show();
+  //     Session.set("showmore", 0);
+  //     e.preventDefault();
+  //     var id = getIdfromHyperLink($(this).attr("href"));
+  //     console.log(id);
+  //     Session.set("getActiveService", id);
+  //     // $(this).tab("show");
+  //   })
+  // });
 }
 
 Template.ListEvent.events({
@@ -29,28 +29,34 @@ Template.ListEvent.events({
     if (Session.get("eventsData").length == 5) {
       Session.set("showmore", count + 5);
     }    
+  },
+  "click .categoryTab" : function (e) {
+      e.preventDefault();
+      $(".showmoreArea").show();
+      Session.set("showmore", 0);
+      if (e.target.id)
+        Session.set("getActiveService", e.target.id);
   }
 });
 
 Template.ListEvent.getSelectedCategories = function () {
-  var events=Events.findOne({_id: Session.get("activeEvents")});
-  // console.log(requestedQuotation);
-  var data =ServiceCategories.find({_id:{$in: JSON.parse(events.categories)}}).fetch();
-  return data;
+  var events = Events.findOne({_id: Session.get("activeEvents")});
+  if (events)
+    return ServiceCategories.find({_id:{$in: JSON.parse(events.categories)}}).fetch();
 }
 
-Template.subCats.subcategories = function (parent) {
+Template.subCats.subcategories = function (parentItem) {
   if (Session.get("activeEvents")) {
-    var checkedCategories = Events.findOne({_id: Session.get("activeEvents")}).categories;
-    var data = ServiceCategories.find({$and:[{parent: parent}]});
+    var events = Events.findOne({_id: Session.get("activeEvents")});
+    var data = ServiceCategories.find({$and:[{parent: parentItem}]});
 
-    if (data.count() > 0) {
+    if (data.count() > 0 && events) {
       var categoriesObjArray = [];
       data.forEach( function (item) {
         var obj = {};
           obj._id = item._id;
           obj.name = item.name;
-          obj.categories = checkedCategories;
+          obj.categories = events.categories;
           categoriesObjArray.push(obj);
       });
       return JSON.parse(JSON.stringify(categoriesObjArray));
@@ -65,12 +71,8 @@ Template.getServices.getServiceLists = function () {
     var max = eventObj.nog.split("-")[1];
     var eventType = [eventObj.eventTypes];
     var eventLocations = [eventObj.eventLocations];
-    // console.log(Session.get("getActiveService"));
     var categories = [Session.get("getActiveService")];
     var vendorServices = VendorServices.find({$and:[{categories: {$in: categories}}, {locations: {$in: eventLocations}}, {eventType: {$in: eventType}}, {"nog": {$gt: parseFloat(max)}}]});
-    // console.log(max);
-    // var vendors = VendorServices.find({$and:[{eventType: {$in: eventType}}, {"nog": {$gt: 50}}]});
-    // console.log(vendors.fetch());
     var objArray = [];
     vendorServices.forEach( function (item) {
       var requestedQuotation = RequestQuote.findOne({$and: [{eventID: Session.get("activeEvents")}, {vendorServiceID: item._id}, {activeService: Session.get("getActiveService")}]});
@@ -96,9 +98,9 @@ Template.getServices.getServiceLists = function () {
       // }
     });
     Session.set("eventsData", JSON.parse(JSON.stringify(objArray.slice(Session.get("showmore"), Session.get("showmore") + 5))));
-    return Session.get("eventsData");
-    // var data = JSON.parse(JSON.stringify(objArray.slice(Session.get("showmore"), Session.get("showmore") + 5)));
-    // return JSON.parse(JSON.stringify(objArray.slice(Session.get("showmore"), Session.get("showmore") + 5)));
+
+
+      return Session.get("eventsData");
   }
 }
 
@@ -153,3 +155,4 @@ Template.getServices.events({
     // console.log(vendor);
   }
 });
+

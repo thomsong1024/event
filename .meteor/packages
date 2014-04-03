@@ -5,8 +5,6 @@
 
 standard-app-packages
 insecure
-preserve-inputs
-autoform
 underscore
 iron-router
 smart-collections
@@ -26,3 +24,4 @@ bootstrap-3
 jquery-ui
 bootstrap3-datetimepicker
 meteor-timeliner
+autoform

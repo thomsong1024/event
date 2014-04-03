@@ -1,4 +1,4 @@
-<template name="events">
+<template name="eventsDetail">
   <div class="container">
     <div class="row">
       <div id="sidemenu" class="col-md-2">
@@ -88,13 +88,9 @@
     {{#if isNormalUser}}
     <div class="row">
       <ul class="nav nav-tabs">
-        {{#each_with_index getSelectedCategories}}
-          {{#if getActiveIndex index}}
-            <li><a href="#tab_{{_id}}" data-toggle="tab">{{name}}</a></li>
-          {{else}}
-            <li><a href="#tab_{{_id}}" data-toggle="tab">{{name}}</a></li>
-          {{/if}}
-        {{/each_with_index}}
+        {{#each getSelectedCategories}}
+          <li><a href="#tab_{{_id}}" data-toggle="tab" id="{{_id}}" class="categoryTab">{{name}}</a></li>
+        {{/each}}
       </ul>
       <div id="tab-content" class="tab-content">
         <div class="row">
@@ -105,8 +101,8 @@
         </div>
         </div>
         {{#each getSelectedCategories}}
-        {{#if getActiveIndex index}}
-          <div class="tab-pane active tab_inner" id="tab_{{_id}}">
+        {{#if getActiveIndex _id}}
+          <div class="tab-pane active tab_inner" id="tab_{{_id}}" style="border:1px solid red;">
             <div class="col-12 col-lg-4">{{> getServices}}</div>
           </div>
         {{else}}
