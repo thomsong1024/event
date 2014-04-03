@@ -16,7 +16,7 @@ Template.vendorEventDetail.events( {
           obj.categoryID = requestQuote.activeService;
           obj.dates = moment().unix();
           obj.eventID = requestQuote.eventID;
-          obj.texts = "<div>" + JSON.stringify(grid.getData())+"</div>";
+          obj.texts = JSON.stringify(grid.getData());
           obj.userID = requestQuote.userID;
           obj.vendorID = requestQuote.vendorID;
           obj.parents = message._id;     
