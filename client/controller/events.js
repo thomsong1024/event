@@ -37,8 +37,9 @@ Template.ListEvent.events({
       if (e.target.id)
         Session.set("getActiveService", e.target.id);
   },
-  "click .sendMessage" : function () {
+  "click .sendMessage" : function (ev, template) {
     var message = document.getElementById("messageBox").value;
+    var vendorID = ev.target.attributes.dataId.nodeValue;
     if (message != ""){
       var obj = {};
       obj.categoryID = Session.get("getActiveService");
@@ -46,8 +47,8 @@ Template.ListEvent.events({
       obj.eventID = Session.get("activeEvents");
       obj.texts = message;
       obj.userID = Meteor.userId();
-      obj.vendorID = messageData.vendorID;
-      obj.parents = Session.get("messageID");     
+      obj.vendorID = vendorID;
+      obj.parents = "0";     
       if (Roles.userIsInRole(Meteor.user(), ['normal-user'])) {
         obj.userUnread = false; 
         obj.vendorUnread = true;
@@ -59,6 +60,7 @@ Template.ListEvent.events({
         obj.from = "vendor";        
       }
       obj.mtype = "text";
+      Messages.insert(obj);
     }    
   }
 });
@@ -178,10 +180,14 @@ Template.getServices.events({
     var vendorID = ev.target.attributes.dataId.nodeValue;
     var message = Messages.findOne({$and:[{vendorID: vendorID}, {eventID: Session.get("activeEvents")}, {categoryID: Session.get("getActiveService")}, {userID: Meteor.userId()} ]});
 
-    if(message == undefined)
+    if(message == undefined){
+      $(".sendMessage").attr("dataId", vendorID);
       $("#contactModal").modal();
-    else 
+    }
+    else {
       Router.go("/ms/"+message._id);
+    }
+      
 }   
 });
 
