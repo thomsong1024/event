@@ -191,3 +191,7 @@ background: -ms-linear-gradient(top, #f93a43 0%,#df121c 100%); /* IE10+ */
 background: linear-gradient(to bottom, #f93a43 0%,#df121c 100%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f93a43', endColorstr='#df121c',GradientType=0 ); /* IE6-8 */
 }
+
+#messageBox {
+  width: 560px;
+}

@@ -6,11 +6,9 @@ Template.vendorEventDetail.events( {
       obj.requestQuoteID = Session.get("requesetQuoteID");
       obj.detail = JSON.stringify(grid.getData());
       var id = QuotationDetail.insert(obj);
-      // console.log(Messages.find().fetch()); return false;
       if (id) {
         var requestQuote = RequestQuote.findOne({_id: Session.get("requesetQuoteID")});
         if (requestQuote) {
-          // console.log(Messages.find().fetch()); return false;
           var message = Messages.findOne({$and: [{eventID: requestQuote.eventID}, {vendorID: requestQuote.vendorID}, {categoryID: requestQuote.activeService}, {parents: "0"}]});
           var obj = {};
           obj.categoryID = requestQuote.activeService;
@@ -32,48 +30,50 @@ Template.vendorEventDetail.events( {
 });
 Template.vendorEventDetail.rendered = function () {
   var data = [];
-  Meteor.subscribe("quotationDetail");
-  var quotations = QuotationDetail.findOne({requestQuoteID:Session.get("requesetQuoteID")});
-  // console.log(quotations);
-  if (quotations){
-    data = JSON.parse(quotations.detail);
-  }
-  var columns = [
-    {id: "name", name: "Name", field: "name", width: 100, cssClass: "cell-title", editor: Slick.Editors.Text},
-    {id: "desc", name: "Description", field: "description", width: 200, editor: Slick.Editors.Text},
-    {id: "rate", name: "Rate", field: "rate", width: 80, editor: Slick.Editors.Integer},
-    {id: "quantity", name: "Quantity", field: "quantity", width: 80, editor: Slick.Editors.Integer},
-    {id: "price", name: "Price", field: "price", width: 80}
-  ];
-  var options = {
-    editable: true,
-    enableAddRow: true,
-    enableCellNavigation: true,
-    asyncEditorLoading: false,
-    autoEdit: false
-  };
+  Deps.autorun(function () {
+    Meteor.subscribe("quotationDetail");
+    var quotations = QuotationDetail.findOne({requestQuoteID:Session.get("requesetQuoteID")});
+    if (quotations){
+      data = JSON.parse(quotations.detail);
+    }
+    var columns = [
+      {id: "name", name: "Name", field: "name", width: 100, cssClass: "cell-title", editor: Slick.Editors.Text},
+      {id: "desc", name: "Description", field: "description", width: 200, editor: Slick.Editors.Text},
+      {id: "rate", name: "Rate", field: "rate", width: 80, editor: Slick.Editors.Integer},
+      {id: "quantity", name: "Quantity", field: "quantity", width: 80, editor: Slick.Editors.Integer},
+      {id: "price", name: "Price", field: "price", width: 80}
+    ];
+    var options = {
+      editable: true,
+      enableAddRow: true,
+      enableCellNavigation: true,
+      asyncEditorLoading: false,
+      autoEdit: false
+    };
 
-  $(function () {
-    var dataProvider = new TotalsDataProvider(data, columns);
-    grid = new Slick.Grid("#myGrid", data, columns, options);
+    $(function () {
+      var dataProvider = new TotalsDataProvider(data, columns);
+      grid = new Slick.Grid("#myGrid", data, columns, options);
 
-    grid.setSelectionModel(new Slick.CellSelectionModel());
-    grid.autosizeColumns();
-    grid.onAddNewRow.subscribe(function (e, args) {     
-      var item = args.item;
-      // console.log(item.keys());
-      grid.invalidateRow(data.length);
-      data.push(item);
-      grid.updateRowCount();
-      grid.render();
-    });
-    grid.onCellChange.subscribe(function(e, args) {
-      // The data has changed - recalculate the totals.
-      dataProvider.updateTotals();
-      grid.invalidateRow(args.row);
-      grid.render();
-    });    
-  })
+      grid.setSelectionModel(new Slick.CellSelectionModel());
+      grid.autosizeColumns();
+      grid.onAddNewRow.subscribe(function (e, args) {     
+        var item = args.item;
+        // console.log(item.keys());
+        grid.invalidateRow(data.length);
+        data.push(item);
+        grid.updateRowCount();
+        grid.render();
+      });
+      grid.onCellChange.subscribe(function(e, args) {
+        // The data has changed - recalculate the totals.
+        dataProvider.updateTotals();
+        grid.invalidateRow(args.row);
+        grid.render();
+      });    
+    })    
+  });  
+
 }
    function requiredFieldValidator(value) {
     if (value == null || value == undefined || !value.length) {

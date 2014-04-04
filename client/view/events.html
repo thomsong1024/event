@@ -95,7 +95,7 @@
       <div id="tab-content" class="tab-content">
         <div class="row">
           <div class="col-md-12 showmoreArea">
-          <button type="button" class="btn btn-default btn-lg showmore">
+          <button type="button" class="btn btn-default btnlg- showmore">
            Show more
           </button>
         </div>
@@ -115,6 +115,23 @@
     </div>
     {{/if}}
   </div>
+  <div class="modal fade" id="contactModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Message to vendor</h4>
+        </div>
+        <div class="modal-body">
+          <textarea id="messageBox"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary sendMessage" dataId="">Save changes</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->  
 </template>
 
 
@@ -134,7 +151,7 @@
                   <p class="serviceDescription">{{briefDescription}}</p>                
                 </div>
                 <div class="col-md-4" style="padding-top: 20px;">
-                    <button class="btn btn-default">Contact</button>
+                    <button class="btn btn-default contact" dataId="{{vendorId}}">Contact</button>
                     <button class="btn btn-primary request" {{disable}} dataServiceID={{vendorServiceID}} dataId="{{vendorId}}">Request Quote</button>
                 </div>
               </div>
@@ -144,7 +161,7 @@
       </tbody>
     </table>
   </div>  
-    
+
 </template>
 <template name="eventHeader">
   <div class="container header"></div>

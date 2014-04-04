@@ -36,6 +36,30 @@ Template.ListEvent.events({
       Session.set("showmore", 0);
       if (e.target.id)
         Session.set("getActiveService", e.target.id);
+  },
+  "click .sendMessage" : function () {
+    var message = document.getElementById("messageBox").value;
+    if (message != ""){
+      var obj = {};
+      obj.categoryID = Session.get("getActiveService");
+      obj.dates = moment().unix();
+      obj.eventID = Session.get("activeEvents");
+      obj.texts = message;
+      obj.userID = Meteor.userId();
+      obj.vendorID = messageData.vendorID;
+      obj.parents = Session.get("messageID");     
+      if (Roles.userIsInRole(Meteor.user(), ['normal-user'])) {
+        obj.userUnread = false; 
+        obj.vendorUnread = true;
+        obj.from = "user";
+      }
+      else {
+        obj.userUnread = true;
+        obj.vendorUnread = false;
+        obj.from = "vendor";        
+      }
+      obj.mtype = "text";
+    }    
   }
 });
 
@@ -128,8 +152,6 @@ Template.getServices.events({
         var html = "<p> <a href='"+Session.get("serverHost")+"/login'>The event is created for your service! </a></p>";
         Meteor.call("sendEmail", to, from, subject, "", html, function (error, result) {
           if (error){
-            // var messages = { "userID" : Meteor.userId(), "vendorID" : vendorID, "texts" : "text", "Request Quote" : "eventID", "categoryID" : "categoryID", "from" : "from", "attachment" : "attachment", "dates" : "dates", "parents" : "parent", "_id" : "gzoKZRXEkgJXimGCh" };
-            // Messages.insert(messages); return false;
             var messages = {};
             messages.userID = Meteor.userId();
             messages.vendorID = vendorID;
@@ -150,9 +172,16 @@ Template.getServices.events({
           }
         })
       }
-    }); 
-    console.log(Session.get("activeEvents")); return false;
-    // console.log(vendor);
-  }
+    });
+  },
+  "click .contact" : function (ev, template) {
+    var vendorID = ev.target.attributes.dataId.nodeValue;
+    var message = Messages.findOne({$and:[{vendorID: vendorID}, {eventID: Session.get("activeEvents")}, {categoryID: Session.get("getActiveService")}, {userID: Meteor.userId()} ]});
+
+    if(message == undefined)
+      $("#contactModal").modal();
+    else 
+      Router.go("/ms/"+message._id);
+}   
 });
 

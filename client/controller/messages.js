@@ -70,7 +70,7 @@ Template.message.events({
 				obj.vendorUnread = false;
 				obj.from = "vendor";				
 			}
-			obj.mtype = "text"
+			obj.mtype = "text";
 			Messages.insert(obj);
 		}
 	}
