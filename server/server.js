@@ -66,8 +66,8 @@ if (Meteor.isServer) {
 	        	}
 	        },
 	        getUserName : function (userID) {
-				var userName = Meteor.users.findOne({_id: userID}).profile.lastname + " " + Meteor.users.find().fetch()[0].profile.firstname;
-				return userName;
+	        	var u = Meteor.users.findOne({_id: userID});
+	        	return u.profile.firstname + " " + u.profile.lastname;
 	        }
         });
 		if (EventTypes.find().count() === 0) {
