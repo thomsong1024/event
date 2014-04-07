@@ -64,7 +64,11 @@ if (Meteor.isServer) {
 					// Messages.update({_id: id}, {$set: {userUnread: false}});
 					// Messages.update({parents: id}, {$set: {userUnread: false}});	
 	        	}
-	        }      			    
+	        },
+	        getUserName : function (userID) {
+				var userName = Meteor.users.findOne({_id: userID}).profile.lastname + " " + Meteor.users.find().fetch()[0].profile.firstname;
+				return userName;
+	        }
         });
 		if (EventTypes.find().count() === 0) {
 			EventTypes.insert({ type:'Birthday'});
