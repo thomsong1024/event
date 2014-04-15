@@ -2,26 +2,106 @@
   <title>Create Event</title>
 </head>
 <template name="layout">
-    <div class="body">
+    <div class="wrapper">
+      <div class="row">
       {{> yield region='header' }}
-      {{> yield }}
+      {{#if isUseLoggedIn}}
+        <div class="col-md-3">
+          <div id="logo"></div>
+          <div class="sidebar-nav">
+            <div class="navbar navbar-default" role="navigation">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <!--span class="visible-sm visible-xs navbar-brand">Sidebar menu</span-->
+              </div>
+              <div class="navbar-collapse collapse sidebar-navbar-collapse">
+                <ul class="nav navbar-nav">
+                  <li class="side-events">
+                    <span class="events-back-icon navIcons"></span>
+                    <a href="#">Events</a>
+                    <div class="mask"></div>
+                  </li>
+                  <li class="side-timeline">
+                    <span class="timeline-back-icon navIcons"></span>
+                    <a href="#">Tiemline</a>
+                    <div class="mask"></div>
+                  </li>
+                  <li class="side-invites">
+                    <span class="invites-back-icon navIcons"></span>
+                    <a href="#">Invites</a>
+                    <div class="mask"></div>
+                  </li>
+                  <li class="side-budget">
+                    <span class="budget-back-icon navIcons"></span>
+                    <a href="#">Budget</a>
+                    <div class="mask"></div>
+                  </li>
+                  <li class="side-vendors">
+                    <span class="vendors-back-icon navIcons"></span>
+                    <a href="#">Saved Vendors</a>
+                    <div class="mask"></div>
+                  </li>
+                </ul>
+              </div><!--/.nav-collapse -->
+            </div>
+          </div>
+          <div id="social-footer">
+            <div class="social-area">
+              <p class="social-header" style="font-weight: bold;">Newsletter</p>
+              <p class="social-header">Sign up</p>
+              <p class="social-text">Receive email updates on our latest coupons and offers</p>
+              <div class="right-inner-addon">
+                <i class="glyphicon glyphicon-chevron-right white"></i>
+                <input type="search" id="social-seach" class="form-control" />
+              </div>
+              <div class="social-media-area">
+                <span class="icon-facebook"></span>
+                <span class="icon-twitter"></span>
+                <span class="icon-feed2"></span>
+                <span class="icon-feed"></span>
+              </div>
+              <p><i class="glyphicon glyphicon-copyright-mark white"></i> Copyright 2013 CluelessPlanners</p>
+            </div>
+          </div>
+        </div>
+      {{/if}}
+        <div class="col-md-9">
+          {{> yield }}
+        </div>
+      </div>
       {{> yield region='footer' }}
   </div>
 </template>
 
 <template name="header">
-  <div id="wrap">
-    <nav role="navigation" class="navbar navbar-inverse">
+  <div id="page-content-wrapper" class="headerArea">
+    <nav role="navigation" class="navbar navbar-inverse mainHeader">
       <div class="container-fluid">
              <!-- Collect the nav links, forms, and other content for toggling -->
-        <div id="bs-example-navbar-collapse-9" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav navbar-right">
             {{#if isUseLoggedIn}}
-              <li>
-                <a href="#" id="logout" class="pagelink">Log Out</a>
+              <li class="dropdown">
+                <p class="pagelink">
+                  <i class="glyphicon glyphicon-user white"></i>
+                  <a id="userName" class="" role="button" data-toggle="dropdown" data-target="#">{{userFullName}}<span class="caret"></span></a>
+                  <!--a href="#" id="logout">Log Out</a-->
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="userName">
+                    <li role="presentation">
+                      <a href="#" id="logout">Log Out</a>
+                    </li>
+                  </ul>                  
+                </p>                
               </li> 
               <li>
-                <a href="/ms" id="message" class="pagelink">Messages<span class="counter" style="{{#if newMessages}} {{else}} display:none; {{/if}}">{{newMessages}}</span></a>
+                <p class="pagelink">
+                  <i class="glyphicon glyphicon-shopping-cart white"></i><a href="/ms" id="message" class="pagelink">Service Cart <span class="caret"></span><span class="counter" style="{{#if newMessages}} {{else}} display:none; {{/if}}">{{newMessages}}</span></a>
+                </p>
               </li>                            
             {{else}}
               <li>
@@ -35,7 +115,7 @@
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>    
-  </div>    
+  </div>     
 </template>
 <template name="footer">
 </template>

@@ -27,7 +27,8 @@
       },
       "bootstrap3-datetimepicker": {},
       "handlebar-helpers": {},
-      "autoform": {}
+      "autoform": {},
+      "bootstrap-3-timepicker": {}
     },
     "packages": {
       "bootstrap-3": {
@@ -77,8 +78,8 @@
       },
       "router": {
         "git": "https://github.com/tmeasday/meteor-router.git",
-        "tag": "v0.5.4.1",
-        "commit": "d00e380dda2184b70e909fc4a0fb5358d602c586"
+        "tag": "v0.6.0",
+        "commit": "1e2860138402fb288c2fbce70338161f4d86a5d4"
       },
       "flash-messages": {
         "git": "https://github.com/camilosw/flash-messages.git",
@@ -112,8 +113,13 @@
       },
       "autoform": {
         "git": "https://github.com/aldeed/meteor-autoform.git",
-        "tag": "v0.5.1",
-        "commit": "7f2c33b0adafc4a8cc57e882b9391dd6ff2a82a7"
+        "tag": "v0.6.0",
+        "commit": "f840f785d64c76738a8f78633b0c680866af499d"
+      },
+      "bootstrap-3-timepicker": {
+        "git": "https://github.com/ianserlin/meteor-bootstrap-timepicker.git",
+        "tag": "v0.2.5",
+        "commit": "12dd7c5dd0e67f0f307e7c5aefed74777be808f1"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",
@@ -122,8 +128,8 @@
       },
       "simple-schema": {
         "git": "https://github.com/aldeed/meteor-simple-schema.git",
-        "tag": "v0.2.45",
-        "commit": "27a5a943a70a7376c90f18d2e2a4a122c6fc73fb"
+        "tag": "v0.2.46",
+        "commit": "30b5d3e08433fbbfe49f09845559bf3ca0ab9101"
       },
       "page-js-ie-support": {
         "git": "https://github.com/tmeasday/meteor-page-js-ie-support.git",

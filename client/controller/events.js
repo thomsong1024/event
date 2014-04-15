@@ -107,6 +107,8 @@ Template.getServices.getServiceLists = function () {
       obj.briefDescription = item.briefDescription;
       obj.vendorId = item.vendorId;
       obj.vendorServiceID = item._id;
+      obj.thumbnail = Vendors.findOne({_id: item.vendorId}).logoImage_thumbnail;
+      obj.requestID = requestedQuotation._id
       obj.requested = "";
       obj.disable = "";
 
@@ -124,8 +126,6 @@ Template.getServices.getServiceLists = function () {
       // }
     });
     Session.set("eventsData", JSON.parse(JSON.stringify(objArray.slice(Session.get("showmore"), Session.get("showmore") + 5))));
-
-
       return Session.get("eventsData");
   }
 }
@@ -188,6 +188,10 @@ Template.getServices.events({
       Router.go("/ms/"+message._id);
     }
       
-}   
+  },
+  "click .view": function (ev, template) {
+    var requestID = ev.target.attributes.dataId.nodeValue;
+    $("#quotataionModal_"+requestID).modal();
+  }
 });
 

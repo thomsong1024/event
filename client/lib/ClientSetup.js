@@ -9,10 +9,21 @@ Handlebars.registerHelper("each_with_index", function(array, fn) {
     }
     return "";
 });
+
 Handlebars.registerHelper('isNormalUser',function(){
   if (Roles.userIsInRole(Meteor.user(), ['normal-user']))
     return true;
   return false;
+});
+
+Handlebars.registerHelper('userFullName',function(){
+  if (Roles.userIsInRole(Meteor.user(), ['normal-user'])){
+    var user = Meteor.users.find().fetch()[0];
+    var firstName = Meteor.users.find().fetch()[0].profile.firstname;
+    var lastName = Meteor.users.find().fetch()[0].profile.lastname;
+    return firstName + " " + lastName;
+  }
+  
 });
 
 Handlebars.registerHelper('isVendorUser',function(){
@@ -196,7 +207,6 @@ Handlebars.registerHelper('isUseLoggedIn',function(){
 });
 
 Handlebars.registerHelper('getActiveIndex',function(index){
-  console.log(index);
   if (index == "0")
     return true;
   else
@@ -209,6 +219,15 @@ Handlebars.registerHelper('checkServiceCount',function(obj){
     return false;
   else 
     return true;
+});
+
+Handlebars.registerHelper('isResponsed',function(requestID){
+  var quote = QuotationDetail.find({requestQuoteID: requestID}).count();
+  
+  if (quote > 0)
+   return true;
+  else 
+   return false;
 });
 
 Handlebars.registerHelper('getEventLists',function(obj){
@@ -254,6 +273,11 @@ Handlebars.registerHelper('getDateFormat',function(date){
 
 Handlebars.registerHelper('getQuotationTableFromMessage',function(id){
   var quotation = Messages.findOne({_id: id}).texts;
+  return JSON.parse(quotation);
+});
+
+Handlebars.registerHelper('getQuotationTable',function(id){
+  var quotation = QuotationDetail.findOne({requestQuoteID: id}).detail;
   return JSON.parse(quotation);
 });
 

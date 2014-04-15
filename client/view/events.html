@@ -44,7 +44,8 @@
         <div class="row">
           <div class="col-md-4"><p class="eventLabel">What</p></div>
           <div class="col-md-6"><p class="eventTexts">{{getEventType eventTypes}}</p></div>
-        </div>        
+        </div>  
+        <!--div>      
         {{#if isNormalUser}}
         <div class="row">
           <p class="eventLabel">Categories</p>
@@ -56,6 +57,7 @@
           {{/each}}          
         </div>
         {{/if}}
+      </div-->
 
         {{#if isVendorUser}}
           <div class="row">
@@ -103,11 +105,11 @@
         {{#each getSelectedCategories}}
         {{#if getActiveIndex _id}}
           <div class="tab-pane active tab_inner" id="tab_{{_id}}" style="border:1px solid red;">
-            <div class="col-12 col-lg-4">{{> getServices}}</div>
+            <div class="col-md-12">{{> getServices}}</div>
           </div>
         {{else}}
           <div class="tab-pane tab_inner" id="tab_{{_id}}">
-            <div class="col-12 col-lg-4">{{> getServices}}</div>
+            <div class="col-md-12">{{> getServices}}</div>
           </div>        
         {{/if}}
         {{/each}}
@@ -132,36 +134,78 @@
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->  
+
+ 
 </template>
 
 
 <template name="getServices">
-  <div class="table-responsive" style="width: 800px;">
+  <div class="table-responsive">
     <table class="table">
       <tbody>
         {{#each getServiceLists}}
           <tr class="{{requested}}">
             <td style="width: 60px">
-              <img src="..." alt="" class="img-thumbnail">
+              <img src="{{thumbnail}}" alt="" class="img-thumbnail">
             </td>
             <td>
               <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-4">
                   <p class="serviceTitle"><a href="#">{{serviceName}}</a></p>
                   <p class="serviceDescription">{{briefDescription}}</p>                
                 </div>
-                <div class="col-md-4" style="padding-top: 20px;">
+                <div class="col-md-8" align="right" style="padding-top: 10px;">
+                  {{#if isResponsed requestID}}
+                    <button class="btn btn-default view" dataId="{{requestID}}">View</button>
+                  {{/if}}
+
                     <button class="btn btn-default contact" dataId="{{vendorId}}">Contact</button>
                     <button class="btn btn-primary request" {{disable}} dataServiceID={{vendorServiceID}} dataId="{{vendorId}}">Request Quote</button>
                 </div>
               </div>
+              <div class="modal fade" id="quotataionModal_{{requestID}}">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title">Quotation From Vendor</h4>
+                    </div>
+                    <div class="modal-body">
+                      <div class="container">
+                        <div class="row">
+                          <table class="table">
+                            <tr>
+                              <td>Description</td>
+                              <td>Name</td>
+                              <td>Rate</td>
+                              <td>Quantity</td>
+                              <td>Price</td>
+                            </tr>
+                            {{#each getQuotationTable requestID}}
+                            <tr>
+                              <td>{{description}}</td>
+                              <td>{{name}}</td>
+                              <td>{{rate}}</td>
+                              <td>{{quantity}}</td>
+                              <td>{{price}}</td>
+                            </tr>
+                            {{/each}}
+                          </table>
+                        </div>
+                      </div>        </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                  </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+              </div><!-- /.modal -->              
             </td>
           </tr>        
         {{/each}}
       </tbody>
     </table>
   </div>  
-
+   
 </template>
 <template name="eventHeader">
   <div class="container header"></div>

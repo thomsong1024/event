@@ -40,7 +40,7 @@ Template.login.events({
 	        }
 	        else {
 	        	// console.log(Meteor.user().emails[0].address.trim())
-	        	if (Meteor.user().emails[0].address.trim() == "adminservice@gmail.com") {
+	        	if (Meteor.user().emails[0].address.trim() == "adminService@gmail.com") {
 	        		Router.go("/admin");
 	        		return true;
 	        	}

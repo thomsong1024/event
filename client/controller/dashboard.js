@@ -1,6 +1,9 @@
   
 Template.CreateEvent.rendered = function() { 
-  $(".set-due-date").datetimepicker();
+  $("#datearea").datetimepicker({
+    pickTime: false
+  });
+  $('#timepicker').timepicker();
   // $('.datetimepicker').datetimepicker();
   // Assuming you're using jQuery
   var i=0; 
@@ -27,7 +30,7 @@ Template.CreateEvent.events({
     obj.eventTitle        = eventTitle.value;
     obj.eventDescription  = eventDescription.value;
     obj.eventTypes        = eventTypes.value;
-    obj.date              = datepicker.value;
+    obj.date              = datepicker.value + " " + timepicker.value;
     var checked = [];
     $("input[name='categories[]']:checked").each( function ( ){
       checked.push($(this).val());
@@ -37,7 +40,6 @@ Template.CreateEvent.events({
     obj.categories        = JSON.stringify(checked);
     obj.nog               = nog.value;
     obj.eventPrice        = eventPrice.value;
-    obj.eventComments     = eventComments.value;
     Events.insert(obj, function (error, result) {});
   }
 });

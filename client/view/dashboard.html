@@ -1,6 +1,25 @@
 <template name="dashboard">
   <div class="container">
     <div class="row">
+        <div class="page-header phase-header">
+          <div class="in-phase" id="phase1">
+            <div class="phase-title"><span>1</span></div>
+            <p class="phase-comment">Enter Your Basic Information</p>
+            <i class="glyphicon glyphicon-chevron-right phase-arrow"></i>
+          </div>
+          <div class="pre-phase" id="phase2">
+            <div class="phase-title"><span>2</span></div>
+            <p class="phase-comment">Choose Your Requirements</p>
+            <i class="glyphicon glyphicon-chevron-right phase-arrow"></i>
+          </div>
+          <div class="pre-phase" id="phase3">
+            <div class="phase-title"><span>3</span></div>
+            <p class="phase-comment">Send and Save</p>
+            <i class="glyphicon glyphicon-chevron-right phase-arrow"></i>
+          </div>          
+
+        </div>
+
         <div id="sidemenu" class="col-md-2">
           <div class="page-header">
             <h4>Events</h4>
@@ -15,9 +34,9 @@
             </ul>
            </div>
         </div>
+        <div class="col-md-2">&nbsp;</div>
         <div class="col-md-8">
           {{#if isCreated}}
-            {{> ListEvent}}
           {{else}}
             {{> CreateEvent}}
           {{/if}}          
@@ -26,156 +45,149 @@
 </div>
 </template>
 
-
-
 <template name="CreateEvent">
   <div class="container">
-    <div class="page-header">
-      <h1>Create Event</h1>
-    </div>        
     <div class="row">
-      <div class="col-mx-6">
-        <form class="form-horizontal">
-        <fieldset>
+    <h1>Create Event</h1>
 
-        <!-- Text input-->
-        <div class="form-group">
-          <label class="col-md-4 control-label" for="eventTitle">Title</label>  
-          <div class="col-md-6">
-          <input id="eventTitle" name="eventTitle" placeholder="" class="form-control input-md" required="" type="text">
-            
-          </div>
-        </div>
-
-        <!-- Textarea -->
-        <div class="form-group">
-          <label class="col-md-4 control-label" for="eventDescription">Description</label>
-          <div class="col-md-4">                     
-            <textarea class="form-control" id="eventDescription" name="eventDescription"></textarea>
-          </div>
-        </div>
-
-        <!-- Select Basic -->
-        <div class="form-group">
-          <label class="col-md-4 control-label" for="eventTypes">Event Types</label>
-          <div class="col-md-6">
-            <select id="eventTypes" name="eventTypes" class="form-control">
-              {{#each getSelect "eventTypes"}}
-                <option value="{{value}}">{{label}}</option>
-              {{/each}}
-            </select>
-          </div>
-        </div>
-
-        <!-- Select Basic -->
-        <div class="form-group">
-          <label class="col-md-4 control-label" for="eventLocations">Event Locations</label>
-          <div class="col-md-6">
-            <select id="eventLocations" name="eventLocations" class="form-control">
-              {{#each getSelect "eventLocations"}}
-                <option value="{{value}}">{{label}}</option>
-              {{/each}}
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-md-4 control-label" for="datearea">Date</label>  
-          <div class="col-md-6">
-            <div class="input-group datetimepicker" id="datearea">
-              <input class="set-due-date form-control" type="text" id="datepicker" name="datepicker"/>
-            </div>          
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-md-4 control-label" for="eventDuration">Event Duration</label>
-          <div class="col-md-6">
-            <select id="eventDuration" name="eventDuration" class="form-control">
-              {{#each getSelect "eventDuration"}}
-                <option value="{{value}}">{{label}}hrs</option>
-              {{/each}}
-            </select>
-          </div>
-        </div> 
-        <div class="form-group">
-          <label class="col-md-4 control-label" for="eventDuration">Number of Guests</label>
-          <div class="col-md-6">
-            <select id="nog" name="nog" class="form-control">
-              {{#each getSelect "numberOfGuests"}}
-                <option value="{{value}}">{{label}}</option>
-              {{/each}}
-            </select>
-          </div>
-        </div>             
-        <div class="col-md-4" align="right"><label class="control-label">Categories</label></div>
-        <div class="col-md-6">
-        {{#each arrayify serviceObject}}
-          <div class="form-group">
-            <div class="panel-group" id="accordion">
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{index}}">
-                      {{name}}
-                    </a>
-                  </h4>
+    <form role="form">
+        <div class="row eventForm">
+            <fieldset>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label for="eventTitle">Add a Title to your Event</label>
+                        <input id="eventTitle" name="eventTitle" placeholder="" class="form-control input-md" required="" type="text">                        
+                    </div>
                 </div>
-                <div id="collapse{{index}}" class="panel-collapse collapse out">
-                  <div class="panel-body">
-                    <div class="form-group">
-                      <div class="col-md-4">
-                        {{#each getSubs serviceObject parentItem}}
-                        <label class="checkbox-inline" for="{{_id}}"> 
-                          <input type="checkbox" name="categories[]" id="{{_id}}" value="{{_id}}" /> {{name}}
-                        </label>
-                        {{/each}}
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label for="eventDescription">Enter description of your Event</label>
+                        <textarea class="form-control" id="eventDescription" name="eventDescription"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label for="eventTypes">What?</label>
+                          <select id="eventTypes" name="eventTypes" class="form-control">
+                            {{#each getSelect "eventTypes"}}
+                              <option value="{{value}}">{{label}}</option>
+                            {{/each}}
+                          </select>
+                        </div>
+                        <div class="col-md-6">
+                          <label for="nog">No. of guest</label>
+                          <select id="nog" name="nog" class="form-control">
+                            {{#each getSelect "numberOfGuests"}}
+                              <option value="{{value}}">{{label}}</option>
+                            {{/each}}
+                          </select>                          
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  
                 </div>
-              </div>
-            </div> 
-          </div>
-        {{/each}}
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label for="eventLocations">Where?</label>
+                        <select id="eventLocations" name="eventLocations" class="form-control">
+                          {{#each getSelect "eventLocations"}}
+                            <option value="{{value}}">{{label}}</option>
+                          {{/each}}
+                        </select>                        
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label for="eventTypes">Date</label>
+                          <div class="input-group datetimepicker" id="datearea">
+                            <input class="set-due-date form-control" type="text" id="datepicker" name="datepicker"/>
+                            <span class="input-group-addon">
+                              <span class="glyphicon glyphicon-calendar"></span>
+                            </span>              
+                          </div>          
+                        </div>
+                        <div class="col-md-6">
+                          <label for="timepicker">Time</label>
+                          <div class="input-group bootstrap-timepicker" id="timearea">
+                            <input class="set-due-date form-control" type="text" id="timepicker" name="timepicker"/>
+                            <span class="input-group-addon">
+                              <span class="glyphicon glyphicon-time"></span>
+                            </span>
+                          </div>            
+                        </div>
+                      </div>
+                    </div>
+                </div>     
+                <div class="form-group">
+                    <div class="col-md-12">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label for="eventDuration">Duration</label>
+                          <select id="eventDuration" name="eventDuration" class="form-control">
+                            {{#each getSelect "eventDuration"}}
+                              <option value="{{value}}">{{label}}hrs</option>
+                            {{/each}}
+                          </select>
+       
+                        </div>
+                        <div class="col-md-6">
+                          <label for="eventPrice">Price</label>
+                          <select id="eventPrice" name="eventPrice" class="form-control">
+                            {{#each getSelect "priceRange"}}
+                              <option value="{{value}}">{{label}}</option>
+                            {{/each}}
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label for="eventLocations">Categories</label>
+                        {{#each arrayify serviceObject}}
+                          <div class="form-group">
+                            <div class="panel-group" id="accordion">
+                              <div class="panel panel-default">
+                                <div class="panel-heading">
+                                  <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{index}}">
+                                      {{name}}
+                                    </a>
+                                  </h4>
+                                </div>
+                                <div id="collapse{{index}}" class="panel-collapse collapse out">
+                                  <div class="panel-body">
+                                    <div class="form-group">
+                                      <div class="col-md-4">
+                                        {{#each getSubs serviceObject parentItem}}
+                                        <label class="checkbox-inline" for="{{_id}}"> 
+                                          <input type="checkbox" name="categories[]" id="{{_id}}" value="{{_id}}" /> {{name}}
+                                        </label>
+                                        {{/each}}
+                                      </div>
+                                    </div>
+                                  </div>
+                                  
+                                </div>
+                              </div>
+                            </div> 
+                          </div>
+                        {{/each}}                       
+                    </div>
+                </div>                                                            
+            </fieldset>
         </div>
-      <!-- div class="form-group">
-        <label class="col-md-4 control-label" for="eventPrice">Price</label>  
-        <div class="col-md-6">
-        <input id="eventPrice" name="eventPrice" placeholder="" class="form-control input-md" required="" type="text">
-        </div>
-      </div> -->
-
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="eventDuration">Price Range</label>
-        <div class="col-md-6">
-          <select id="eventPrice" name="eventPrice" class="form-control">
-            {{#each getSelect "priceRange"}}
-              <option value="{{value}}">{{label}}</option>
-            {{/each}}
-          </select>
-        </div>
-      </div>      
-
-      <!-- Textarea -->
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="eventComments">Addtional Comments</label>
-        <div class="col-md-4">                     
-          <textarea class="form-control" id="eventComments" name="eventComments"></textarea>
-        </div>
-      </div>
-
         <div class="form-group">
-          <label class="col-md-4 control-label" for="submit"></label>
-          <div class="col-md-4">
-            <button id="submit" name="submit" class="btn btn-primary">Create Event</button>
+          <div class="col-md-12">
+            <button id="submit" name="submit" class="btn btn-event btn-lg btn-block createEventButton">Next <i class="glyphicon glyphicon-chevron-right white"></i></button>
           </div>
-        </div>
-        </fieldset>
-      </form>
-    </div>         
-      </div>  
-    </div>
-  
+        </div>        
+    </form> 
+  </div>
+</div>
 </template>
 <template name="servicesList">
 </template>

@@ -22,6 +22,7 @@
     },
     "bootstrap3-datetimepicker": {},
     "handlebar-helpers": {},
-    "autoform": {}
+    "autoform": {},
+    "bootstrap-3-timepicker": {}
   }
 }
