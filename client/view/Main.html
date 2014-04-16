@@ -24,7 +24,7 @@
                   <li class="side-events">
                     <span class="events-back-icon navIcons"></span>
                     <a href="#">Events</a>
-                    <div class="mask"></div>
+                    <div class="mask" id="events"></div>
                   </li>
                   <li class="side-timeline">
                     <span class="timeline-back-icon navIcons"></span>
@@ -86,6 +86,11 @@
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
             {{#if isUseLoggedIn}}
+              <li>
+                <p class="pagelink">
+                  <i class="glyphicon glyphicon-shopping-cart white"></i><a href="/ms" id="message" class="pagelink">Messages<span class="caret"></span><span class="counter" style="{{#if newMessages}} {{else}} display:none; {{/if}}">{{newMessages}}</span></a>
+                </p>
+              </li>              
               <li class="dropdown">
                 <p class="pagelink">
                   <i class="glyphicon glyphicon-user white"></i>
@@ -98,11 +103,7 @@
                   </ul>                  
                 </p>                
               </li> 
-              <li>
-                <p class="pagelink">
-                  <i class="glyphicon glyphicon-shopping-cart white"></i><a href="/ms" id="message" class="pagelink">Service Cart <span class="caret"></span><span class="counter" style="{{#if newMessages}} {{else}} display:none; {{/if}}">{{newMessages}}</span></a>
-                </p>
-              </li>                            
+                          
             {{else}}
               <li>
                 <a href="/login" id="login" class="pagelink">Log In</a>

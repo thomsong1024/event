@@ -22,6 +22,27 @@
   </div>
 </template>
 
+<template name="eventsList">
+  <div class="container">
+    <div class="row">
+      <div id="sidemenu" class="col-md-2">
+        <div class="page-header">
+          <h4>Events<a href="/dashboard">+</a></h4>
+        </div>           
+        <div id="list">
+          <ul>
+          {{#each eventLists}}
+            <li>
+              <a href="/events/{{_id}}">{{eventTitle}}</a>
+            </li>
+            {{/each}}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
 <template name="ListEvent">
   <div class="container eventDetail">
     <div class="page-header">

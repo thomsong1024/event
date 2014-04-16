@@ -20,7 +20,7 @@
 
         </div>
 
-        <div id="sidemenu" class="col-md-2">
+        <!--div id="sidemenu" class="col-md-2">
           <div class="page-header">
             <h4>Events</h4>
           </div>
@@ -33,7 +33,7 @@
                 {{/each}}
             </ul>
            </div>
-        </div>
+        </div-->
         <div class="col-md-2">&nbsp;</div>
         <div class="col-md-8">
           {{#if isCreated}}
@@ -44,6 +44,7 @@
     </div>
 </div>
 </template>
+
 
 <template name="CreateEvent">
   <div class="container">
@@ -134,7 +135,7 @@
        
                         </div>
                         <div class="col-md-6">
-                          <label for="eventPrice">Price</label>
+                          <label for="eventPrice">Budget</label>
                           <select id="eventPrice" name="eventPrice" class="form-control">
                             {{#each getSelect "priceRange"}}
                               <option value="{{value}}">{{label}}</option>
