@@ -21,27 +21,34 @@
               </div>
               <div class="navbar-collapse collapse sidebar-navbar-collapse">
                 <ul class="nav navbar-nav">
-                  <li class="side-events">
+                  <li class="side-events events">
                     <span class="events-back-icon navIcons"></span>
-                    <a href="#">Events</a>
+                    <a href="/events">Events</a>
                     <div class="mask" id="events"></div>
                   </li>
-                  <li class="side-timeline">
+
+                  {{#each eventLists}}
+                    <li class="activeEvents">
+                      <a href="/events/{{_id}}">{{eventTitle}}</a>
+                    </li>
+                  {{/each}}
+                
+                  <li class="side-timeline events">
                     <span class="timeline-back-icon navIcons"></span>
                     <a href="#">Tiemline</a>
                     <div class="mask"></div>
                   </li>
-                  <li class="side-invites">
+                  <li class="side-invites events">
                     <span class="invites-back-icon navIcons"></span>
                     <a href="#">Invites</a>
                     <div class="mask"></div>
                   </li>
-                  <li class="side-budget">
+                  <li class="side-budget events">
                     <span class="budget-back-icon navIcons"></span>
                     <a href="#">Budget</a>
                     <div class="mask"></div>
                   </li>
-                  <li class="side-vendors">
+                  <li class="side-vendors events">
                     <span class="vendors-back-icon navIcons"></span>
                     <a href="#">Saved Vendors</a>
                     <div class="mask"></div>

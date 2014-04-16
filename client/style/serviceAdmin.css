@@ -250,11 +250,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f93a43', end
     float: none;
     display: block;
   }
-  .sidebar-nav .navbar li {
+  .sidebar-nav .navbar .events {
     float: none;
     display: block;
   }
-  .sidebar-nav .navbar li a {
+  .sidebar-nav .navbar .events a {
     padding-top: 12px;
     padding-bottom: 12px;
   }
@@ -268,7 +268,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f93a43', end
 }
 
 
-.sidebar-nav .navbar .navbar-nav li {
+.sidebar-nav .navbar .navbar-nav .events {
   padding: 0px;
   background: #e70381;
   border-bottom: 1px solid #f700d6;
@@ -278,7 +278,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f93a43', end
   width: 230px;
 }
 
-.sidebar-nav .navbar .navbar-nav li:hover, .sidebar-nav .navbar .navbar-nav .active{
+.sidebar-nav .navbar .navbar-nav .events:hover, .sidebar-nav .navbar .navbar-nav .active{
   background-image: url('/side-back-hover.png');
 }
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
@@ -291,7 +291,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f93a43', end
   font-size: 12px;
   font-weight: none;
 }
-.navbar-default .navbar-nav > li > a {
+.navbar-default .navbar-nav > .events > a {
   color: #FFFFFF !important;
   background: none;
   display: inline-block;
@@ -301,7 +301,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f93a43', end
   font-size: 12px;
   font-weight: none;  
 }
-.navbar-default .navbar-nav > li > a:hover {
+.navbar-default .navbar-nav > .events > a:hover {
   color: #333333 !important;
   background: none;
   display: inline-block;
@@ -504,4 +504,11 @@ h1 {
 }
 .navbar-default {
   background: #FFFFFF;
+}
+.activeEvents {
+  width: 230px;
+  background: none repeat scroll 0 0 #E70381;
+}
+.navbar-default .navbar-nav > .activeEvents > a {
+  color: #FFFFFF;
 }
