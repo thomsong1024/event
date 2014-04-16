@@ -108,11 +108,11 @@ Template.getServices.getServiceLists = function () {
       obj.vendorId = item.vendorId;
       obj.vendorServiceID = item._id;
       obj.thumbnail = Vendors.findOne({_id: item.vendorId}).logoImage_thumbnail;
-      obj.requestID = requestedQuotation._id
       obj.requested = "";
       obj.disable = "";
 
       if (requestedQuotation) {
+        obj.requestID = requestedQuotation._id
         obj.requested = "requested";
         obj.disable = "disabled";
       }

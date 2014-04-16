@@ -262,6 +262,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f93a43', end
 #logo {
   width: 230px;
   height: 200px;
+  cursor: pointer;
   /*background-image:url('/public/logo.jpg');*/
   background-image: url('/logo.jpg')
 }
@@ -337,10 +338,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f93a43', end
   cursor: pointer;
   opacity: 1;
   position: absolute;
-  top: 50px;
+  top: 0px;
   transform: scale(4);
   transition: all 0.3s ease-in-out 0s;
   visibility: visible;
+  width:  230px;
+  height: 73px;
 }
 
 .mask:hover, .maskActive {
