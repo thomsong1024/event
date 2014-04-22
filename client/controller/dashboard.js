@@ -40,7 +40,12 @@ Template.CreateEvent.events({
     obj.categories        = JSON.stringify(checked);
     obj.nog               = nog.value;
     obj.eventPrice        = eventPrice.value;
-    Events.insert(obj, function (error, result) {});
+    var id = Events.insert(obj, function (error, result) {});
+    if (id) {
+      var message = "Your new event has been creatd.";
+      FlashMessages.sendSuccess(message, { hideDelay: 3500 });
+
+    }
   }
 });
 Template.header.events({
