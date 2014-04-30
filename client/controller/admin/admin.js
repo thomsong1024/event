@@ -46,10 +46,150 @@ Template.ServiceCateogiesTp.events( {
             }
             reader.readAsDataURL(file);
         }
+    },
+    "submit": function (e) {
+        e.preventDefault();
+        var name = document.getElementById("categoryName").value;
+        var parent = document.getElementById("catParent").value;
+        ServiceCategories.insert({name: name, parent: parent});
     }
 });
 
+Template.ServiceCateogiesTp.rendered = function () {
+
+    var rootCategories = ServiceCategories.find({parent:"0"}).fetch();
+    var categoriesObjArray = [{value: "0", text: "Main Category"}];
+    rootCategories.forEach( function (item) {
+        var obj = {};
+        obj.value = item._id;
+        obj.text = item.name;
+        categoriesObjArray.push(obj);
+    });
+    $('#serviceCategoryTable').editable({
+        selector: '.editable-select',
+        value: 2,
+        source:categoriesObjArray,
+        success: function (response, newValue) {
+            var id = $(this).attr("data-id");
+            ServiceCategories.update({_id: id}, {$set: {parent: newValue}});
+        }
+    });
+
+
+    $('#serviceCategoryTable').editable({
+      selector: '.editable-click',
+      success: function (response, newValue) {        
+        var id = $(this).attr("data-id");
+        EventTypes.update({_id: id}, {$set:{type: newValue}});
+      }
+    });    
+}
+
+Template.ServiceCateogiesTp.serviceCategories = function () {
+
+    var data = ServiceCategories.find();
+    var categoriesObjArray = [];
+      data.forEach( function (item) {
+        var obj = {};
+          obj._id = item._id;
+          obj.name = item.name;
+          if(item.parent == "0") {
+            obj.parents = "Main Category";
+          }
+          else {
+            obj.parents = ServiceCategories.findOne({_id: item.parent}).name;
+          }
+          categoriesObjArray.push(obj);
+      });
+      return JSON.parse(JSON.stringify(categoriesObjArray));    
+    
+    // categoreis.forEach( function (item) {        
+    //     var parent = ServiceCategories.find();
+    // });
+    // return ServiceCategories.find().fetch();
+    // console.log(VendorServices);
+}
+Template.eventTypeTable.rendered = function () {
+
+   $('#eventTypeTable').editable({
+      selector: '.editable-click',
+      success: function (response, newValue) {        
+        var id = $(this).attr("data-id");
+        EventTypes.update({_id: id}, {$set:{type: newValue}});
+      }
+    });
+
+}
+
+
+Template.eventTypeTable.events({
+
+    "click #add" : function () {
+        var newEvent = document.getElementById("newEventType").value;
+        var obj = {};
+        obj.type = newEvent;
+        var id = EventTypes.insert(obj);
+    },
+    "click .delete" : function (e) {
+        var id = e.currentTarget.id;
+        var message = "Are you sure?";
+        bootbox.confirm(message, function (result) {
+            if (result == true)
+                EventTypes.remove({_id: id});
+        });
+    }
+
+});
+
+
+Template.LocationsTable.events({
+
+    "submit": function (e) {
+        e.preventDefault();
+        var obj = {};
+        obj.city = document.getElementById("newCity").value;
+        obj.citycode = document.getElementById("newCityCode").value;
+        obj.country = document.getElementById("newCountry").value;
+        obj.district = document.getElementById("newDistrict").value;
+        var id = Locations.insert(obj);
+    },
+    "click .delete" : function (e) {
+        var id = e.currentTarget.id;
+        var message = "Are you sure?";
+        bootbox.confirm(message, function (result) {
+            console.log(id);
+            if (result == true)
+                Locations.remove({_id: id});
+        });
+    }
+
+});
+
+Template.LocationsTable.rendered = function () {
+    // alert("1");
+    $('#eventLocationTable').editable({
+      selector: '.editable-click',
+      success: function (response, newValue) {        
+        var id = $(this).attr("data-id");
+        var field = $(this).attr("data-field");
+        var $set = {};
+        $set[field] = newValue;
+
+        Locations.update({_id: id}, { $set: $set });
+        // Locations.update({_id: id}, { $set: $set });
+        // EventTypes.update({_id: id}, {$set:{type: newValue}});
+      }
+    });
+
+}
+
+
+Template.LocationsTable.eventLocations = function () {
+    return Locations.find().fetch();
+}
+
 Template.CreateVendorUser.events({
+
     "submit": function (e) {
         e.preventDefault();
         var obj = {};

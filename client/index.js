@@ -121,14 +121,8 @@ Meteor.startup(function() {
   };
 
 
- Template.eventTypeTable.eventtypes = function() {
-    var eventtypes = EventTypes.find();
-    return eventtypes;
-  };
 
-  Template.eventTypes.selectedEventTypes = function() {
-    return EventTypes.findOne(Session.get("selectedEventType"));
-  };
+
 
   Template.buttons.newEventTypeMode = function() {
     return !Session.get("selectedEventType");
@@ -154,6 +148,7 @@ Meteor.startup(function() {
 
   Handlebars.registerHelper("categoryOptions", function(options) {
     var serviceCat = ServiceCategories.find({parent:"0"});
+
     var serviceCount = serviceCat.count();
     var categoriesObjArray = new Array({label:'Main Category',value:'0'});
     serviceCat.forEach(function (category) {
@@ -162,7 +157,7 @@ Meteor.startup(function() {
     		categoryObj.value = category._id;	
     	  categoriesObjArray.push(categoryObj);
 		   });
-        return JSON.parse(JSON.stringify(categoriesObjArray));
+    return JSON.parse(JSON.stringify(categoriesObjArray));
    
   });
 

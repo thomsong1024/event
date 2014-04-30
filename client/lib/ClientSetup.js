@@ -17,7 +17,7 @@ Handlebars.registerHelper('isNormalUser',function(){
 });
 
 Handlebars.registerHelper('userFullName',function(){
-  if (Roles.userIsInRole(Meteor.user(), ['normal-user'])){
+  if (Roles.userIsInRole(Meteor.user(), ['normal-user']) || Roles.userIsInRole(Meteor.user(), ['admin-user'])){
     var user = Meteor.users.find().fetch()[0];
     var firstName = Meteor.users.find().fetch()[0].profile.firstname;
     var lastName = Meteor.users.find().fetch()[0].profile.lastname;
@@ -41,9 +41,12 @@ Handlebars.registerHelper('newMessages',function(){
       // var vendorId = Meteor.users.find();
       var messages = Messages.find( {$and: [{vendorID: Meteor.users.findOne().profile.vendorID}, {vendorUnread: true}]} );
     }
-    if (messages.count() > 0)
-      $(".counter").show();
-    return messages.count();    
+    if(messages) {
+      if (messages.count() > 0)
+        $(".counter").show();
+      return messages.count();    
+
+    }
   }
 });
 

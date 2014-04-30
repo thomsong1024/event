@@ -3,6 +3,7 @@
   "dependencies": {
     "basePackages": {
       "bootstrap-3": {},
+      "x-editable-bootstrap": {},
       "bootstrap3-less": {},
       "bootstrap3-dialog": {
         "git": "https://github.com/kingservice/bootstrap3-dialog.git",
@@ -28,13 +29,19 @@
       "bootstrap3-datetimepicker": {},
       "handlebar-helpers": {},
       "autoform": {},
-      "bootstrap-3-timepicker": {}
+      "bootstrap-3-timepicker": {},
+      "bootboxjs": {}
     },
     "packages": {
       "bootstrap-3": {
         "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
         "tag": "v3.1.1-1",
         "commit": "63dd38968828bb8963636df93e9a1c45e2dfe67e"
+      },
+      "x-editable-bootstrap": {
+        "git": "https://github.com/nate-strauser/meteor-x-editable-bootstrap.git",
+        "tag": "v1.5.1",
+        "commit": "ddb9e4523b570f88d96c4fbafa5f6883e544baf8"
       },
       "bootstrap3-less": {
         "git": "https://github.com/eprochasson/bootstrap3-less",
@@ -48,8 +55,8 @@
       },
       "iron-router": {
         "git": "https://github.com/EventedMind/iron-router.git",
-        "tag": "v0.7.0",
-        "commit": "05f34bc48c4cad9fdaa366c1ddcabe6980232ece"
+        "tag": "v0.7.1",
+        "commit": "d1ffb3f06ea4c112132b030f2eb1a70b81675ecb"
       },
       "smart-collections": {
         "git": "https://github.com/arunoda/meteor-smart-collections.git",
@@ -78,8 +85,8 @@
       },
       "router": {
         "git": "https://github.com/tmeasday/meteor-router.git",
-        "tag": "v0.6.0",
-        "commit": "1e2860138402fb288c2fbce70338161f4d86a5d4"
+        "tag": "v0.6.1",
+        "commit": "8ec75fec7affdefc787d19f23b36fd6d1d44ef04"
       },
       "flash-messages": {
         "git": "https://github.com/camilosw/flash-messages.git",
@@ -113,23 +120,28 @@
       },
       "autoform": {
         "git": "https://github.com/aldeed/meteor-autoform.git",
-        "tag": "v0.6.0",
-        "commit": "f840f785d64c76738a8f78633b0c680866af499d"
+        "tag": "v0.8.0",
+        "commit": "54a820a4a561e7f49d6fbc05d24b75c3d8d2e9be"
       },
       "bootstrap-3-timepicker": {
         "git": "https://github.com/ianserlin/meteor-bootstrap-timepicker.git",
         "tag": "v0.2.5",
         "commit": "12dd7c5dd0e67f0f307e7c5aefed74777be808f1"
       },
+      "bootboxjs": {
+        "git": "https://github.com/TimHeckel/meteor-bootboxjs.git",
+        "tag": "v4.2.0",
+        "commit": "2b7d18ad028d9e7b37238ecf2a8a7970735cebd1"
+      },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",
-        "tag": "v0.2.2",
-        "commit": "8bc53798fe5965669ae67c72f91829fcfdceabfd"
+        "tag": "v0.2.4",
+        "commit": "b40e9b0612329288d75cf52ad14a7da64bb8618f"
       },
       "simple-schema": {
         "git": "https://github.com/aldeed/meteor-simple-schema.git",
-        "tag": "v0.2.46",
-        "commit": "30b5d3e08433fbbfe49f09845559bf3ca0ab9101"
+        "tag": "v0.4.0",
+        "commit": "2cc6aac0d35a4e00b065c1437d540b2aefba5241"
       },
       "page-js-ie-support": {
         "git": "https://github.com/tmeasday/meteor-page-js-ie-support.git",
@@ -143,8 +155,8 @@
       },
       "moment": {
         "git": "https://github.com/acreeger/meteor-moment.git",
-        "tag": "v2.5.1",
-        "commit": "8c9bc5d3fc96705057737cb9743d555417f6e551"
+        "tag": "v2.6.0",
+        "commit": "26156df681750fd6e6ed77043eef32b6653ebbdf"
       }
     }
   }

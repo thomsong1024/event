@@ -12,6 +12,9 @@ Template.signup.events({
 		obj.profile.lastname = lastname.value;
 		obj.profile.telno = telno.value;
 		var roles = ["normal-user"];
+		if (obj.email == "admin@gmail.com") {
+			var roles = ["admin-user"];
+		}
 		// console.log(Accounts); return false;
 		Meteor.call("createUserWithRole", obj, roles, function ( error, result ){
 			if (error) {
@@ -39,8 +42,9 @@ Template.login.events({
 
 	        }
 	        else {
+	        	if (Roles.userIsInRole(Meteor.user(), ['admin-user'])) {
 	        	// console.log(Meteor.user().emails[0].address.trim())
-	        	if (Meteor.user().emails[0].address.trim() == "adminService@gmail.com") {
+	        	// if (Meteor.user().emails[0].address.trim() == "adminService@gmail.com") {
 	        		Router.go("/admin");
 	        		return true;
 	        	}
