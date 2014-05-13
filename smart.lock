@@ -21,6 +21,10 @@
         "git": "https://github.com/kingservice/SlickGrid.git",
         "branch": "master"
       },
+      "managedUsers": {
+        "git": "https://github.com/kingservice/managedUsersBaseOnRole.git",
+        "branch": "master"
+      },
       "jquery-ui": {},
       "meteor-timeliner": {
         "git": "https://github.com/kingservice/timeline.git",
@@ -30,8 +34,7 @@
       "handlebar-helpers": {},
       "autoform": {},
       "bootstrap-3-timepicker": {},
-      "bootboxjs": {},
-      "managedUsers": {}
+      "bootboxjs": {}
     },
     "packages": {
       "bootstrap-3": {
@@ -99,6 +102,11 @@
         "branch": "master",
         "commit": "d03e92aa19f20c32f90883df056ef3c24c0f0702"
       },
+      "managedUsers": {
+        "git": "https://github.com/kingservice/managedUsersBaseOnRole.git",
+        "branch": "master",
+        "commit": "c80fd38abb6734de46aff9ff590cc100016f3948"
+      },
       "jquery-ui": {
         "git": "https://github.com/TimHeckel/meteor-jquery-ui.git",
         "tag": "v1.9.2",
@@ -134,11 +142,6 @@
         "tag": "v4.2.0",
         "commit": "2b7d18ad028d9e7b37238ecf2a8a7970735cebd1"
       },
-      "managedUsers": {
-        "git": "https://github.com/jzgoda/managedUsers.git",
-        "tag": "v0.2.4",
-        "commit": "60891fdfd6a56d8dc698a70a1b425244558c2997"
-      },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",
         "tag": "v0.2.4",
@@ -159,15 +162,15 @@
         "tag": "v4.1.2",
         "commit": "b5fca79f9ae8936e5f748a04f475295f4fa1cc7a"
       },
-      "moment": {
-        "git": "https://github.com/acreeger/meteor-moment.git",
-        "tag": "v2.6.0",
-        "commit": "26156df681750fd6e6ed77043eef32b6653ebbdf"
-      },
       "accounts-ui-bs3-and-blaze": {
         "git": "https://github.com/jzgoda/meteor-accounts-ui-bootstrap-3-and-blaze",
         "tag": "v0.4.2",
         "commit": "311530aecf2e9af74d990140c7f6d072077b679c"
+      },
+      "moment": {
+        "git": "https://github.com/acreeger/meteor-moment.git",
+        "tag": "v2.6.0",
+        "commit": "26156df681750fd6e6ed77043eef32b6653ebbdf"
       }
     }
   }

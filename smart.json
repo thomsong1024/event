@@ -17,6 +17,9 @@
     "SlickGrid": {
       "git": "https://github.com/kingservice/SlickGrid.git"
     },
+    "managedUsers": {
+      "git": "https://github.com/kingservice/managedUsersBaseOnRole.git"
+    },
     "jquery-ui": {},
     "meteor-timeliner": {
       "git": "https://github.com/kingservice/timeline.git"
@@ -25,7 +28,6 @@
     "handlebar-helpers": {},
     "autoform": {},
     "bootstrap-3-timepicker": {},
-    "bootboxjs": {},
-    "managedUsers": {}
+    "bootboxjs": {}
   }
 }
