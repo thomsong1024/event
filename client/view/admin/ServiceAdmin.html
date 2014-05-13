@@ -12,12 +12,13 @@
     {{> adminFooter }}  
 </template> 
   
-<template name="adminComponents">
+<template name="adminComponents">  
   <div class="container">
      <div class="row" style="margin-bottom: 50px;">
       <ul class="nav nav-tabs">
         <li class="active"><a href="#eventType" data-toggle="tab">Event Types</a></li>
         <li><a href="#locations" data-toggle="tab">Locations</a></li>
+        <li><a href="#manageUsers" data-toggle="tab">Manage Users</a></li>
         <li><a href="#serviceCategory" data-toggle="tab">Service Categories</a></li>
         <li><a href="#createVendor" data-toggle="tab">Create Vendor</a></li>
         <li><a href="#createVendorUser" data-toggle="tab">Create Vendor User</a></li>
@@ -33,12 +34,19 @@
             {{> adminLocations}}  
          </div>          
         </div>        
-        <div class="tab-pane tab_inner" id="serviceCategory">  
-         
+        <div class="tab-pane tab_inner" id="serviceCategory">           
          <div class="col-12 col-lg-8">
             {{> ServiceCateogiesTp}}
          </div>          
         </div>
+        <div class="tab-pane tab_inner" id="manageUsers">           
+         <div class="col-md-2">&nbsp;</div>
+         <div class="col-12 col-lg-8">
+            {{#if isAdmin}}
+              {{> managedUsers}}
+            {{/if}}            
+         </div>          
+        </div>        
         <div class="tab-pane tab_inner" id="createVendor">
          <div class="col-12 col-lg-8">
             {{> CreateVendor}}
@@ -58,6 +66,7 @@
     </div>
   </div>
 </template>
+
 <template name="eventTypes">
   <div class="col-12 col-lg-8">
     <div class="page-header">
@@ -66,13 +75,11 @@
     <div class="container">
       <div class="row">
         <div class="col-md-2">&nbsp;</div>
-        <div class="col-md-10">
-   
-        </div>
+        <div class="col-md-10"></div>
       </div>
     </div>
   </div>
-  <div class="col-12 col-lg-4">{{> eventTypeTable}}</div>  
+  <div class="col-12 col-lg-8">{{> eventTypeTable}}</div>  
 </template>
 
 <template name="adminLocations">

@@ -16,6 +16,11 @@ Handlebars.registerHelper('isNormalUser',function(){
   return false;
 });
 
+// Handlebars.registerHelper('profileName',function(){
+//   if (Roles.userIsInRole(Meteor.user(), ['admin-user']))
+//     return "admin";
+// });
+
 Handlebars.registerHelper('userFullName',function(){
   if (Roles.userIsInRole(Meteor.user(), ['normal-user']) || Roles.userIsInRole(Meteor.user(), ['admin-user'])){
     var user = Meteor.users.find().fetch()[0];
@@ -258,10 +263,21 @@ Handlebars.registerHelper('categoryList',function(){
 });
 
 Handlebars.registerHelper('getEventType',function(id){
-  if (id){
+
+  if (id)
+  {
+
     var events = EventTypes.findOne({_id: id});
-    return events.type;    
+
+    if (events)
+    {
+
+      return events.type;
+
+    }
+
   }
+
 });
 
 Handlebars.registerHelper('getDateFormat',function(date){
@@ -280,8 +296,17 @@ Handlebars.registerHelper('getQuotationTableFromMessage',function(id){
 });
 
 Handlebars.registerHelper('getQuotationTable',function(id){
-  var quotation = QuotationDetail.findOne({requestQuoteID: id}).detail;
-  return JSON.parse(quotation);
+
+  if (id) 
+  {
+
+    var quotation = QuotationDetail.findOne({requestQuoteID: id}).detail;
+
+    if (quotation)
+      return JSON.parse(quotation);
+
+  }
+
 });
 
 Handlebars.registerHelper('getMtype',function(value){

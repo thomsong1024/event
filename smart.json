@@ -1,7 +1,7 @@
 {
   "packages": {
     "bootstrap-3": {},
-    "x-editable-bootstrap": {},    
+    "x-editable-bootstrap": {},
     "bootstrap3-less": {},
     "bootstrap3-dialog": {
       "git": "https://github.com/kingservice/bootstrap3-dialog.git"
@@ -25,6 +25,7 @@
     "handlebar-helpers": {},
     "autoform": {},
     "bootstrap-3-timepicker": {},
-    "bootboxjs": {}
+    "bootboxjs": {},
+    "managedUsers": {}
   }
 }
