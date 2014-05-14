@@ -512,3 +512,6 @@ h1 {
 .navbar-default .navbar-nav > .activeEvents > a {
   color: #FFFFFF;
 }
+.vendorSelect {
+  display: none;
+}

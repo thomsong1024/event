@@ -349,3 +349,19 @@ Template.CreateVendor.events({
         
     }
 });
+
+Template.managedUserForm.events({
+
+  "change .userRole" : function (item) 
+  {
+
+    if (item.currentTarget.value == "vendor-user")
+
+        $(".vendorSelect").show();
+
+    else
+
+        $(".vendorSelect").hide();
+  }
+
+});
