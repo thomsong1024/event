@@ -3,11 +3,13 @@
 		<div class="row">
 			<div class="col-md-2">&nbsp;</div>
 			<div class="col-md-8">
-				<table class="table table-striped table-bordered">
+
+				<table class="table">
+				<tbody>
 					{{#each messageLists}}
-					<tr>
+					<tr class="{{unread}}">
 						<td width="60px"><img src="{{thumbnail}}" class="thumbnail" style="margin-bottom:0px;" /></td>
-						<td width="200px">
+						<td width="200px" style="padding: 5px;">
 							<h4>{{vendorName}}</h4>
 							<p>{{getDatesFromTimeStamp dates}}</p>
 						</td>
@@ -17,6 +19,7 @@
 						</td>
 					</tr>
 					{{/each}}
+				</tbody>
 				</table>
 			</div>
 		</div>

@@ -22,13 +22,25 @@ Handlebars.registerHelper('isNormalUser',function(){
 // });
 
 Handlebars.registerHelper('userFullName',function(){
-  if (Roles.userIsInRole(Meteor.user(), ['normal-user']) || Roles.userIsInRole(Meteor.user(), ['admin-user'])){
-    var user = Meteor.users.find().fetch()[0];
-    var firstName = Meteor.users.find().fetch()[0].profile.firstname;
-    var lastName = Meteor.users.find().fetch()[0].profile.lastname;
-    return firstName + " " + lastName;
-  }
-  
+
+  Deps.autorun( function () {
+
+    if (Meteor.user()) {
+
+      // if (Roles.userIsInRole(Meteor.user(), ['normal-user']) || Roles.userIsInRole(Meteor.user(), ['admin-user'])){
+
+        Deps.autorun( function () {
+
+          var user = Meteor.user();
+          Session.set("userFullname", user.profile.lastname + " " + user.profile.firstname);
+        });
+      // }
+
+    }
+  });
+
+  if (Session.get("userFullname"))
+    return Session.get("userFullname");
 });
 
 Handlebars.registerHelper('isVendorUser',function(){
@@ -38,6 +50,7 @@ Handlebars.registerHelper('isVendorUser',function(){
 });
 
 Handlebars.registerHelper('newMessages',function(){
+
   if (Meteor.user()) {
     if (Roles.userIsInRole(Meteor.user(), ['normal-user'])) {
       var messages = Messages.find( {$and: [{userID: Meteor.userId()}, {userUnread: true}]} );

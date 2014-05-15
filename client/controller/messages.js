@@ -8,35 +8,64 @@ Template.messagesList.rendered = function () {
 }
 
 Template.messagesList.messageLists = function () {
-	if (Roles.userIsInRole(Meteor.user(), ['vendor-user'])) {
-		var list = Messages.find({$and: [{vendorID: Meteor.users.findOne().profile.vendorID}, {parents: "0"}]});
-	}
-	else {
-		var list = Messages.find({$and: [{userID: Meteor.userId()}, {parents: "0"}]});
-	}
-	var objArray = [];
-	list.forEach(function (item) {
-		var obj = {};
-		obj._id = item._id;
-		obj.thumbnail = Vendors.findOne({_id: item.vendorID}).logoImage_thumbnail;
-		obj.vendorName = Vendors.findOne({_id: item.vendorID}).vendorName;
-		obj.dates = item.dates;
-		obj.eventsName = Events.findOne({_id: item.eventID}).eventTitle;
-		obj.serviceCategoryName = ServiceCategories.findOne({_id: item.categoryID}).name;
-		var latestMessage = getLatestMessage(item._id);
-		if (latestMessage) {
-			obj.message = latestMessage;
+	Session.set("messageList", "");
+	Deps.autorun( function () {
+
+		if(Meteor.user()) {
+			if (Roles.userIsInRole(Meteor.user(), ['vendor-user'])) {
+				var list = Messages.find({$and: [{vendorID: Meteor.users.findOne().profile.vendorID}, {parents: "0"}]});
+			}
+			else {
+				var list = Messages.find({$and: [{userID: Meteor.userId()}, {parents: "0"}]});
+			}
+			if (list) {
+
+				var objArray = [];
+				list.forEach(function (item) {
+
+					var obj = {};
+					obj._id = item._id;
+					obj.thumbnail = Vendors.findOne({_id: item.vendorID}).logoImage_thumbnail;
+					obj.vendorName = Vendors.findOne({_id: item.vendorID}).vendorName;
+					obj.dates = item.dates;
+					obj.eventsName = Events.findOne({_id: item.eventID}).eventTitle;
+					obj.serviceCategoryName = ServiceCategories.findOne({_id: item.categoryID}).name;
+
+					var childMessages = getChildMessags(item._id);
+					var lastItem = _.first(childMessages);
+					var latestMessage = getLatestMessage(lastItem);
+
+
+					if (latestMessage)
+						obj.message = latestMessage;
+					else
+						obj.message = item.texts;
+
+					if (item.mtype == "quotation")
+						obj.message = "Quotation From Vendor.";
+
+					obj.unread = "";
+					if (lastItem){
+						if (Roles.userIsInRole(Meteor.user(), ['vendor-user']) && lastItem.vendorUnread == true) {
+
+							obj.unread = "warning";
+						}
+						else if(Roles.userIsInRole(Meteor.user(), ['normal-user']) && lastItem.userUnread == true) {
+							obj.unread = "unread";	
+						}
+
+					}
+					objArray.push(obj);
+				});
+				Session.set("messageList", objArray);
+
+			}
 		}
-		else {
-			obj.message = item.texts;	
-		}
-		if (item.mtype == "quotation")
-			obj.message = "Quotation From Vendor.";
-		// console.log(ServiceCategories.findOne({_id: item.categoryID}).name);
-		objArray.push(obj);
+
 	});
-	// var vendor = 
-	return JSON.parse(JSON.stringify(objArray));
+	if (Session.get("messageList")) {
+		return JSON.parse(JSON.stringify(Session.get("messageList")));
+	}
 }
 
 Template.message.rendered = function () {

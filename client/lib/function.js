@@ -29,19 +29,32 @@ getIdfromHyperLink = function (link) {
 	var data = link.split("_")[1];
 	return data;
 }
-getLatestMessage = function (parent) {
-	var message = Messages.findOne({parents: parent}, {sort: {dates: -1}});
-	if (message){
+getLatestMessage = function (message) {
+
+	if (message)
+	{
 		if (message.mtype == "quotation")
 			return "Quotation From Vendor.";
-
-		if (message)
-			return message.texts;
 		else 
-			return "";
-		
+			return message.texts;
 	}
+
+	return "";
 }
+
+//check unread Messages which have parent of item.
+
+getChildMessags = function (parent) {
+	var messages = Messages.find({parents: parent}, {sort: {dates: -1}}).fetch();
+	if(messages)
+		return messages;
+	
+}
+
+checkUnreadMessages = function (messages) {
+	console.log(messages);
+}
+
 getRootServiceFromChild = function (service) {
 	var serviceData = ServiceCategories.findOne({_id: service});
 	return serviceData.name;	
